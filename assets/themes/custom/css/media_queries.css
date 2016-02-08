@@ -1,0 +1,45 @@
+/*
+*	DESKTOPS
+*/
+/* 12" & 10" desktop */
+@media screen and (min-width: 1024px) {
+    .side-nav{width: 181px !important;}
+}
+/* 13" desktop */
+@media screen and (min-width: 1280px) {
+    .side-nav{width: 224px !important;}
+}
+/* 15" desktop */
+@media screen and (min-width: 1366px) {
+    .side-nav{width: 235px !important;}
+}
+/* 19" desktop */
+@media screen and (min-width: 1440px) {
+    .side-nav{width: 250px !important;}
+}
+/* 20" desktop */
+@media screen and (min-width: 1600px) {
+    .side-nav{width: 276px !important;}
+}
+/* 22" desktop */
+@media screen and (min-width: 1680px) {
+    .side-nav{width: 290px !important;}
+}
+/* 23" & 24" desktop */
+@media screen and (min-width: 1920px) {
+    .side-nav{width: 330px !important;}
+}
+
+/*
+*	Hand held
+*/
+/* Tablets */
+@media screen and (max-width: 800px) {
+    .get-installs input[type="text"]{width: 78%;}
+	.get-installs button{width: 18%;}
+}
+/* Mobile phones */
+@media screen and (max-width: 414px) {
+    .get-installs input[type="text"]{width: 100%;}
+	.get-installs button{width: 100%;}
+}

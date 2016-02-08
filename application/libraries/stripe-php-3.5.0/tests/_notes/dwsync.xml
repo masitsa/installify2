@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="ApiRequestorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ApplicationFeeRefundTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="AccountTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ApplicationFeeTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="AuthenticationErrorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="BalanceTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="BalanceTransactionTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="BankAccountTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="BitcoinReceiverTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="bootstrap.no_autoload.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="bootstrap.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="CardErrorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ChargeTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="CouponTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="CurlClientTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="CustomerTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="DiscountTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="DisputeTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ErrorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ExternalAccountTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="FileUploadTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="InvalidRequestErrorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="InvoiceTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="PlanTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="ProductTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="RateLimitErrorTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="RecipientTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="RefundTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="RequestOptionsTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="StripeObjectTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966132800000000" Dst="0" />
+<file name="SubscriptionTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+<file name="TestCase.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+<file name="TokenTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+<file name="TransferReversalTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+<file name="TransferTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+<file name="UtilTest.php" server="192.186.246.118/public_html/installify/" local="130934490860000000" remote="130966133400000000" Dst="0" />
+</dwsync>
