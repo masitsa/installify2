@@ -4,7 +4,7 @@
 	$total_clicks_windows = number_format($this->reports_model->get_total_clicks('windows'), 0, '.', ',');
  ?>
  <div class="row">
-    <div class="col m4 col s4">
+    <div class="col l4 m6 s12">
         <section class="panel panel-featured-left panel-featured-tertiary">
             <div class="panel-body">
                 <div class="widget-summary">
@@ -28,7 +28,7 @@
             </div>
         </section>
     </div>
-    <div class="col m4 col s4">
+    <div class="col l4 m6 s12">
         <section class="panel panel-featured-left panel-featured-quartenary">
             <div class="panel-body">
                 <div class="widget-summary">
@@ -52,7 +52,7 @@
             </div>
         </section>
     </div>
-    <div class="col m4 col s4">
+    <div class="col l4 m6 s12">
         <section class="panel panel-featured-left panel-featured-secondary">
             <div class="panel-body">
                 <div class="widget-summary">

@@ -33,13 +33,26 @@
 /*
 *	Hand held
 */
+/* Small desktop screens & Tablets */
+@media screen and (max-width: 1024px) {
+    .get-installs input[type="text"]{width: 55%;}
+	.get-installs button{width: 36%;}
+	.install-form {min-height: 49px;}
+}
 /* Tablets */
 @media screen and (max-width: 800px) {
-    .get-installs input[type="text"]{width: 78%;}
-	.get-installs button{width: 18%;}
+	main{padding-left:0;}
 }
-/* Mobile phones */
-@media screen and (max-width: 414px) {
-    .get-installs input[type="text"]{width: 100%;}
+/* 7inch tabs & Mobile phones */
+@media screen and (max-width: 603px) {
+    .get-installs input[type="text"]{width: 96%;margin-left: 4px;}
 	.get-installs button{width: 100%;}
+	.install-form {min-height: 91px;}
+	.home-header .card-content {padding:0;}
+	.header-signup {margin:0;}
+	.home-header{padding-top: 20%;}
+	.dnd_countdown_inner:first-of-type > .countdown, .dnd_countdown_inner:first-of-type > span { margin-left: 26px !important;}
+	.underlined ol > li{margin:0;}
+	.no-small-padding{padding:0 !important;}
+	.no-small-padding .button-collapse{text-align:center;width: 100%;}
 }

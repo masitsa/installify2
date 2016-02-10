@@ -90,15 +90,15 @@
 									$plan_name = $res->plan_name;
 									$plan_description = $res->plan_description;
 									$plan_amount = $res->plan_amount;
-									$class = 'blue';
+									$class = 'installify-blue';
 									if($count == 2)
 									{
-										$class = 'blue lighten-2';
+										$class = 'installify-blue-lighten';
 									}
 									?>
-									<div class="col s12 m4">
+									<div class="col s12 l4">
 										<div class="card <?php echo $class;?>">
-											<div class="card-content white-text">
+											<div class="card-content">
 												<span class="card-title"><?php echo $plan_name;?></span>
 												<p class="center-align"><?php echo number_format($plan_amount, 2);?> USD per month</p>
 												<?php echo $plan_description;?>
@@ -137,13 +137,13 @@
 							$plan_description = $res->plan_description;
 							$plan_amount = $res->plan_amount;
 							$plan_id = $res->plan_id;
-							$class = 'blue';
+							$class = 'installify-blue';
 							if($count == 2)
 							{
-								$class = 'blue lighten-2';
+								$class = 'installify-blue-lighten';
 							}
 							?>
-							<div class="col s12 m4">
+                            <div class="col s12 l4">
 								<div class="card <?php echo $class;?>">
 									<div class="card-content white-text">
 										<span class="card-title"><?php echo $plan_name;?></span>

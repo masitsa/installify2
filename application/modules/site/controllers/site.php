@@ -607,5 +607,70 @@ class Site extends MX_Controller
 			echo 'Unable to update API Key';
 		}
 	}
+	
+	public function clicks($order = 'category_name', $order_method = 'ASC') 
+	{
+		$where = 'category_id > 0';
+		$table = 'category';
+		//pagination
+		$segment = 5;
+		$this->load->library('pagination');
+		$config['base_url'] = site_url().'admin/categories/'.$order.'/'.$order_method;
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = $segment;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = 'Next';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = 'Prev';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $v_data["links"] = $this->pagination->create_links();
+		$query = $this->categories_model->get_all_categories($table, $where, $config["per_page"], $page, $order, $order_method);
+		
+		//change of order method 
+		if($order_method == 'DESC')
+		{
+			$order_method = 'ASC';
+		}
+		
+		else
+		{
+			$order_method = 'DESC';
+		}
+		
+		$data['title'] = 'Categories';
+		$v_data['title'] = $data['title'];
+		
+		$v_data['order'] = $order;
+		$v_data['order_method'] = $order_method;
+		$v_data['query'] = $query;
+		$v_data['all_categories'] = $this->categories_model->all_categories();
+		$v_data['page'] = $page;
+		$data['content'] = $this->load->view('categories/all_categories', $v_data, true);
+		
+		$this->load->view('templates/general_page', $data);
+	}
 }
 ?>

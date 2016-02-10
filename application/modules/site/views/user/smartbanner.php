@@ -118,7 +118,81 @@ else
             <!-- end title -->
             
         	<div class="row">
-                <div class="col m6">
+                
+                <div class="col l6 m12">
+                    <!--<div class="col m4 offset-m8">
+                    	<form action="" method="POST">
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="<?php echo $this->config->item('stripe_publishable_key');?>"
+                                data-amount="2000"
+                                data-name="Installify"
+                                data-description="1 Banner ($20.00)"
+                                data-image="<?php echo base_url().'assets/logo/'.$logo;?>"
+                                data-locale="auto">
+                            </script>
+                        </form>
+                    </div>-->
+                    <ul class="collapsible" data-collapsible="accordion" style="margin-top:0;">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
+                            <div class="collapsible-body" style="padding-bottom: 20px;">
+                                <h5 class="center-align header">Banner status</h5>
+                                <?php
+                                if($smart_banner_status == 1)
+                                {
+                                    ?>
+                                    <p>This banner is currently <span class="blue-text">active</span>. Click here to deactivate this banner. Deactivated banners will not be accessible through the Installify API.</p>
+                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn grey lighten-2 grey-text text-darken-2" href="<?php echo site_url().'deactivate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to deactivate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Deactivate</a></div>
+                                    <div class="clear"></div>
+                                    <?php
+                                }
+                                
+                                else
+                                {
+                                    ?>
+                                    <p>This banner is currently <span class="blue-text">inactive</span>. Click here to activate it. Active banners can be accessed through the Installify API.</p>
+                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn blue lighten-2" href="<?php echo site_url().'activate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to activate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Activate</a></div>
+                                    <div class="clear"></div>
+                                    <?php
+                                }
+                                ?>
+                                
+                                <h5 class="center-align header">Install banner</h5>
+                                
+                                <p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>
+                                <pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token attr-name"> src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><?php echo site_url();?>installify.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span> <span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+$( document ).ready(function() {
+	var generate = new Banner();
+    generate.generate_banner('<?php echo $smart_banner_website;?>', '<?php echo $this->session->userdata('customer_api_key');?>');
+});
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>
+                                </pre>
+                                
+                                <h5 class="center-align header">Delete banner</h5>
+                                
+                                <p>Click here to delete this banner. Be cautious. This action cannot be undone!</p>
+                                <div class="col m4 offset-m4"><a class="waves-effect waves-light btn red lighten-2" href="<?php echo site_url().'delete-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to delete this banner? It cannot be undone!');" title="Deactivate banner"><i class="fa fa-trash"></i> Delete</a></div>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                    </ul>
+                        
+                    <div class="input-field col s12" style="margin-top:0;">
+                        <select id="platform">
+                            <option value="" disabled selected>Choose your platform</option>
+                            <option value="ios">IOS</option>
+                            <option value="android">Android</option>
+                            <option value="windows">Windows</option>
+                        </select>
+                    </div>
+                	<h5 class="header center-align" id="platform-display">Android display</h5>
+                    <div id="update_banner_response"></div>
+                    <smartbanner_display></smartbanner_display>
+                </div>
+                
+                <div class="col l6 m12">
                 	<div class="row">
                     	<form class="form-horizontal sidebar_form" id="banner_form" action="<?php echo site_url('site/account/update_banner/'.$smart_banner_id);?>" method="POST">
                             <ul class="tabs">
@@ -329,79 +403,6 @@ else
                             <button type="submit" class="btn blue">Update</button>
                         </form>
                     </div>
-                </div>
-                
-                <div class="col m6">
-                    <!--<div class="col m4 offset-m8">
-                    	<form action="" method="POST">
-                            <script
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="<?php echo $this->config->item('stripe_publishable_key');?>"
-                                data-amount="2000"
-                                data-name="Installify"
-                                data-description="1 Banner ($20.00)"
-                                data-image="<?php echo base_url().'assets/logo/'.$logo;?>"
-                                data-locale="auto">
-                            </script>
-                        </form>
-                    </div>-->
-                    <ul class="collapsible" data-collapsible="accordion" style="margin-top:0;">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
-                            <div class="collapsible-body" style="padding-bottom: 20px;">
-                                <h5 class="center-align header">Banner status</h5>
-                                <?php
-                                if($smart_banner_status == 1)
-                                {
-                                    ?>
-                                    <p>This banner is currently <span class="blue-text">active</span>. Click here to deactivate this banner. Deactivated banners will not be accessible through the Installify API.</p>
-                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn grey lighten-2 grey-text text-darken-2" href="<?php echo site_url().'deactivate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to deactivate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Deactivate</a></div>
-                                    <div class="clear"></div>
-                                    <?php
-                                }
-                                
-                                else
-                                {
-                                    ?>
-                                    <p>This banner is currently <span class="blue-text">inactive</span>. Click here to activate it. Active banners can be accessed through the Installify API.</p>
-                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn blue lighten-2" href="<?php echo site_url().'activate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to activate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Activate</a></div>
-                                    <div class="clear"></div>
-                                    <?php
-                                }
-                                ?>
-                                
-                                <h5 class="center-align header">Install banner</h5>
-                                
-                                <p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>
-                                <pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token attr-name"> src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><?php echo site_url();?>installify.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span> <span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
-$( document ).ready(function() {
-	var generate = new Banner();
-    generate.generate_banner('<?php echo $smart_banner_website;?>', '<?php echo $this->session->userdata('customer_api_key');?>');
-});
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>
-                                </pre>
-                                
-                                <h5 class="center-align header">Delete banner</h5>
-                                
-                                <p>Click here to delete this banner. Be cautious. This action cannot be undone!</p>
-                                <div class="col m4 offset-m4"><a class="waves-effect waves-light btn red lighten-2" href="<?php echo site_url().'delete-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to delete this banner? It cannot be undone!');" title="Deactivate banner"><i class="fa fa-trash"></i> Delete</a></div>
-                                <div class="clear"></div>
-                            </div>
-                        </li>
-                    </ul>
-                        
-                    <div class="input-field col s12" style="margin-top:0;">
-                        <select id="platform">
-                            <option value="" disabled selected>Choose your platform</option>
-                            <option value="ios">IOS</option>
-                            <option value="android">Android</option>
-                            <option value="windows">Windows</option>
-                        </select>
-                    </div>
-                	<h5 class="header center-align" id="platform-display">Android display</h5>
-                    <div id="update_banner_response"></div>
-                    <smartbanner_display></smartbanner_display>
                 </div>
             </div>
 <script src="<?php echo base_url().'assets/themes/jquery.smartbanner/';?>jquery.smartbanner-account.js"></script>

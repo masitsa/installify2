@@ -79,6 +79,8 @@ $route['add-subscription/(:num)'] = 'site/account/add_subscription/$1';
 
 $route['check-customer/(:num)'] = 'site/account/check_stripe_customer/$1';
 
+$route['clicks'] = 'site/account/clicks';
+
 /*
 *	API
 */

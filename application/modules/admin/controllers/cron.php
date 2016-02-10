@@ -42,6 +42,7 @@ class Cron extends MX_Controller
 			*/
 			foreach($query->result() as $res)
 			{
+				$customer_id = $res->customer_id;
 				$customer_email = $res->customer_email;
 				$customer_first_name = $res->customer_first_name;
 				
@@ -59,6 +60,7 @@ class Cron extends MX_Controller
 				/*
 					4. Save email sending response to the database
 				*/
+				$data['customer_id'] = $customer_id;
 				$data['cron_status'] = 1;
 				$data['cron_created'] = date('Y-m-d H:i:s');
 			
@@ -123,6 +125,7 @@ class Cron extends MX_Controller
 			foreach($query->result() as $res)
 			{
 				$customer_email = $res->customer_email;
+				$customer_id = $res->customer_id;
 				$customer_first_name = $res->customer_first_name;
 				$smart_banner_website = $res->smart_banner_website;
 				$banner = $res->title;
@@ -148,6 +151,7 @@ class Cron extends MX_Controller
 				/*
 					4. Save email sending response to the database
 				*/
+				$data['customer_id'] = $customer_id;
 				$data['cron_status'] = 1;
 				$data['cron_created'] = date('Y-m-d H:i:s');
 			
@@ -212,6 +216,7 @@ class Cron extends MX_Controller
 			foreach($query->result() as $res)
 			{
 				$customer_email = $res->customer_email;
+				$customer_id = $res->customer_id;
 				$customer_first_name = $res->customer_first_name;
 				$smart_banner_website = $res->smart_banner_website;
 				$banner = $res->title;
@@ -239,6 +244,7 @@ class Cron extends MX_Controller
 				/*
 					4. Save email sending response to the database
 				*/
+				$data['customer_id'] = $customer_id;
 				$data['cron_status'] = 1;
 				$data['cron_created'] = date('Y-m-d H:i:s');
 			
@@ -303,6 +309,7 @@ class Cron extends MX_Controller
 			foreach($query->result() as $res)
 			{
 				$customer_email = $res->customer_email;
+				$customer_id = $res->customer_id;
 				$customer_first_name = $res->customer_first_name;
 				$smart_banner_website = $res->smart_banner_website;
 				$banner = $res->title;
@@ -328,6 +335,7 @@ class Cron extends MX_Controller
 				/*
 					4. Save email sending response to the database
 				*/
+				$data['customer_id'] = $customer_id;
 				$data['cron_status'] = 1;
 				$data['cron_created'] = date('Y-m-d H:i:s');
 			

@@ -21,7 +21,7 @@
                 </form>
             </div>
             <div class="row">
-                <div class="col m3 offset-m4">
+                <div class="col l3 offset-l4 col m4 offset-m4 s10 offset-s1">
                     <button href="#installs" data-text="Learn More" class="btn learn_more">Learn More</button>
                 </div>
             </div>

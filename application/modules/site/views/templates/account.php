@@ -44,85 +44,66 @@
     	<input type="hidden" id="base_url" value="<?php echo base_url();?>"/>
     	<input type="hidden" id="stripe_publishable_key" value="<?php echo $this->config->item("stripe_publishable_key");?>"/>
         <?php //echo $this->load->view('site/includes/top_navigation', $data, TRUE); ?>
-        <div class="row">
-			<div class="col m2">
-				<nav class="navigation-sidebar">
-					
-					<ul id="slide-out" class="side-nav fixed">
-						<li class="center-align">
-							<img src="<?php echo base_url().'assets/logo/black.png';?>" class="responsive-img logo" alt="<?php echo $company_name;?>">
-						</li>
-						<li><a href="<?php echo site_url().'my-account';?>"><i class="fa fa-area-chart"></i> Summary</a></li>
-						<li><a href="<?php echo site_url().'settings';?>"><i class="fa fa-cog"></i> Settings</a></li>
-						<li><a href="<?php echo site_url().'subscribe';?>"><i class="fa fa-money"></i> Subscribe</a></li>
-						<li><a href="<?php echo site_url().'clicks';?>"><i class="fa fa-mouse-pointer"></i> Clicks</a></li>
-						<!--<li class="no-padding">
-							<ul class="collapsible collapsible-accordion">
-								<li>
-									<a class="collapsible-header">Statistics<i class="mdi-navigation-arrow-drop-down"></i></a>
-									<div class="collapsible-body">
-										<ul>
-											<li><a href="#!">Overview</a></li>
-											<li><a href="#!">Views</a></li>
-											<li><a href="#!">Clicks</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</li>-->
-					</ul>
-					
-					<!--<ul class="right hide-on-med-and-down">
-						<li><a href="<?php echo site_url().'my-account';?>">Banners</a></li>
-						<li><a href="#!">Payments</a></li>
-						<li><a class="dropdown-button" href="#!" data-activates="dropdown1">Statistics<i class="mdi-navigation-arrow-drop-down right"></i></a></li>
-						<ul id='dropdown1' class='dropdown-content'>
-							<li><a href="#!">Overview</a></li>
-							<li><a href="#!">Views</a></li>
-							<li><a href="#!">Clicks</a></li>
-						</ul>
-					</ul>-->
-					<a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-				</nav>
-			</div>
         
-			<div class="col m10">
-				<!-- navbar -->
-				<div class="navbar-fixed">
-					<nav class="blue lighten-2">
-						<div class="nav-wrapper account-nav">
-							<a href="#!" class="brand-logo"><?php echo $company_name;?></a>
-							<ul class="right hide-on-med-and-down">
-								<li>
-									<a class='dropdown-button' href='#' data-activates='banner_select'><i class="fa fa-caret-down"></i> Banners</a>
-									<!-- Dropdown Structure -->
-									<ul id='banner_select' class='dropdown-content'>
-										<?php 
-										if($banners->num_rows() > 0)
-										{
-											foreach($banners->result() as $res)
-											{
-												$banner_id = $res->smart_banner_id;
-												$website_name = $res->smart_banner_website;
-												
-												echo '<li><a href="banner/'.$website_name.'">'.$website_name.'</a></li>';
-											}
-										}
-										?>
-										<li class="divider"></li>
-										<li><a class="modal-trigger" href="#new_banner"><i class="fa fa-plus"></i> New banner</a></li>
-									</ul>
-								</li>
-								<li><a href="<?php echo site_url().'sign-out';?>"><i class="fa fa-sign-out"></i> Sign out</a></li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-				<!-- end navbar -->
-				
-				<?php echo $content;?>
+        <header class="blue account-nav navbar-fixed">
+            <nav class="blue top-nav">
+                <div class="container">
+                	<div class="nav-wrapper">
+                    	<ul class="right">
+                            <li>
+                                <a class='dropdown-button' href='#' data-activates='banner_select'><i class="fa fa-caret-down"></i> Banners</a>
+                                <!-- Dropdown Structure -->
+                                <ul id='banner_select' class='dropdown-content'>
+                                    <?php 
+                                    if($banners->num_rows() > 0)
+                                    {
+                                        foreach($banners->result() as $res)
+                                        {
+                                            $banner_id = $res->smart_banner_id;
+                                            $website_name = $res->smart_banner_website;
+                                            
+                                            echo '<li><a href="banner/'.$website_name.'">'.$website_name.'</a></li>';
+                                        }
+                                    }
+                                    ?>
+                                    <li class="divider"></li>
+                                    <li><a class="modal-trigger" href="#new_banner"><i class="fa fa-plus"></i> New banner</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="<?php echo site_url().'sign-out';?>"><i class="fa fa-sign-out"></i> Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="container">
+            	<a class="button-collapse top-nav full hide-on-large-only" data-activates="nav-mobile" href="#">
+                	<i class="mdi-navigation-menu"></i>
+                </a>
+            </div>
+            
+            <ul class="side-nav fixed" id="nav-mobile" style="width: 240px;">
+            	<li class="logo">
+                    <a class="brand-logo" href="<?php echo site_url();?>" id="logo-container">
+                    	<img src="<?php echo base_url().'assets/logo/'.$logo;?>" class="responsive-img logo" alt="<?php echo $company_name;?>">
+                    </a>
+                </li>
+                <li class="bold"><a href="<?php echo site_url().'my-account';?>"><i class="fa fa-area-chart"></i> Summary</a></li>
+                <li class="bold"><a href="<?php echo site_url().'settings';?>"><i class="fa fa-cog"></i> Settings</a></li>
+                <li class="bold"><a href="<?php echo site_url().'subscribe';?>"><i class="fa fa-money"></i> Subscribe</a></li>
+                <li class="bold"><a href="<?php echo site_url().'clicks';?>"><i class="fa fa-mouse-pointer"></i> Clicks</a></li>
+            </ul>
+        </header>
+        
+        <main>
+        	<div class="container">
+                <div class="row">
+                    <div class="col m12">
+                        <?php echo $content;?>
+                    </div>
+                </div>
 			</div>
-		</div>
+		</main>
 
         <!-- New banner modal -->
         <div id="new_banner" class="modal modal-fixed-footer">
