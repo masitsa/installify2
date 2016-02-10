@@ -234,3 +234,17 @@ $route['administration/activate-section/(:num)'] = 'admin/sections/activate_sect
 $route['administration/activate-section/(:num)/(:num)'] = 'admin/sections/activate_section/$1/$2';
 $route['administration/deactivate-section/(:num)'] = 'admin/sections/deactivate_section/$1';
 $route['administration/deactivate-section/(:num)/(:num)'] = 'admin/sections/deactivate_section/$1/$2';
+
+
+
+
+/*
+*	Blog Routes
+*/
+$route['blog'] = 'site/blog';
+$route['blog/(:num)'] = 'site/blog/index/__/__/$1';//going to different page without any filters
+$route['blog/(:any)'] = 'site/blog/view_post/$1';//going to single post page
+$route['blog/category/(:any)'] = 'site/blog/index/$1';//category present
+$route['blog/category/(:any)/(:num)'] = 'site/blog/index/$1/$2';//category present going to next page
+$route['blog/search/(:any)'] = 'site/blog/index/__/$1';//search present
+$route['blog/search/(:any)/(:num)'] = 'site/blog/index/__/$1/$2';//search present going to next page
