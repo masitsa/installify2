@@ -87,6 +87,7 @@ class Blog extends MX_Controller {
 		{
 			$data['content'] = '<p>There are no posts</p>';
 		}
+		$data['title'] = 'Blog';
 		$this->load->view("site/templates/general_page", $data);
 	}
 	
@@ -96,6 +97,7 @@ class Blog extends MX_Controller {
 		$post_id = $this->blog_model->get_post_id($post_title);
 		$contacts = $this->site_model->get_contacts();
 		$v_data['contacts'] = $contacts;
+		$v_data['web_name'] = $web_name;
 		if($post_id)
 		{
 			$this->blog_model->update_views_count($post_id);
@@ -155,6 +157,29 @@ class Blog extends MX_Controller {
 				$data['ultra_mini_title'] = $ultra_mini_title;
 				$data['title'] = $post_title;
 				$v_data['row'] = $query->row();
+				
+				// get previous post 
+				$prev_web_name = $this->blog_model->get_pre_next_blog($post_id,'Previous');
+				$next_web_name = $this->blog_model->get_pre_next_blog($post_id,'Next');
+
+				if($prev_web_name == NULL)
+				{
+					$v_data['previous_post'] = '';
+				}
+				else
+				{
+					$v_data['previous_post'] = ' <li class="pull-left"><a href="'.site_url().'blog/'.$prev_web_name.'" title="">Prev Post</a></li>';
+				}
+
+				if($next_web_name == NULL)
+				{
+					$v_data['next_post'] = '';
+				}
+				else
+				{
+					$v_data['next_post'] = ' <li class="pull-left"><a href="'.site_url().'blog/'.$prev_web_name.'" title="">Prev Post</a></li>';
+				}
+				
 				$data['content'] = $this->load->view('blog/single_post', $v_data, true);
 			}
 			
@@ -207,13 +232,13 @@ class Blog extends MX_Controller {
 			if($this->blog_model->add_comment_user($post_id))
 			{
 				$this->session->set_userdata('success_message', 'Comment added successfully. Pending approval by admin');
-				redirect('blog/view-single/'.$web_name);
+				redirect('blog/'.$web_name);
 			}
 			
 			else
 			{
 				$this->session->set_userdata('error_message', 'Could not add comment. Please try again');
-				redirect('blog/view-single/'.$web_name);
+				redirect('blog/'.$web_name);
 			}
 		}
 	}

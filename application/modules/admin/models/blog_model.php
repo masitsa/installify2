@@ -72,6 +72,42 @@ class Blog_model extends CI_Model
 		
 		return $query;
 	}
+
+	public function get_pre_next_blog($blog_id,$item)
+	{
+		if($item == 'Previous')
+		{
+			$this->db->where('post_status = 1 AND post_id < '.$blog_id);
+			$this->db->order_by('post_id','DESC');
+		}
+		else
+		{
+			$this->db->where('post_status = 1 AND post_id > '.$blog_id);
+			$this->db->order_by('post_id','ASC');
+		}
+		$query = $this->db->get('post');
+		
+		if($query->num_rows() > 0)
+		{
+			foreach ($query->result() as $key) {
+				# code...
+				$post_title = $key->post_title;
+			}
+			$web_name = $this->create_web_name($post_title);
+		}
+		else
+		{
+			$web_name = NULL;
+		}
+		return $web_name;
+	}
+	
+	public function create_web_name($field_name)
+	{
+		$web_name = str_replace(" ", "-", $field_name);
+		
+		return $web_name;
+	}
 	
 	/*
 	*	Retrieve latest post
