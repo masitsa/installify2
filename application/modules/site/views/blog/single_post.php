@@ -87,10 +87,21 @@ $count = 0;
 			
 			$comments .= 
 			'
-				<div class="user_comment">
-					<h5>'.$post_comment_user.' - '.$date.'</h5>
-					<p>'.$post_comment_description.'</p>
-				</div>
+                 <!-- Comment Item -->
+                    <li class="media comment-item">
+                        <div class="media-body">
+                            <div class="comment-item-data">
+                                <div class="comment-author">
+                                    <a href="#">'.$post_comment_user.'</a>
+                                </div>
+                                Feb 9, 2014, at 10:23<span class="separator">—</span>
+                            </div>
+                            <p>'.$post_comment_description.'</p>
+                            
+                        </div>
+                    </li>
+                    <!-- End Comment Item -->
+				
 			';
 		}
 	}
@@ -107,8 +118,8 @@ $count = 0;
 						<div class="container">
 							<h1><?php echo $post_title;?></h1>
 							<ul>
-								<li><a href="<?php echo base_url();?>home" title="">Home</a></li>
-								<li><a href="<?php echo base_url();?>blog" title="">Blog List</a></li>
+								<li><a href="<?php echo base_url();?>home" title="Home">Home</a></li>
+								<li><a href="<?php echo base_url();?>blog" title="Blog List">Blog List</a></li>
 								<li><?php echo $post_title;?></li>
 							</ul>
 						</div>
@@ -138,104 +149,38 @@ $count = 0;
                                 </div><!--/.entry-content-->
                                 <div class="entry-bottom">
                                     <ul class="list-inline entry-meta text-center">
-                                        <li class="pull-left"><a href="#" title="">Prev Post</a></li>
-                                        <li><a href="#" title=""><img alt="Jane Doe" src="demo/team/team1.jpg" class="avatar avatar-30 photo" height="30" width="30"> John Doe</a></li>
-                                        <li class="pull-right"><a href="#" title="">Next Post</a></li>
+                                       <?php echo $previous_post;?>
+                                        <?php echo $next_post;?>
+                                       <!-- <li class="pull-right"><a href="#" title="">Next Post</a></li> -->
                                     </ul><!--/.entry-meta-->
                                 </div><!--/.entry-bottom-->
                             </div><!--/.entry-->
                             <div id="comments" class="comment-list">
-                                <h3 class="comment-title">5 comments</h3>
+                                <h3 class="comment-title"><?php echo $total_comments;?> <?php echo $title;?></h3>
                                 <ul class="media-list text clearlist">
-                                    
-                                    <!-- Comment Item -->
-                                    <li class="media comment-item">
-                                        <div class="media-body">
-                                            <div class="comment-item-data">
-                                                <a class="pull-left" href="#"><img class="media-object comment-avatar" src="demo/team/team1.jpg" alt="" width="46" height="46"></a>
-                                                <div class="comment-author">
-                                                    <a href="#">John Doe</a>
-                                                </div>
-                                                Feb 9, 2014, at 10:23<span class="separator">—</span>
-                                                <a href="#">Reply</a>
-                                            </div>
-                                            <p>Vestibulum pellentesque, purus ut dignissim consectetur, nulla erat ultrices purus, ut consequat sem elit non sem. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa. Fusce non ante sed lorem rutrum feugiat.</p>
-                                            
-                                            <!-- Comment of second level -->
-                                            <div class="media comment-item">
-                                                <div class="media-body">
-                                                    <div class="comment-item-data">
-                                                        <a class="pull-left" href="#"><img class="media-object comment-avatar" src="demo/team/team2.jpg" alt="" width="46" height="46"></a>
-                                                        <div class="comment-author">
-                                                            <a href="#">Sam Brin</a>
-                                                        </div>
-                                                        Feb 9, 2014, at 10:27<span class="separator">—</span>
-                                                        <a href="#">Reply</a>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non laoreet dui. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est. Integer sit amet mi id sapien tempor molestie in nec massa.</p>
-                                                </div>
-                                            </div>
-                                            <!-- End Comment of second level -->
-                                        </div>
-                                    </li>
-                                    <!-- End Comment Item -->
-                                    <!-- Comment Item -->
-                                    <li class="media comment-item">
-                                        <div class="media-body">
-                                            <div class="comment-item-data">
-                                                <a class="pull-left" href="#"><img class="media-object comment-avatar" src="demo/team/team3.jpg" alt="" width="46" height="46"></a>
-                                                <div class="comment-author">
-                                                    <a href="#">Emma Johnson</a>
-                                                </div>
-                                                Feb 9, 2014, at 10:37 <span class="separator">—</span>
-                                                <a href="#">Reply</a>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque at magna ut ante eleifend eleifend.</p>
-                                        </div>
-                                    </li>
-                                    <!-- End Comment Item -->
-                                    <!-- Comment Item -->
-                                    <li class="media comment-item">
-                                        <div class="media-body">
-                                            <a class="pull-left" href="#"><img class="media-object comment-avatar" src="demo/team/team4.jpg" alt="" width="46" height="46"></a>
-                                            <div class="comment-item-data">
-                                                <div class="comment-author">
-                                                    <a href="#">John Doe</a>
-                                                </div>
-                                                Feb 9, 2014, at 10:3<span class="separator">—</span>
-                                                <a href="#">Reply</a>
-                                            </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non laoreet dui. Morbi lacus massa, euismod ut turpis molestie, tristique sodales est.</p>
-                                        </div>
-                                        
-                                    </li>
-                                    <!-- End Comment Item -->
+                                    <?php echo $comments;?>
                                     
                                 </ul>
                                 <h3 class="reply-title">Leave a Comment</h3>
-                                <form data-toggle="validator" role="form" novalidate="true">
+                                <form method="post" action="<?php echo site_url().'site/blog/add_comment/'.$post_id.'/'.$web_name;?>" data-toggle="validator" novalidate="true">
                                     <div class="form-group row">
                                         <div class="form-group col m6">
                                             <!-- Name -->
-                                            <input type="text" class="form-control" id="inputName" placeholder="Name" required="">
+                                            <input type="text" class="form-control" id="inputName" placeholder="Name" name="name" required="">
                                             <div class="help-block with-errors"></div>
                                         </div><!--/.col-->
                                         <div class="form-group col m6">
                                             <!-- Email -->
-                                            <input type="email" id="inputEmail" class="form-control" placeholder="Email" maxlength="100" data-error="Bruh, that email address is invalid" required="">
+                                            <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" maxlength="100" data-error="Bruh, that email address is invalid" required="">
                                             <div class="help-block with-errors"></div>
                                         </div><!--/.col-->
                                     </div><!--/.row-->
 
-                                    <div class="form-group">
-                                        <!-- Website -->
-                                        <input type="url" id="inputWebsite" class="form-control" placeholder="Website" maxlength="100" required="">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
+                        
                                     
                                     <!-- Comment -->
                                     <div class="from-group">
-                                        <textarea id="inputText" class="input-md form-control" rows="6" placeholder="Comment" maxlength="400"></textarea>
+                                        <textarea id="inputText" name="post_comment_description" class="input-md form-control" rows="6" placeholder="Comment" maxlength="400"></textarea>
                                     </div>
                                     
                                     <!-- Send Button -->

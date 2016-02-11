@@ -72,7 +72,7 @@ if($popular_query->num_rows() > 0)
 		$popular_posts .= '
 			<li class="clearfix">
 	            <img src="'.$image.'" alt="">
-	            <a href="#" title="">'.$post_title.'</a>
+	            <a href="'.site_url().'blog/'.$web_name.'" title="'.$post_title.'">'.$post_title.'</a>
 	            <span>'.$created.'</span>
 	        </li>
 			
@@ -105,24 +105,7 @@ else
     </ul>
 </div><!--/.widget-->
 
-<div class="widget">
-		<div class="about-widget">
-			<img src="images/crazy-logo2.png" alt="">
-			<p>Served in a 16-ounce pint glass. Cloudy and dirty-peach-colored, topped with a thick, frothy.</p>
-			<ul>
-				<li><i class="fa fa-home"></i>Seward Street, kla Home City, USA.</li>
-				<li><i class="fa fa-envelope"></i>info@yoursite.com</li>
-				<li><i class="fa fa-phone"></i>+900-78601 : +900-14578</li>
-			</ul>
-			<div class="simple-social">
-				<a class="facebook" title="" href="#"><i class="fa fa-facebook"></i></a>
-				<a class="twitter" title="" href="#"><i class="fa fa-twitter"></i></a>
-				<a class="google-plus" title="" href="#"><i class="fa fa-google-plus"></i></a>
-				<a class="dribbble" title="" href="#"><i class="fa fa-dribbble"></i></a>
-				<a class="linkedin" title="" href="#"><i class="fa fa-linkedin"></i></a>
-			</div>
-		</div>
-	</div>
+
 
 
 
