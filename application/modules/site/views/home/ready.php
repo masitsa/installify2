@@ -14,7 +14,7 @@
                     <div class="get-installs footer-signup">
                     	<div class="install-form">
                             <input placeholder="Your website URL" id="website_url" type="text" class="validate">
-                            <button type="button" class="btn amber" id="google_signin">
+                            <button type="button" class="btn amber" id="google_signup2">
                                 <!--<span class="icon"><i class="fa fa-google"></i></span>-->
                                 Get more installs
                             </button>

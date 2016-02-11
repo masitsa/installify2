@@ -19,7 +19,7 @@
             </div>-->
             <div class="col offset-m4 m8 s12">
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Blog</a></li>
+                    <li><a class="grey-text text-lighten-3" href="<?php echo site_url();?>blog">Blog</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Terms of Use</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>

@@ -15,6 +15,7 @@ $( document ).ready(function() {
 			});
 			attachSignUp(document.getElementById('google_signup'));
 			attachSignin(document.getElementById('google_signin'));
+			attachSignUp(document.getElementById('google_signup2'));
 		});
 	};
 	
@@ -22,7 +23,7 @@ $( document ).ready(function() {
 		console.log(element.id);
 		auth2.attachClickHandler(element, {},
 		function(googleUser) {
-			onSignIn(googleUser);
+			onSignUp(googleUser);
 			}, function(error) {
 			alert(JSON.stringify(error, undefined, 2));
 		});
@@ -79,7 +80,7 @@ function onSignUp(googleUser) {
 			//alert(data.message);
 			if(data.message == "true")
 			{
-				window.location.href = base_url+'my-account';
+				window.location.href = base_url+'banners';
 			}
 			else
 			{
@@ -123,7 +124,7 @@ function onSignIn(googleUser) {
 			//alert(data.message);
 			if(data.message == "true")
 			{
-				window.location.href = base_url+'my-account';
+				window.location.href = base_url+'banners';
 			}
 			else
 			{

@@ -320,6 +320,26 @@ class Site_model extends CI_Model
 		$this->db->order_by('neighbourhood_name');
 		return $this->db->get('neighbourhood');
 	}
+	
+	public function valid_url($url)
+	{
+		//$pattern = "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
+		$pattern = "/^((ht|f)tp(s?)\:\/\/|~/|/)?([w]{2}([\w\-]+\.)+([\w]{2,5}))(:[\d]{1,5})?/";
+        if (!preg_match($pattern, $url))
+		{
+            return FALSE;
+        }
+ 
+        return TRUE;
+	}
+	
+	public function get_days($date)
+	{
+		$now = time(); // or your date as well
+		$your_date = strtotime($date);
+		$datediff = $now - $your_date;
+		return floor($datediff/(60*60*24));
+	}
 }
 
 ?>

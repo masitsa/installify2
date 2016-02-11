@@ -42,6 +42,15 @@
 /* Tablets */
 @media screen and (max-width: 800px) {
 	main{padding-left:0;}
+	.generated-first {
+		float:none;
+		top: -30px;
+	}
+	.generated-last {
+		float:none;
+		top: 30px;
+	}
+	img.responsive-img, video.responsive-video{max-width:280px !important;}
 }
 /* 7inch tabs & Mobile phones */
 @media screen and (max-width: 603px) {

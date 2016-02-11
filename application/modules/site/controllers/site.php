@@ -42,7 +42,7 @@ class Site extends MX_Controller
 	{
 		$this->session->sess_destroy();
 		
-		redirect('sign-in');
+		redirect('home');
 	}
     
 	/*
@@ -67,11 +67,11 @@ class Site extends MX_Controller
 	*/
 	public function register_customer()
 	{
-		$this->form_validation->set_rules('website', 'Website url', 'required|valid_url');
+		$this->form_validation->set_rules('website', 'Website url', 'required|is_unique[smart_banner.smart_banner_website]');
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('image', 'Image', 'trim');
-		$this->form_validation->set_message('valid_url', 'Please enter a valid website url');
+		$this->form_validation->set_message('is_unique', 'That website already exists. Please enter another one');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -81,30 +81,42 @@ class Site extends MX_Controller
 		}
 		else
 		{
-			$reply = $this->auth_model->register_user();
+			$url = $this->input->post('website');
 			
-			if($reply['message'] == TRUE)
+			//check for valid url
+			if($this->site_model->valid_url($url))
 			{
-				//send registration email
-				$response = $this->auth_model->send_registration_email($this->input->post('email'), $reply['first_name']);
-				//var_dump($response);
-				if($response)
+				$reply = $this->auth_model->register_user();
+				
+				if($reply['message'] == TRUE)
 				{
-					//$data2['success'] = $response;
+					//send registration email
+					$email_reply = $this->auth_model->send_registration_email($this->input->post('email'), $reply['first_name']);
+					//var_dump($response);
+					if($email_reply)
+					{
+						//$data2['success'] = $response;
+					}
+					
+					else
+					{
+						//$data2['error'] = $response;
+					}
+					$response['message'] = 'true';
+					$this->session->set_userdata('success_message', $reply['response']);
 				}
 				
 				else
 				{
-					//$data2['error'] = $response;
+					$response['message'] = 'false';
+					$response['result'] = $reply['response'];
 				}
-				$response['message'] = 'true';
-				$this->session->set_userdata('success_message', $reply['response']);
 			}
 			
 			else
 			{
 				$response['message'] = 'false';
-				$response['result'] = $reply['response'];
+				$response['result'] = 'Please enter a valid website url';
 			}
 		}
 		
@@ -671,6 +683,19 @@ class Site extends MX_Controller
 		$data['content'] = $this->load->view('categories/all_categories', $v_data, true);
 		
 		$this->load->view('templates/general_page', $data);
+	}
+	
+	public function check_url($url)
+	{
+		if($this->site_model->valid_url($url))
+		{
+			echo 'true';
+		}
+		
+		else
+		{
+			echo 'false';
+		}
 	}
 }
 ?>

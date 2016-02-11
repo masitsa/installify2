@@ -1,11 +1,11 @@
 <div class="white section-content">
 	<div class="container">
         
-        <h3 class="header center-align grey-text darken-2 margin-height-60">Create a smartbanner in under 5 minutes</h3>
+        <!--<h3 class="header center-align grey-text darken-2 margin-height-60">Create a smartbanner in under 5 minutes</h3>-->
         
         <div class="row">
             
-            <div class="col m6 underlined">
+            <div class="col m6">
             	<ol>
                 	<li>Type in the site or page where you want banner to appear</li>
                 	<li>Fill in various setup and customization options</li>

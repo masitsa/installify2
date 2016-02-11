@@ -64,6 +64,7 @@ $route['sign-out'] = 'site/sign_out';
 *	Account
 */
 $route['my-account'] = 'site/account/my_account';
+$route['banners'] = 'site/account/banners';
 $route['banner'] = 'site/account/banner';
 $route['banner/(:any)'] = 'site/account/banner/$1';
 
@@ -72,6 +73,8 @@ $route['set-default-card/(:num)'] = 'site/account/set_default_card/$1';
 
 $route['activate-banner/(:any)'] = 'site/account/activate_banner/$1';
 $route['deactivate-banner/(:any)'] = 'site/account/deactivate_banner/$1';
+$route['banner-activation/(:any)'] = 'site/account/activate_banner2/$1';
+$route['banner-deactivation/(:any)'] = 'site/account/deactivate_banner2/$1';
 $route['delete-banner/(:any)'] = 'site/account/delete_banner/$1';
 
 $route['subscribe'] = 'site/account/subscribe';
@@ -236,3 +239,17 @@ $route['administration/activate-section/(:num)'] = 'admin/sections/activate_sect
 $route['administration/activate-section/(:num)/(:num)'] = 'admin/sections/activate_section/$1/$2';
 $route['administration/deactivate-section/(:num)'] = 'admin/sections/deactivate_section/$1';
 $route['administration/deactivate-section/(:num)/(:num)'] = 'admin/sections/deactivate_section/$1/$2';
+
+
+
+
+/*
+*	Blog Routes
+*/
+$route['blog'] = 'site/blog';
+$route['blog/(:num)'] = 'site/blog/index/__/__/$1';//going to different page without any filters
+$route['blog/(:any)'] = 'site/blog/view_post/$1';//going to single post page
+$route['blog/category/(:any)'] = 'site/blog/index/$1';//category present
+$route['blog/category/(:any)/(:num)'] = 'site/blog/index/$1/$2';//category present going to next page
+$route['blog/search/(:any)'] = 'site/blog/index/__/$1';//search present
+$route['blog/search/(:any)/(:num)'] = 'site/blog/index/__/$1/$2';//search present going to next page

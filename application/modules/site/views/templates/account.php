@@ -92,6 +92,7 @@
                 <li class="bold"><a href="<?php echo site_url().'settings';?>"><i class="fa fa-cog"></i> Settings</a></li>
                 <li class="bold"><a href="<?php echo site_url().'subscribe';?>"><i class="fa fa-money"></i> Subscribe</a></li>
                 <li class="bold"><a href="<?php echo site_url().'clicks';?>"><i class="fa fa-mouse-pointer"></i> Clicks</a></li>
+                <li class="bold"><a href="<?php echo site_url().'banners';?>"><i class="fa fa-mobile"></i> Banners</a></li>
             </ul>
         </header>
         

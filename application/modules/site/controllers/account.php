@@ -490,4 +490,54 @@ class Account extends site {
 		
 		redirect('banner/'.$banner_website);
 	}
+    
+	/*
+	*
+	*	Open the user's banners page
+	*
+	*/
+	public function banners()
+	{
+		$v_data['banners'] = $this->banner_model->get_banners($this->session->userdata('customer_id'));
+		$data['content'] = $this->load->view('user/banners', $v_data, true);
+		
+		$data['title'] = $this->site_model->display_page_title();
+		$this->load->view('templates/account', $data);
+	}
+	
+	public function activate_banner2($smart_banner_id)
+	{
+		if($this->banner_model->activate_banner2($smart_banner_id))
+		{
+			$this->session->set_userdata('success_message', 'Banner activated successfully');
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', 'Unable to activate banner. Please ensure you have the priviledges to do so then try again');
+		}
+		
+		redirect('banner/'.$banner_website);
+	}
+    
+	/*
+	*
+	*	Deactivate an existing banner
+	*	@param int $banner_website
+	*
+	*/
+	public function deactivate_banner2($smart_banner_id)
+	{
+		if($this->banner_model->deactivate_banner2($smart_banner_id))
+		{
+			$this->session->set_userdata('success_message', 'Banner deactivated successfully');
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', 'Unable to deactivate banner. Please ensure you have the priviledges to do so then try again');
+		}
+		
+		redirect('banner/'.$banner_website);
+	}
 }

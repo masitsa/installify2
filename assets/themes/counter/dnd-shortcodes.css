@@ -4378,7 +4378,6 @@
 
 .dnd_countdown{
 	text-align: center;
-	margin-bottom: 40px;
 }
 
 .dnd_countdown,
@@ -4392,7 +4391,6 @@
 .dnd_countdown .dnd_countdown_inner{
 	display: inline-block;
 	text-align: center;
-	margin-bottom: 20px !important;
 }
 
 .countdown {
@@ -4401,7 +4399,7 @@
 	line-height: 100px;
 	color: #fff;
 	background: #041c2c;
-	width: 141px;
+	width: 80px;
 	height: 100px;
 	border-radius: 5px;
 	margin: 0 0 3px 26px;

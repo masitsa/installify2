@@ -261,4 +261,71 @@ class Banner_model extends CI_Model
 			return FALSE;
 		}
 	}
+	
+	public function get_clicks($smart_banner_id)
+	{
+		$this->db->select('COUNT(smart_banner_id) AS click_total');
+		$this->db->where('smart_banner_id = '.$smart_banner_id);
+		$query = $this->db->get('smart_banner');
+		
+		$result = $query->row();
+		
+		return $result->click_total;
+	}
+	
+	public function get_maximum_clicks($customer_id)
+	{
+		$this->db->select('maximum_clicks');
+		$this->db->where('subscription.plan_id = plan.plan_id AND subscription.subscription_status = 1 AND  subscription.customer_id = '.$customer_id);
+		$query = $this->db->get('subscription, plan');
+		
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row();
+			
+			$clicks = $result->maximum_clicks;
+			
+			if(empty($clicks))
+			{
+				$clicks = '&#8734';
+			}
+			return $result->maximum_clicks;
+		}
+		
+		else
+		{
+			return 0;
+		}
+	}
+	public function activate_banner2($smart_banner_id)
+	{
+		$data = array('smart_banner_status' => 1);
+		
+		$this->db->where(array('smart_banner_id' => $smart_banner_id, 'customer_id' => $this->session->userdata('customer_id')));
+		
+		if($this->db->update('smart_banner', $data))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	public function deactivate_banner2($smart_banner_id)
+	{
+		$data = array('smart_banner_status' => 0);
+		
+		$this->db->where(array('smart_banner_id' => $smart_banner_id, 'customer_id' => $this->session->userdata('customer_id')));
+		
+		if($this->db->update('smart_banner', $data))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }
