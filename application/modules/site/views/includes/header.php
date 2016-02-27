@@ -32,4 +32,6 @@
         <![endif]-->
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="<?php echo base_url()."assets/themes/";?>jquery-2.1.4.min.js"></script>
+		<script src="https://apis.google.com/js/api:client.js"></script>
+        <script src="<?php echo base_url()."assets/themes/custom/";?>js/google.js"></script>
         <script src="<?php echo base_url()."assets/themes/custom/";?>js/custom.js"></script>

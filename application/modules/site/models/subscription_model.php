@@ -144,6 +144,16 @@ class Subscription_model extends CI_Model
 		return $this->db->get('subscription');
 	}
 	
+	public function cancel_subscription($subscription_id)
+	{
+		$where = array(
+			'subscription_id' => $subscription_id
+		);
+		
+		$this->db->where($where);
+		return $this->db->update('subscription', array('subscription_status' => 0));
+	}
+	
 	public function set_default_card($customer_id, $card_id)
 	{
 		//update all other cards as not default

@@ -39,7 +39,7 @@
 				$created = $row->created;
 				$day = date('j',strtotime($created));
 				$month = date('M Y',strtotime($created));
-				$created_on = date('jS M Y H:i a',strtotime($row->created));
+				$created_on = date('jS M Y',strtotime($row->created));
 				
 				$categories = '';
 				$count = 0;
@@ -73,15 +73,16 @@
 						$count++;
 						$category_name = $res->blog_category_name;
 						$category_id = $res->blog_category_id;
+						$category_web_name = $this->site_model->create_web_name($category_name);
 						
 						if($count == $categories_query->num_rows())
 						{
-							$categories .= '<a href="'.site_url().'blog/category/'.$category_id.'" title="View all posts in '.$category_name.'" rel="category tag">'.$category_name.'</a>';
+							$categories .= '<a href="'.site_url().'blog/category/'.$category_web_name.'" title="View all posts in '.$category_name.'" rel="category tag">'.$category_name.'</a>';
 						}
 						
 						else
 						{
-							$categories .= '<a href="'.site_url().'blog/category/'.$category_id.'" title="View all posts in '.$category_name.'" rel="category tag">'.$category_name.'</a>, ';
+							$categories .= '<a href="'.site_url().'blog/category/'.$category_web_name.'" title="View all posts in '.$category_name.'" rel="category tag">'.$category_name.'</a>, ';
 						}
 					}
 					$comments_query = $this->blog_model->get_post_comments($post_id);
@@ -104,7 +105,7 @@
 						{
 							$post_comment_user = $row->post_comment_user;
 							$post_comment_description = $row->post_comment_description;
-							$date = date('jS M Y H:i a',strtotime($row->comment_created));
+							$date = date('jS M Y',strtotime($row->comment_created));
 							
 							$comments .= 
 							'
@@ -119,14 +120,16 @@
 
 					<div class="entry format-standard">
 						 <div class="entry-top" style=" margin-top:-15px">
+						 	<div class="right">'.$categories.'</div>
                             <h3 class="entry-title"><a href="'.site_url().'blog/'.$web_name.'" title="">'.$post_title.'</a></h3>
+							<div class="divider"></div>
                             <ul class="entry-meta list-inline">
                                 <li><a href="#" title="">'.$created_on.'</a></li>
                                 <li><a href="'.site_url().'blog/'.$web_name.'#comments" title="">'.$total_comments.'</a></li>
                             </ul>
                         </div><!--/.entry-top-->
                         <div class="entry-media">
-                            <a href="#" title=""><img src="'.$image.'" alt="" class="img-responsive"></a>
+                            <a href="'.site_url().'blog/'.$web_name.'" title=""><img src="'.$image.'" alt="" class="img-responsive"></a>
                         </div><!--/.entry-media-->
                        
                         <div class="entry-content">
@@ -134,7 +137,7 @@
                         </div><!--/.entry-content-->
                         <div class="entry-bottom">
                             <ul class="list-inline entry-meta">
-                                <li class="pull-right hidden-xs hidden-md hidden-mobile"><a href="'.site_url().'blog/'.$web_name.'" title="">Read More</a></li>
+                                <li class="pull-right hidden-xs hidden-md hidden-mobile"><a href="'.site_url().'blog/'.$web_name.'" title="" class="btn blue white-text">Read More</a></li>
                             </ul><!--/.entry-meta-->
                         </div><!--/.entry-bottom-->
                     </div><!--/.entry-->
@@ -151,32 +154,43 @@
           ?> 
 
 <div class="section blog-section active-section">
-<div class="pagetop">
-	<div class="page-name">
-		<div class="container">
-			<h1>BLOG</h1>
-			<ul>
-				<li><a href="<?php echo base_url();?>home" title="">Home</a></li>
-				<li><a href="<?php echo base_url();?>blog" title="">Blog List</a></li>
-			</ul>
-		</div>
-	</div>
-</div>
+    <div class="pagetop">
+        <div class="page-name">
+            <div class="container">
+                <h1 class="white-text darken-2 right">BLOG</h1>
+            </div>
+        </div>
+    </div>
+    
+    <!--<div class="pagetop grey lighten-4">
+        <div class="page-name">
+            <div class="container">
+                <h1 class="grey-text darken-2">BLOG</h1>
+                <ul>
+                    <li><a href="<?php echo base_url();?>home" title="" class="grey-text darken-2">Home</a></li>
+                    <li><a href="<?php echo base_url();?>blog" title="" class="grey-text darken-2">Blog List</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>-->
+        
+    <div class="row grey lighten-4">
+        <div class="col m12">
+            <ul class="breadcrumbs">
+                <li><a href="<?php echo base_url();?>home" title="" class="grey-text darken-2">Home</a></li>
+                <li><a href="<?php echo base_url();?>blog" title="" class="grey-text darken-2">Blog List</a></li>
+            </ul>
+        </div>
+    </div>
+    
     <div class="container">
         <div class="row" style="margin-top:50px">
             <div class="col m8">
                 <div class="content">
                    
-                <?php echo $result;?>
-                     <ul class="pagination">
-					    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-					    <li class="active"><a href="#!">1</a></li>
-					    <li class="waves-effect"><a href="#!">2</a></li>
-					    <li class="waves-effect"><a href="#!">3</a></li>
-					    <li class="waves-effect"><a href="#!">4</a></li>
-					    <li class="waves-effect"><a href="#!">5</a></li>
-					    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-					  </ul>
+                	<?php echo $result;?>
+                    
+                    <?php if(isset($links)){echo $links;}?>
                 </div><!--/.content-->
             </div><!--/.col-->
             <div class="col m3 ">

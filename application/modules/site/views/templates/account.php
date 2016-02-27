@@ -131,11 +131,11 @@
                         </div>
                         <div class="input-field col s12">
                             <input type="text"  name="icon_url">
-                            <label for="Icon url">Icon url <span class="required">*</span></label>
+                            <label for="Icon url">Icon url</label>
                         </div>
                         <div class="input-field col s12">
                             <input type="text"  name="url">
-                            <label for="URL">URL <span class="required">*</span></label>
+                            <label for="URL">App Store URL <span class="required">*</span></label>
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,7 @@ class Plans_model extends CI_Model
 				'plan_name'=>ucwords(strtolower($this->input->post('plan_name'))),
 				'plan_description'=>$this->input->post('plan_description'),
 				'plan_amount'=>$this->input->post('plan_amount'),
+				'maximum_clicks'=>$this->input->post('maximum_clicks'),
 				'plan_status'=>$this->input->post('plan_status'),
 				'stripe_plan'=>$this->input->post('stripe_plan'),
 				'created'=>date('Y-m-d H:i:s'),
@@ -73,6 +74,7 @@ class Plans_model extends CI_Model
 				'plan_name'=>ucwords(strtolower($this->input->post('plan_name'))),
 				'plan_description'=>$this->input->post('plan_description'),
 				'plan_amount'=>$this->input->post('plan_amount'),
+				'maximum_clicks'=>$this->input->post('maximum_clicks'),
 				'plan_status'=>$this->input->post('plan_status'),
 				'stripe_plan'=>$this->input->post('stripe_plan'),
 				'modified_by'=>$this->session->userdata('personnel_id')

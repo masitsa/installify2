@@ -232,7 +232,7 @@ class Account extends site {
 		$this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
 		$this->form_validation->set_rules('author', 'Author', 'required|xss_clean');
 		$this->form_validation->set_rules('price', 'Price', 'required|xss_clean');
-		$this->form_validation->set_rules('icon_url', 'Icon URL', 'required|xss_clean');
+		$this->form_validation->set_rules('icon_url', 'Icon URL', 'xss_clean');
 		$this->form_validation->set_rules('url', 'URL', 'required|xss_clean');
 		
 		//if form data is invalid
@@ -401,12 +401,21 @@ class Account extends site {
 				{
 					$row2 = $query2->row();
 					$stripe_subscription_id = $row2->stripe_subscription_id;
+					$subscription_id = $row2->subscription_id;
 					
-					//cancel subscription
-					$return = $this->stripe_model->cancel_subscription($stripe_customer_id, $stripe_subscription_id);
-					
+					if(!empty($stripe_subscription_id))
+					{
+						//cancel subscription
+						$return = $this->stripe_model->cancel_subscription($stripe_customer_id, $stripe_subscription_id);
+						
+						if($return)
+						{
+							//update subscription status
+							$this->subscription_model->cancel_subscription($subscription_id);
+						}
+					}
 					//create a new subscription
-					if($return['message'] == 'true')
+					else
 					{
 						$return = $this->stripe_model->create_subscription($stripe_customer_id, $plan_id);
 					}

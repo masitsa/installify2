@@ -40,6 +40,14 @@
                             <input type="number" class="form-control" name="plan_amount" placeholder="Amount" value="<?php echo set_value('plan_amount');?>" >
                         </div>
                     </div>
+                    
+                    <!-- Plan clicks -->
+                    <div class="form-group">
+                        <label class="col-lg-4 control-label">Maximum clicks</label>
+                        <div class="col-lg-6">
+                            <input type="number" class="form-control" name="maximum_clicks" placeholder="Maximum clicks" value="<?php echo set_value('maximum_clicks');?>" >
+                        </div>
+                    </div>
                     <!-- Plan Icon -->
                     <div class="form-group">
                         <label class="col-lg-4 control-label">Stripe ID</label>

@@ -55,6 +55,7 @@ class Site extends MX_Controller
 		$contacts = $this->site_model->get_contacts();
 		$v_data['contacts'] = $contacts;
 		$data['title'] = $this->site_model->display_page_title();
+		$data['sign_up'] = 1;
 		$data['content'] = $this->load->view("home", $v_data, TRUE);
 		
 		$this->load->view("site/templates/general_page", $data);
@@ -116,7 +117,7 @@ class Site extends MX_Controller
 			else
 			{
 				$response['message'] = 'false';
-				$response['result'] = 'Please enter a valid website url';
+				$response['result'] = 'Please enter a valid website url. Ensure it starts with http(s)://';
 			}
 		}
 		

@@ -22,6 +22,7 @@
 			$plan_status = $plan[0]->plan_status;
 			$plan_amount = $plan[0]->plan_amount;
 			$stripe_plan = $plan[0]->stripe_plan;
+			$maximum_clicks = $plan[0]->maximum_clicks;
             
             $validation_errors = validation_errors();
             
@@ -32,6 +33,7 @@
 				$plan_status = set_value('plan_status');
 				$plan_amount = set_value('plan_amount');
 				$stripe_plan = set_value('stripe_plan');
+				$maximum_clicks = set_value('maximum_clicks');
 				
                 echo '<div class="alert alert-danger"> Oh snap! '.$validation_errors.' </div>';
             }
@@ -52,6 +54,14 @@
                 <label class="col-lg-4 control-label">Amount</label>
                 <div class="col-lg-6">
                     <input type="number" class="form-control" name="plan_amount" placeholder="Amount" value="<?php echo $plan_amount;?>" >
+                </div>
+            </div>
+                    
+            <!-- Plan clicks -->
+            <div class="form-group">
+                <label class="col-lg-4 control-label">Maximum clicks</label>
+                <div class="col-lg-6">
+                    <input type="number" class="form-control" name="maximum_clicks" placeholder="Maximum clicks" value="<?php echo $maximum_clicks;?>" >
                 </div>
             </div>
             <!-- Plan Icon -->

@@ -38,6 +38,7 @@
 <file name="email_model.php" server="nairobisingles.com/public_html/installify/" local="130970069908247866" remote="130993089600000000" Dst="0" />
 <file name="payments_model.php" server="nairobisingles.com/public_html/installify/" local="130854940509983044" remote="130993089600000000" Dst="0" />
 <file name="orders_model.php" server="nairobisingles.com/public_html/installify/" local="130913604685091141" remote="130993089600000000" Dst="0" />
-<file name="site_model.php" server="nairobisingles.com/public_html/installify/" local="130996745410000000" remote="130996394400000000" Dst="0" />
-<file name="subscription_model.php" server="nairobisingles.com/public_html/installify/" local="130968853780294747" remote="130993089600000000" Dst="0" />
+<file name="site_model.php" server="nairobisingles.com/public_html/installify/" local="130998284233805617" remote="130997926200000000" Dst="0" />
+<file name="subscription_model.php" server="nairobisingles.com/public_html/installify/" local="130998333638818475" remote="130997974200000000" Dst="0" />
+<file name="blog_model.php" server="nairobisingles.com/public_html/installify/" local="130996551951090001" remote="130997927400000000" Dst="0" />
 </dwsync>

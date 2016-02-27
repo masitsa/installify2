@@ -23,6 +23,51 @@ $( document ).ready(function() {
 	
 });
 
+/* Add new banner */
+$(document).on("submit","form#add_new_banner",function(e) 
+{
+	e.preventDefault();
+	var base_url = $('#base_url').val();
+	var website = $('input[name="website"]').val();
+	
+	var formData = new FormData(this);
+	
+	$.ajax({
+		type:'POST',
+		url: base_url+'site/account/add_banner',
+		data:formData,
+		cache:false,
+		contentType: false,
+		processData: false,
+		dataType: 'json',
+		success:function(data){
+			//alert(data.message);
+			if(data.message == "true")
+			{
+				window.location.href = base_url+'banner/'+website;
+			}
+			else
+			{
+				var response = 
+				'<span>'+
+					data.response+
+				'</span>';
+				Materialize.toast(response, 5000);
+			}
+		},
+		error: function(xhr, status, error) {
+			console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+			var response = 
+			'<span>'+
+				error+
+			'</span>';
+			Materialize.toast(response, 5000);
+		}
+	});
+	return false;
+});
+/* End add new card */
+
 /* Add new card */
 $(document).on("submit","form#add_new_card",function(e) 
 {
@@ -133,7 +178,7 @@ function stripeResponseHandler(status, response)
 $(document).on("click","a.subscribe",function(e) 
 {
 	var base_url = $('#base_url').val();
-	$('.subscribe').prepend(
+	$('.preloader_subscribe').prepend(
 		'<div class="preloader-wrapper active">'+
     		'<div class="spinner-layer spinner-red-only">'+
 				'<div class="circle-clipper left">'+
@@ -206,7 +251,7 @@ $(document).on("click","a.subscribe",function(e)
 $(document).on("click","a.upgrade",function(e) 
 {
 	var base_url = $('#base_url').val();
-	$('.upgrade').prepend(
+	$('.preloader_subscribe').prepend(
 		'<div class="preloader-wrapper active">'+
     		'<div class="spinner-layer spinner-red-only">'+
 				'<div class="circle-clipper left">'+

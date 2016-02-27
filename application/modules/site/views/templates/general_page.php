@@ -6,6 +6,21 @@
     <body class="smooth-navigation">
     	<input type="hidden" id="base_url" value="<?php echo base_url();?>"/>
         <?php //echo $this->load->view('site/includes/top_navigation', $data, TRUE); ?>
+        <?php 
+			if(isset($sign_up))
+			{
+				?>
+                <input type="hidden" id="sign_up" value="<?php echo $sign_up;?>"/>
+                <?php
+			}
+			
+			else
+			{
+				?>
+                <input type="hidden" id="sign_up" value="0"/>
+                <?php
+			}
+		?>
             
 		<?php echo $content;?>
         
@@ -54,5 +69,38 @@
 				});
 			});
 		</script>
+        
+        <?php
+		$error = $this->session->userdata('error_message');
+		$success = $this->session->userdata('success_message');
+		
+		//display error
+		if(!empty($error))
+		{
+			?>
+			<script type="text/javascript">
+				$( document ).ready(function() {
+					var response = '<span><?php echo $error;?></span>';
+					Materialize.toast(response, 5000);
+				});
+			</script>
+			<?php
+			$this->session->unset_userdata('error_message');
+		}
+		
+		//display error
+		if(!empty($success))
+		{
+			?>
+			<script type="text/javascript">
+				$( document ).ready(function() {
+					var response = '<span><?php echo $success;?></span>';
+					Materialize.toast(response, 5000);
+				});
+			</script>
+			<?php
+			$this->session->unset_userdata('success_message');
+		}
+		?>
     </body>
 </html>

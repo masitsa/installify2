@@ -46,15 +46,18 @@ class Blog extends MX_Controller {
 		$config['per_page'] = 5;
 		$config['num_links'] = 5;
 		
-		$config['full_tag_open'] = '<div class="wp-pagenavi">';
-		$config['full_tag_close'] = '</div>';
+		$config['full_tag_open'] = '<ul class="pagination">';
+		$config['full_tag_close'] = '</ul>';
 		
-		$config['next_link'] = 'Next';
+		$config['next_link'] = '<i class="material-icons">chevron_right</i>';
 		
-		$config['prev_link'] = 'Prev';
+		$config['prev_link'] = '<i class="material-icons">chevron_left</i>';
 		
-		$config['cur_tag_open'] = '<span class="current">';
-		$config['cur_tag_close'] = '</span>';
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li class="waves-effect">';
+		$config['num_tag_close'] = '</li>';
 		$this->pagination->initialize($config);
 		
 		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
@@ -224,7 +227,8 @@ class Blog extends MX_Controller {
 		//if form has been submitted
 		if ($this->form_validation->run() == FALSE)
 		{
-			redirect('blog/view-single/'.$web_name);
+			$this->session->set_userdata('error_message', validation_errors());
+			redirect('blog/'.$web_name);
 		}
 		
 		else

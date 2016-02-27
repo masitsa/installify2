@@ -40,7 +40,7 @@ nav{box-shadow:none;}
 .home-header .input-field .prefix.active {
 	color: #fff;
 }
-header, .home-header, nav, .footer-copyright, footer.page-footer, nav a.btn, .ready .get-installs, .learn_more, .installify-blue,nav.navigation-sidebar, .side-nav, .blue{
+header, .home-header, nav, .footer-copyright, footer.page-footer, nav a.btn, .ready .get-installs, .learn_more, .installify-blue,nav.navigation-sidebar, .side-nav, .blue, .pagination li.active{
 	background-color:#041c2c !important; color:#fff;
 }
 nav a.btn, .learn_more, .learn_more:visited{
@@ -3755,13 +3755,14 @@ ul.portfolio-list li span:first-child {
   padding-right: 5%;
 }
 
-.widget {
-  margin-bottom: 30px;
+.widget ul{
+  margin-bottom: 30px !important;
 }
 .widget h3.widget-title {
-  font-size: 16px;
-  padding: 0;
-  font-weight: 300;
+ 	border-bottom: 3px solid #efefef;
+	padding-bottom: 10px;
+	font-size:22px;
+	text-transform:capitalize;
 }
 .widget ul.recent-posts {
   list-style: none;
@@ -3894,7 +3895,7 @@ ul.portfolio-list li span:first-child {
     border-bottom: 1px solid #f1f1f1;
     color: #666666;
     float: left;
-    font-family: lato;
+    
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.3px;
@@ -3976,7 +3977,7 @@ ul.portfolio-list li span:first-child {
 /*=============== Page Top  ===========*/
 
 .pagetop {
-    /*background: rgba(0, 0, 0, 0) url("../../../../assets/img/pagetop.jpg") no-repeat scroll 0 0 / cover ;*/
+    background: rgba(0, 0, 0, 0) url(../../../images/mobile.jpg) no-repeat scroll 0 0 / cover ;
     float: left;
     padding: 30px 0;
     position: relative;
@@ -3985,7 +3986,6 @@ ul.portfolio-list li span:first-child {
     margin-top: -10px;
 }
 .pagetop:before{
-    background: #000000;
     content: "";
     height: 100%;
     width: 100%;
@@ -4002,33 +4002,31 @@ ul.portfolio-list li span:first-child {
 }
 .page-name h1 {
     color: #f4f4f4;
-    font-family: lato;
+    
     font-size: 40px;
     font-weight: 800;
     letter-spacing: 3px;
     margin: 0 0 15px;
 }
-.page-name ul {
+ul.breadcrumbs {
     display: inline-block;
     list-style: outside none none;
-    margin: 0;
-    padding: 0;
 }
-.page-name ul li {
+ul.breadcrumbs li {
     color: #959494;
     display: inline-block;
     font-size: 13px;
     padding: 0 15px;
     position: relative;
 }
-.page-name ul li:before {
+ul.breadcrumbs li:before {
     content: ">";
     position: absolute;
     right: -4px;
     top: 0;
 }
-.page-name ul li:last-child:before {display:none}
-.page-name ul li a {color:inherit}
+ul.breadcrumbs li:last-child:before {display:none}
+ul.breadcrumbs li a {color:inherit}
 
 
 /*aside*/
@@ -4078,3 +4076,6 @@ aside.sidebar:before {
   top: -85px;
 }
 ol li{margin-bottom:15px; list-style:none;}
+.entry-content p{text-align:justify;}
+smartbanner_display{background-image:url(../../../img/iphone2.png);}
+.banner-height{height: 512px;}

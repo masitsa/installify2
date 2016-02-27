@@ -77,6 +77,7 @@
 					
 					<div class="col m12">
 						<h5 class="header">Change plan</h5>
+						<div id="preloader_subscribe"></div>
 						<div class="row">
 							<?php
 							//check if customer has subscribed to any plans
@@ -122,7 +123,7 @@
 			{
 				?>
 				<p class="center-align">You have not subscribed to any plans. Please select a plan</p>
-				
+				<div id="preloader_subscribe"></div>
 				<div class="row">
 					<?php
 					//check if customer has subscribed to any plans
@@ -145,7 +146,7 @@
 							?>
                             <div class="col s12 l4">
 								<div class="card <?php echo $class;?>">
-									<div class="card-content white-text">
+									<div class="card-content">
 										<span class="card-title"><?php echo $plan_name;?></span>
 										<p class="center-align"><?php echo number_format($plan_amount, 2);?> USD per month</p>
 										<?php echo $plan_description;?>

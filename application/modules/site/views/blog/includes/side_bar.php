@@ -15,7 +15,7 @@ if($recent_query->num_rows() > 0)
 	$created = date('jS M Y',strtotime($row->created));
 	$recent_posts .= '
 	 		
-            <li class="clearfix">
+            <li>
 	            <img src="'.$image.'" alt="">
 	            <a href="#" title="">'.$post_title.'</a>
 	            <span>'.$created.'</span>
@@ -70,7 +70,7 @@ if($popular_query->num_rows() > 0)
 		$created = date('jS M Y',strtotime($row->created));
 		
 		$popular_posts .= '
-			<li class="clearfix">
+			<li>
 	            <img src="'.$image.'" alt="">
 	            <a href="'.site_url().'blog/'.$web_name.'" title="'.$post_title.'">'.$post_title.'</a>
 	            <span>'.$created.'</span>
@@ -87,19 +87,19 @@ else
 }
 ?>
  <div class="widget">
- 	<div class="widget-title"><h4>RECENT POSTS</h4></div>
+ 	<h3 class="widget-title">Recent Posts</h3>
     <ul class="recent-posts">
         <?php echo $recent_posts;?>
     </ul>
 </div><!--/.widget-->
  <div class="widget">
-    <div class="widget-title"><h4>CATEGORIES</h4></div>
+    <h3 class="widget-title">Categories</h3>
     <ul >
         <?php echo $categories;?>
     </ul>
 </div><!--/.widget-->
  <div class="widget">
-    <div class="widget-title"><h4>POPULAR POSTS</h4></div>
+    <h3 class="widget-title">Popular Posts</h3>
     <ul class="recent-posts">
         <?php echo $popular_posts;?>
     </ul>

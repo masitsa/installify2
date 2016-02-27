@@ -12,6 +12,3 @@
         <?php echo $this->load->view('home/ready', '', TRUE); ?>
         <?php echo $this->load->view('site/includes/footer', '', TRUE); ?>
 	</div>
-
-<script src="https://apis.google.com/js/api:client.js"></script>
-<script src="<?php echo base_url()."assets/themes/custom/";?>js/google.js"></script>

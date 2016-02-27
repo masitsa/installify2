@@ -13,7 +13,7 @@
             	<div id="expiry_year"></div>
             </div>
         	<div class="col m2 offset-m10">
-                <a href="#new_banner" class="btn blue modal-trigger"><i class="fa fa-plus"></i> New banner</a>
+                <a href="#new_banner" class="btn grey lighten-1 modal-trigger"><i class="fa fa-plus"></i> New banner</a>
             </div>
             
         	<div class="col m12">
@@ -53,12 +53,12 @@
                         if($smart_banner_status == 1)
                         {
                             $status = 'Active';
-							$button = '<a href="'.site_url().'banner-deactivation/"'.$smart_banner_id.'" class="btn btn blue">Deactivate</a>';
+							$button = '<a href="'.site_url().'banner-deactivation/"'.$smart_banner_id.'" class="btn grey lighten-1">Deactivate</a>';
                         }
                         else
                         {
                             $status = 'Disabled';
-							$button = '<a href="'.site_url().'banner-activation/"'.$smart_banner_id.'" class="btn btn blue">Aactivate</a>';
+							$button = '<a href="'.site_url().'banner-activation/"'.$smart_banner_id.'" class="btn grey lighten-1">Aactivate</a>';
                         }
 						
 						if($banner_installed == 1)
@@ -79,7 +79,8 @@
                             <td><?php echo $installed;?></td>
                             <td><?php echo $clicks.'/'.$clicks;?></td>
                             <td><?php echo $button;?></td>
-                            <td><a href="<?php echo site_url().'subscribe"';?>" class="btn btn blue">Upgrade</a></td>
+                            <td><a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1">Upgrade</a></td>
+                            <td><a href="<?php echo site_url().'banner/'.$website_name;?>" class="btn grey lighten-1">Edit</a></td>
                         </tr>
                         <?php
                     }

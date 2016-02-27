@@ -91,6 +91,7 @@ class Plans extends admin
 	{
 		//form validation rules
 		$this->form_validation->set_rules('plan_name', 'Plan Name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('maximum_clicks', 'Maximum clicks', 'trim|xss_clean');
 		$this->form_validation->set_rules('plan_status', 'Status', 'required|xss_clean');
 		$this->form_validation->set_rules('plan_description', 'Description', 'required|xss_clean');
 		$this->form_validation->set_rules('plan_amount', 'Amount', 'trim|numeric|xss_clean');
@@ -129,6 +130,7 @@ class Plans extends admin
 	{
 		//form validation rules
 		$this->form_validation->set_rules('plan_name', 'Plan Name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('maximum_clicks', 'Maximum clicks', 'trim|xss_clean');
 		$this->form_validation->set_rules('plan_status', 'Status', 'required|xss_clean');
 		$this->form_validation->set_rules('plan_description', 'Description', 'required|xss_clean');
 		$this->form_validation->set_rules('plan_amount', 'Amount', 'trim|numeric|xss_clean');

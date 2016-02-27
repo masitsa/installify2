@@ -193,216 +193,214 @@ $( document ).ready(function() {
                 </div>
                 
                 <div class="col l6 m12">
-                	<div class="row">
-                    	<form class="form-horizontal sidebar_form" id="banner_form" action="<?php echo site_url('site/account/update_banner/'.$smart_banner_id);?>" method="POST">
-                            <ul class="tabs">
-                                <li class="tab col s4"><a class="active" href="#setup">Setup</a></li>
-                                <li class="tab col s4"><a href="#appearance">Appearance</a></li>
-                                <li class="tab col s4"><a href="#store">Store</a></li>
-                            </ul>
-                            <div id="setup" class="col s12">
-                                <div class="row">
-                                    <h5 class="header center-align">General setup</h5>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="title" name="title" value="<?php echo $title;?>">
-                                        <label for="title">Title <span class="required">*</span></label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="author" name="author" value="<?php echo $author;?>">
-                                        <label for="title">Author <span class="required">*</span></label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="price" name="price" value="<?php echo $price;?>">
-                                        <label for="title">Price <span class="required">*</span></label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="url" name="url" value="<?php echo $smart_banner_website;?>">
-                                        <label for="title">URL <span class="required">*</span></label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="icon_url" name="icon_url" value="<?php echo $icon_url;?>">
-                                        <label for="title">Icon url (57px X 57px)<span class="required">*</span></label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="speed_in" name="speed_in" value="<?php echo $speed_in;?>">
-                                        <label for="title">Speed in</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <label for="title">Speed out</label>
-                                        <input type="text"  id="speed_out" name="speed_out" value="<?php echo $speed_out;?>">
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="days_hidden" name="days_hidden" value="<?php echo $days_hidden;?>">
-                                        <label for="title">Days hidden after close</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="days_reminder" name="days_reminder" value="<?php echo $days_reminder;?>">
-                                        <label for="title">Days hidden after view</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text"  id="button_text" name="button_text" value="<?php echo $button_text;?>">
-                                        <label for="title">Button text</label>
-                                    </div>
+                    <form class="form-horizontal sidebar_form" id="banner_form" action="<?php echo site_url('site/account/update_banner/'.$smart_banner_id);?>" method="POST">
+                        <ul class="tabs">
+                            <li class="tab col s4"><a class="active" href="#setup">Setup</a></li>
+                            <li class="tab col s4"><a href="#appearance">Appearance</a></li>
+                            <li class="tab col s4"><a href="#store">Store</a></li>
+                        </ul>
+                        <div id="setup" class="col s12">
+                            <div class="row">
+                                <h5 class="header center-align">General setup</h5>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="title" name="title" value="<?php echo $title;?>">
+                                    <label for="title">Title <span class="required">*</span></label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="author" name="author" value="<?php echo $author;?>">
+                                    <label for="title">Author <span class="required">*</span></label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="price" name="price" value="<?php echo $price;?>">
+                                    <label for="title">Price <span class="required">*</span></label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="url" name="url" value="<?php echo $smart_banner_website;?>">
+                                    <label for="title">URL <span class="required">*</span></label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="icon_url" name="icon_url" value="<?php echo $icon_url;?>">
+                                    <label for="title">Icon url (57px X 57px)<span class="required">*</span></label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="speed_in" name="speed_in" value="<?php echo $speed_in;?>">
+                                    <label for="title">Speed in</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <label for="title">Speed out</label>
+                                    <input type="text"  id="speed_out" name="speed_out" value="<?php echo $speed_out;?>">
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="days_hidden" name="days_hidden" value="<?php echo $days_hidden;?>">
+                                    <label for="title">Days hidden after close</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="days_reminder" name="days_reminder" value="<?php echo $days_reminder;?>">
+                                    <label for="title">Days hidden after view</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text"  id="button_text" name="button_text" value="<?php echo $button_text;?>">
+                                    <label for="title">Button text</label>
                                 </div>
                             </div>
-                            
-                            <div id="appearance" class="col s12">
-                                <div class="row">
-                                    <h5 class="header center-align">Edit appearance</h5>
-                                	<div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="top_gradient_color" name="top_gradient_color" value="<?php echo $top_gradient_color;?>">
-                                        <label>Top gradient color</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="bottom_gradient_color" name="bottom_gradient_color" value="<?php echo $bottom_gradient_color;?>">
-                                        <label>Bottom gradient color</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="top_border_color" name="top_border_color" value="<?php echo $top_border_color;?>">
-                                        <label>Top border color</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="text_color" name="text_color" value="<?php echo $text_color;?>">
-                                        <label>Text color</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="button_color" name="button_color" value="<?php echo $button_color;?>">
-                                        <label>Button color</label>
-                                    </div>
-                                    <div class="input-field col m6">
-                                        <input type="text" class="jscolor" id="button_text_color" name="button_text_color" value="<?php echo $button_text_color;?>">
-                                        <label>Button text color</label>
-                                    </div>
+                        </div>
+                        
+                        <div id="appearance" class="col s12">
+                            <div class="row">
+                                <h5 class="header center-align">Edit appearance</h5>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="top_gradient_color" name="top_gradient_color" value="<?php echo $top_gradient_color;?>">
+                                    <label>Top gradient color</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="bottom_gradient_color" name="bottom_gradient_color" value="<?php echo $bottom_gradient_color;?>">
+                                    <label>Bottom gradient color</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="top_border_color" name="top_border_color" value="<?php echo $top_border_color;?>">
+                                    <label>Top border color</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="text_color" name="text_color" value="<?php echo $text_color;?>">
+                                    <label>Text color</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="button_color" name="button_color" value="<?php echo $button_color;?>">
+                                    <label>Button color</label>
+                                </div>
+                                <div class="input-field col m6">
+                                    <input type="text" class="jscolor" id="button_text_color" name="button_text_color" value="<?php echo $button_text_color;?>">
+                                    <label>Button text color</label>
                                 </div>
                             </div>
-                            
-                            <div id="store" class="col s12">
-                                <div class="row">
-                                    <h5 class="header center-align">IOS</h5>
-                                    <div class="input-field col s12">
-                                        <input type="text"  id="ios_icon_gloss" name="ios_icon_gloss" value="<?php echo $ios_icon_gloss;?>">
-                                        <label for="title">IOS icon gloss (57px X 57px)</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input type="text"  id="app_store_lang" name="app_store_lang" value="<?php echo $app_store_lang;?>">
-                                        <label for="title">App Store price text</label>
-                                    </div>
+                        </div>
+                        
+                        <div id="store" class="col s12">
+                            <div class="row">
+                                <h5 class="header center-align">IOS</h5>
+                                <div class="input-field col s12">
+                                    <input type="text"  id="ios_icon_gloss" name="ios_icon_gloss" value="<?php echo $ios_icon_gloss;?>">
+                                    <label for="title">IOS icon gloss (57px X 57px)</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text"  id="app_store_lang" name="app_store_lang" value="<?php echo $app_store_lang;?>">
+                                    <label for="title">App Store price text</label>
+                                </div>
+                                
+                                <h5 class="header center-align">Android</h5>
+                                <div class="input-field col s12">
+                                    <input type="text"  id="play_store_lang" name="play_store_lang" value="<?php echo $play_store_lang;?>">
+                                    <label for="title">Google Play Store price text</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input type="text"  id="play_store_params" name="play_store_params" value="<?php echo $play_store_params;?>">
+                                    <label for="title">Google Play Store params</label>
+                                </div>
+                                
+                                <h5 class="header center-align">Windows</h5>
+                                <div class="input-field col s12">
+                                    <input type="text"  id="windows_store_lang" name="windows_store_lang" value="<?php echo $windows_store_lang;?>">
+                                    <label for="title">Windows Store price text</label>
                                     
-                                    <h5 class="header center-align">Android</h5>
-                                    <div class="input-field col s12">
-                                        <input type="text"  id="play_store_lang" name="play_store_lang" value="<?php echo $play_store_lang;?>">
-                                        <label for="title">Google Play Store price text</label>
+                                <!--
+                                <div class="input-field col s12">
+                                    <label for="title">Amazon Appstore price text</label>
+                                    <input type="text"  id="amazon_store_lang" placeholder="Amazon Appstore price text" value="<?php echo $amazon_store_lang;?>">
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title">App store language</label>
+                                    <input type="text"  id="language" placeholder="App store language" value="<?php echo $language;?>">
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title" class="col-sm-12">Auto scale</label>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="auto_scale" id="auto_scale" value="auto">
+                                            Yes
+                                        </label>
                                     </div>
-                                    <div class="input-field col s12">
-                                        <input type="text"  id="play_store_params" name="play_store_params" value="<?php echo $play_store_params;?>">
-                                        <label for="title">Google Play Store params</label>
-                                    </div>
-                                    
-                                    <h5 class="header center-align">Windows</h5>
-                                    <div class="input-field col s12">
-                                        <input type="text"  id="windows_store_lang" name="windows_store_lang" value="<?php echo $windows_store_lang;?>">
-                                        <label for="title">Windows Store price text</label>
-                                        
-                                    <!--
-                                    <div class="input-field col s12">
-                                        <label for="title">Amazon Appstore price text</label>
-                                        <input type="text"  id="amazon_store_lang" placeholder="Amazon Appstore price text" value="<?php echo $amazon_store_lang;?>">
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title">App store language</label>
-                                        <input type="text"  id="language" placeholder="App store language" value="<?php echo $language;?>">
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title" class="col-sm-12">Auto scale</label>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="auto_scale" id="auto_scale" value="auto">
-                                                Yes
-                                            </label>
-                                        </div>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="auto_scale" id="auto_scale2" value="1">
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title" class="col-sm-12">Force display</label>
-                                        <div class="radio col-sm-12">
-                                            <select id="force_display" >
-                                                <option value="">None</option>
-                                                <option value="ios">IOS</option>
-                                                <option value="android">Android</option>
-                                                <option value="Windows">Windows</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title" class="col-sm-12">Hide after install</label>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="hide_on_install" id="hide_on_install" value="true" checked="checked">
-                                                Yes
-                                            </label>
-                                        </div>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="hide_on_install" id="hide_on_install2" value="false">
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title" class="col-sm-12">Overlay layer</label>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="overlay_layer" id="overlay_layer" value="true">
-                                                Yes
-                                            </label>
-                                        </div>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="overlay_layer" id="overlay_layer2" value="false" checked="checked">
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title" class="col-sm-12">IOS Universall app</label>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="ios_universall_app" id="ios_universall_app" value="true" checked="checked">
-                                                Yes
-                                            </label>
-                                        </div>
-                                        <div class="radio col-sm-6">
-                                            <label>
-                                                <input type="radio" name="ios_universall_app" id="ios_universall_app2" value="false">
-                                                No
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title">Append to selector</label>
-                                        <input type="text"  id="append_to_selector" placeholder="Append to selector">
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title">On install message</label>
-                                        <input type="text"  id="install_message" placeholder="On install message">
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <label for="title">On close message</label>
-                                        <input type="text"  id="close_message" placeholder="On close message">
-                                    </div>-->
-                                    
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="auto_scale" id="auto_scale2" value="1">
+                                            No
+                                        </label>
                                     </div>
                                 </div>
+                                <div class="input-field col s12">
+                                    <label for="title" class="col-sm-12">Force display</label>
+                                    <div class="radio col-sm-12">
+                                        <select id="force_display" >
+                                            <option value="">None</option>
+                                            <option value="ios">IOS</option>
+                                            <option value="android">Android</option>
+                                            <option value="Windows">Windows</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title" class="col-sm-12">Hide after install</label>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="hide_on_install" id="hide_on_install" value="true" checked="checked">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="hide_on_install" id="hide_on_install2" value="false">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title" class="col-sm-12">Overlay layer</label>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="overlay_layer" id="overlay_layer" value="true">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="overlay_layer" id="overlay_layer2" value="false" checked="checked">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title" class="col-sm-12">IOS Universall app</label>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="ios_universall_app" id="ios_universall_app" value="true" checked="checked">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="radio col-sm-6">
+                                        <label>
+                                            <input type="radio" name="ios_universall_app" id="ios_universall_app2" value="false">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title">Append to selector</label>
+                                    <input type="text"  id="append_to_selector" placeholder="Append to selector">
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title">On install message</label>
+                                    <input type="text"  id="install_message" placeholder="On install message">
+                                </div>
+                                <div class="input-field col s12">
+                                    <label for="title">On close message</label>
+                                    <input type="text"  id="close_message" placeholder="On close message">
+                                </div>-->
+                                
+                                </div>
                             </div>
-                            <input type="hidden" value="smartbanner_display" id="append_to_selector" />
-                            <button type="submit" class="btn blue">Update</button>
-                        </form>
-                    </div>
+                        </div>
+                        <input type="hidden" value="smartbanner_display" id="append_to_selector" />
+                        <button type="submit" class="btn blue">Update</button>
+                    </form>
                 </div>
             </div>
 <script src="<?php echo base_url().'assets/themes/jquery.smartbanner/';?>jquery.smartbanner-account.js"></script>
