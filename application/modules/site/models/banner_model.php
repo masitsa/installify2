@@ -56,7 +56,15 @@ class Banner_model extends CI_Model
 	*/
 	public function add_banner($customer_id)
 	{
-		$this->db->where('smart_banner_website', $this->input->post('website'));
+		
+
+		$phrase  = $this->input->post('website');
+		$healthy = array("http://", "https://", "www.");
+		$yummy   = array("", "", "");
+
+		$website = str_replace($healthy, $yummy, $phrase);
+
+		$this->db->where('smart_banner_website', $website);
 		$query = $this->db->get('smart_banner');
 		if($query->num_rows() > 0)
 		{
@@ -68,7 +76,7 @@ class Banner_model extends CI_Model
 			$data = array(
 				'smart_banner_created' => date('Y-m-d H:i:s'),
 				'customer_id' => $customer_id,
-				'smart_banner_website' => $this->input->post('website'),
+				'smart_banner_website' => $website,
 				'url' => $this->input->post('url'),
 				'icon_url' => $this->input->post('icon_url'),
 				'title' => $this->input->post('title'),

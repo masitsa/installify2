@@ -43,6 +43,12 @@ nav{box-shadow:none;}
 header, .home-header, nav, .footer-copyright, footer.page-footer, nav a.btn, .ready .get-installs, .learn_more, .installify-blue,nav.navigation-sidebar, .side-nav, .blue, .pagination li.active{
 	background-color:#041c2c !important; color:#fff;
 }
+
+.nav-wrapper .get-installs-header
+{
+	background-color:#041c2c !important; color:#fff;
+	line-height: 0px;
+}
 nav a.btn, .learn_more, .learn_more:visited{
 	text-transform:capitalize;
 	border:#fff solid 1px;
@@ -64,9 +70,12 @@ a.button-collapse{font-size:2em; position:fixed;}
 }
 
 .get-installs{width:100%;}
+.get-installs-header{width:80%; margin-top: 0px;}
 .install-form{background-color: #FFF;padding: 2px;}
 .get-installs button{width:28%;box-shadow:none !important; float:right;height: 45px; background-color:#041C2C !important; text-transform:capitalize;}
 .get-installs input[type="text"] {background-color: #FFF; width:68%; margin-bottom:0 !important; border-bottom:none;margin-left: 30px; color:#041c2c;}
+.get-installs-header button{width:28%;box-shadow:none !important; float:right;height: 44px; background-color:#041C2C !important; text-transform:capitalize;}
+.get-installs-header input[type="text"] {background-color: #FFF; width:68%; margin-bottom:0 !important; border-bottom:none;margin-left: 30px; color:#041c2c;}
 
 .home-header ::-webkit-input-placeholder, .home-header :-moz-placeholder, .home-header ::-moz-placeholder, .home-header :-ms-input-placeholder {
    color: #041C2C;
@@ -1395,8 +1404,16 @@ html .panel .panel-heading-transparent + .panel-body {
 	border-radius: 5px;
 	padding: 2.15em 2.33em;
 }
+.get-installs-header{
+	background-color: rgba(255, 255, 255, 0.15);
+	
+	width: 80%;
+	border-radius: 5px;
+    padding: 0.4em 0.1em;
+}
 /*.header-signup{margin: 2em -2.33em 1em;}*/
-.footer-signup{margin-top: 2em;}
+/*.header-signup{margin-top: 0em;}*/
+.footer-signup{margin-top: 4em;}
 .button--tamaya::before, .button--tamaya::after, .button--tamaya > span {text-transform: capitalize;}
 footer.page-footer{margin-top:0;}
 .page-footer ul li{float:left; padding-right: 20px;}
@@ -1998,7 +2015,7 @@ ul.portfolio-list li span:first-child {
 }
 .section,
 .paper {
-  padding-top: 10px;
+  padding-top: 70px;
   padding-bottom: 95px;
   position: relative;
   background-color: #FFF;
@@ -4079,3 +4096,22 @@ ol li{margin-bottom:15px; list-style:none;}
 .entry-content p{text-align:justify;}
 smartbanner_display{background-image:url(../../../img/iphone2.png);}
 .banner-height{height: 512px;}
+
+
+/*header css*/
+.header-blog
+{
+ position: fixed;
+ width: 100%;
+ z-index: 99999;
+}
+
+
+.header-signup {
+    margin-top: 0em;
+}
+
+
+
+/*social media*/
+

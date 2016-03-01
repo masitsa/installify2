@@ -29,7 +29,10 @@ $(document).on("submit","form#add_new_banner",function(e)
 	e.preventDefault();
 	var base_url = $('#base_url').val();
 	var website = $('input[name="website"]').val();
-	
+	var res = website.replace("http://", '');
+	var res2 = res.replace("https://", '');
+	var website = res2.replace("www.", '');
+
 	var formData = new FormData(this);
 	
 	$.ajax({
@@ -65,6 +68,7 @@ $(document).on("submit","form#add_new_banner",function(e)
 		}
 	});
 	return false;
+	window.location.href = base_url+'banner/'+website;
 });
 /* End add new card */
 

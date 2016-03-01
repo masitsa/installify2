@@ -1,4 +1,4 @@
-<?php echo $this->load->view('includes/navigation', '', TRUE); ?>
+<?php echo $this->load->view('includes/blog_navigation', '', TRUE); ?>
 
 <?php
 
@@ -136,7 +136,40 @@
                             <p>'.$mini_desc.' <a href="'.site_url().'blog/view-single/'.$web_name.'">[...]</a> </p>
                         </div><!--/.entry-content-->
                         <div class="entry-bottom">
+
                             <ul class="list-inline entry-meta">
+                            	<li class="pull-left hidden-xs hidden-md hidden-mobile">
+                            	<div data-easyshare data-easyshare-url="'.site_url().'blog/view-single/'.$web_name.'">
+									  <!-- Total -->
+									  <button data-easyshare-button="total">
+									    <span>Total</span>
+									  </button>
+									  <span data-easyshare-total-count>0</span>
+
+									  <!-- Facebook -->
+									  <button data-easyshare-button="facebook">
+									    <span class="fa fa-facebook"></span>
+									    <span>Share</span>
+									  </button>
+									  <span data-easyshare-button-count="facebook">0</span>
+
+									  <!-- Twitter -->
+									  <button data-easyshare-button="twitter" data-easyshare-tweet-text="'.$post_title.'">
+									    <span class="fa fa-twitter"></span>
+									    <span>Tweet</span>
+									  </button>
+									  <span data-easyshare-button-count="twitter">0</span>
+
+									  <!-- Google+ -->
+									  <button data-easyshare-button="google">
+									    <span class="fa fa-google-plus"></span>
+									    <span>+1</span>
+									  </button>
+									  <span data-easyshare-button-count="google">0</span>
+
+									  <div data-easyshare-loader>Loading...</div>
+									</div>
+                            	</li>
                                 <li class="pull-right hidden-xs hidden-md hidden-mobile"><a href="'.site_url().'blog/'.$web_name.'" title="" class="btn blue white-text">Read More</a></li>
                             </ul><!--/.entry-meta-->
                         </div><!--/.entry-bottom-->

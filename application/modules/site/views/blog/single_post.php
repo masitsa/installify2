@@ -1,4 +1,4 @@
-<?php echo $this->load->view('includes/navigation', '', TRUE); ?>
+<?php echo $this->load->view('includes/blog_navigation', '', TRUE); ?>
 
 <?php
 
@@ -144,10 +144,41 @@ $count = 0;
                         </div><!--/.entry-top-->
                         <div class="entry-media">
                             <a href="#" title=""><img src="<?php echo $image;?>" alt="" class="img-responsive"></a>
+
                         </div><!--/.entry-media-->
                         
                         <div class="entry-content">
                             <p><?php echo $description;?>  </p>
+                             <div data-easyshare data-easyshare-url="<?php echo site_url()?>blog/view-single/<?php echo $web_name;?>">
+                                  <!-- Total -->
+                                  <button data-easyshare-button="total">
+                                    <span>Total</span>
+                                  </button>
+                                  <span data-easyshare-total-count>0</span>
+
+                                  <!-- Facebook -->
+                                  <button data-easyshare-button="facebook">
+                                    <span class="fa fa-facebook"></span>
+                                    <span>Share</span>
+                                  </button>
+                                  <span data-easyshare-button-count="facebook">0</span>
+
+                                  <!-- Twitter -->
+                                  <button data-easyshare-button="twitter" data-easyshare-tweet-text="<?php echo $post_title;?>">
+                                    <span class="fa fa-twitter"></span>
+                                    <span>Tweet</span>
+                                  </button>
+                                  <span data-easyshare-button-count="twitter">0</span>
+
+                                  <!-- Google+ -->
+                                  <button data-easyshare-button="google">
+                                    <span class="fa fa-google-plus"></span>
+                                    <span>+1</span>
+                                  </button>
+                                  <span data-easyshare-button-count="google">0</span>
+
+                                  <div data-easyshare-loader>Loading...</div>
+                                </div>
                         </div><!--/.entry-content-->
                         <div class="entry-bottom">
                             <ul class="list-inline entry-meta text-center">
