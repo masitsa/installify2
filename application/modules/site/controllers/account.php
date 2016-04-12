@@ -640,4 +640,67 @@ class Account extends site {
 		
 		$this->load->view('templates/account', $data);
 	}
+
+	/*
+	*
+	*	Default action is to show all the orders
+	*
+	*/
+	public function clicks() 
+	{
+		// $where = 'orders.order_status = order_status.order_status_id AND users.user_id = orders.user_id';
+		// $table = 'orders, order_status, users';
+		$where = 'customer.customer_api_key = click.customer_api_key AND customer.customer_id = '.$this->session->userdata('customer_id');
+		$table = 'click, customer';
+		$orders_search = $this->session->userdata('orders_search');
+		
+		if(!empty($orders_search))
+		{
+			$where .= $orders_search;
+		}
+		$segment = 3;
+		//pagination
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'clicks';
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = 2;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = '<i class="material-icons">chevron_right</i>';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = '<i class="material-icons">chevron_left</i>';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active"><a href="#!">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $data["links"] = $this->pagination->create_links();
+		$query = $this->orders_model->get_all_clicks($table, $where, $config["per_page"], $page);
+		
+		$v_data['clicks'] = $query;
+		// $v_data['order_status_query'] = $this->orders_model->get_order_status();
+		$v_data['page'] = $page;
+		$data['content'] = $this->load->view('user/clicks', $v_data, true);
+		$data['title'] = 'Invoices';
+		
+		$this->load->view('templates/account', $data);
+	}
 }

@@ -80,6 +80,7 @@ $route['delete-banner/(:num)'] = 'site/account/delete_banner/$1';
 
 $route['subscribe'] = 'site/account/subscribe';
 $route['invoices'] = 'site/account/invoices';
+$route['clicks'] = 'site/account/clicks';
 $route['add-subscription/(:num)'] = 'site/account/add_subscription/$1';
 
 $route['check-customer/(:num)'] = 'site/account/check_stripe_customer/$1';
