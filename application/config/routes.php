@@ -65,8 +65,9 @@ $route['sign-out'] = 'site/sign_out';
 */
 $route['my-account'] = 'site/account/my_account';
 $route['banners'] = 'site/account/banners';
+$route['summary'] = 'site/account/banners';
 $route['banner'] = 'site/account/banner';
-$route['banner/(:any)'] = 'site/account/banner/$1';
+$route['banner/(:num)'] = 'site/account/banner/$1';
 
 $route['cards'] = 'site/account/cards';
 $route['set-default-card/(:num)'] = 'site/account/set_default_card/$1';
@@ -75,9 +76,10 @@ $route['activate-banner/(:any)'] = 'site/account/activate_banner/$1';
 $route['deactivate-banner/(:any)'] = 'site/account/deactivate_banner/$1';
 $route['banner-activation/(:any)'] = 'site/account/activate_banner2/$1';
 $route['banner-deactivation/(:any)'] = 'site/account/deactivate_banner2/$1';
-$route['delete-banner/(:any)'] = 'site/account/delete_banner/$1';
+$route['delete-banner/(:num)'] = 'site/account/delete_banner/$1';
 
 $route['subscribe'] = 'site/account/subscribe';
+$route['invoices'] = 'site/account/invoices';
 $route['add-subscription/(:num)'] = 'site/account/add_subscription/$1';
 
 $route['check-customer/(:num)'] = 'site/account/check_stripe_customer/$1';
@@ -88,6 +90,7 @@ $route['clicks'] = 'site/account/clicks';
 *	API
 */
 $route['generate-banner/(:any)'] = 'site/generate_banner/$1';
+$route['administration/contacts'] = 'admin/contacts/show_contacts';
 
 /*
 *	Admin Blog Routes

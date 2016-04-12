@@ -89,7 +89,7 @@
             var iconURL
               , link=(this.options.url ? this.options.url : (this.type == 'windows' ? 'ms-windows-store:navigate?appid=' : (this.type == 'android' ? 'market://details?id=' : (this.type == 'kindle' ? 'amzn://apps/android?asin=' : 'https://itunes.apple.com/' + this.options.appStoreLanguage + '/app/id'))) + this.appId)
               , price = this.price || this.options.price
-              , inStore=price ? price + ' - ' + (this.type == 'android' ? this.options.inGooglePlay : this.type == 'kindle' ? this.options.inAmazonAppStore : this.type == 'ios' ? this.options.inAppStore : this.options.inWindowsStore) : ''
+              , inStore=price ? price : ''
               , gloss=this.options.iconGloss === null ? (this.type=='ios') : this.options.iconGloss
 
             if (this.type == 'android' && this.options.GooglePlayParams) {
@@ -256,10 +256,14 @@
         author: null, // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
         price: 'FREE', // Price of the app
         appStoreLanguage: 'us', // Language code for App Store
-        inAppStore: 'On the App Store', // Text of price for iOS
+        /*inAppStore: 'On the App Store', // Text of price for iOS
         inGooglePlay: 'In Google Play', // Text of price for Android
         inAmazonAppStore: 'In the Amazon Appstore',
-        inWindowsStore: 'In the Windows Store', //Text of price for Windows
+        inWindowsStore: 'In the Windows Store', //Text of price for Windows*/
+		inAppStore: '', // Text of price for iOS
+        inGooglePlay: '', // Text of price for Android
+        inAmazonAppStore: '',
+        inWindowsStore: '', //Text of price for Windows
         GooglePlayParams: null, // Aditional parameters for the market
         icon: null, // The URL of the icon (defaults to <meta name="apple-touch-icon">)
         iconGloss: null, // Force gloss effect for iOS even for precomposed

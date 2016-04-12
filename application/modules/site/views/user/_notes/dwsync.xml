@@ -25,4 +25,9 @@
 <file name="subscription.php" server="nairobisingles.com/public_html/installify/" local="130998311050831586" remote="130997952600000000" Dst="0" />
 <file name="wishlist.php" server="nairobisingles.com/public_html/installify/" local="130520566780000000" remote="130993090800000000" Dst="0" />
 <file name="banners.php" server="nairobisingles.com/public_html/installify/" local="130996780774070782" remote="130996420800000000" Dst="0" />
+<file name="invoice.php" server="46.101.35.63//var/www/html/" local="131036198662304786" remote="131035946400000000" Dst="0" />
+<file name="subscription.php" server="46.101.35.63//var/www/html/" local="131036541643725683" remote="131036289600000000" Dst="0" />
+<file name="smartbanner.php" server="46.101.35.63//var/www/html/" local="131044164249301102" remote="131043912600000000" Dst="0" />
+<file name="banners.php" server="46.101.35.63//var/www/html/" local="131045840262096995" remote="131045588400000000" Dst="0" />
+<file name="invoices.php" server="46.101.35.63//var/www/html/" local="131036551262837266" remote="131036302800000000" Dst="0" />
 </dwsync>

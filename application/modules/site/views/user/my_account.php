@@ -1,4 +1,4 @@
-<h3 class="header center-align">Dashboard</h3>
+<h3 class="header center-align">Statistics</h3>
 
 <?php echo $this->load->view('user/dashboard/summary', '', TRUE);?>
 <!-- Today status ends -->

@@ -9,10 +9,12 @@ class Account extends site {
 		parent:: __construct();
 		
 		$this->load->model('auth_model');
+		$this->load->model('orders_model');
 		$this->load->model('banner_model');
 		$this->load->model('subscription_model');
 		$this->load->model('stripe_model');
 		$this->load->model('reports_model');
+		$this->load->model('admin/users_model');
 		
 		//user has logged in
 		if($this->auth_model->check_login())
@@ -24,7 +26,7 @@ class Account extends site {
 		{
 			$this->session->set_userdata('error_message', 'Please sign in to continue');
 				
-			redirect('sign-in');
+			redirect('home');
 		}
 	}
     
@@ -58,20 +60,28 @@ class Account extends site {
 	*	Open the account page
 	*
 	*/
-	public function banner($website = NULL)
+	public function banner($smart_banner_id = NULL)
 	{
-		if($website == NULL)
+		if($smart_banner_id == NULL)
 		{
 			$v_data['latest_banner'] = $this->banner_model->get_latest_banner($this->session->userdata('customer_id'));
 		}
 		else
 		{
-			$v_data['latest_banner'] = $this->banner_model->get_banner($this->session->userdata('customer_id'), $website);
+			$v_data['latest_banner'] = $this->banner_model->get_banner($this->session->userdata('customer_id'), $smart_banner_id);
+		}
+		if($v_data['latest_banner']->num_rows() > 0)
+		{
+			$row = $v_data['latest_banner']->row();
+			$data['website'] = $row->smart_banner_website;
 		}
 		
+		else
+		{
+			$data['website'] = '';
+		}
 		$data['content'] = $this->load->view('user/smartbanner', $v_data, true);
 		
-		$data['website'] = $website;
 		$data['title'] = 'Edit '.$this->site_model->display_page_title();
 		$this->load->view('templates/account', $data);
 	}
@@ -86,7 +96,7 @@ class Account extends site {
 		$v_data['plans'] = $this->subscription_model->get_all_plans();
 		$v_data['subscriptions'] = $this->subscription_model->get_subscriptions($this->session->userdata('customer_id'));
 		$v_data['active_subscription'] = $this->subscription_model->get_active_subscription($this->session->userdata('customer_id'));
-		$v_data['subscription_payments'] = $this->subscription_model->get_subscription_payments($this->session->userdata('customer_id'));
+		$v_data['invoices'] = $this->orders_model->get_invoices($this->session->userdata('customer_id'));
 		
 		$data['content'] = $this->load->view('user/subscription', $v_data, true);
 		
@@ -229,11 +239,11 @@ class Account extends site {
 	{
 		//form validation rules
 		$this->form_validation->set_rules('website', 'Website', 'required|xss_clean');
-		$this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
+		/*$this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
 		$this->form_validation->set_rules('author', 'Author', 'required|xss_clean');
 		$this->form_validation->set_rules('price', 'Price', 'required|xss_clean');
 		$this->form_validation->set_rules('icon_url', 'Icon URL', 'xss_clean');
-		$this->form_validation->set_rules('url', 'URL', 'required|xss_clean');
+		$this->form_validation->set_rules('url', 'App Store URL', 'required|xss_clean');*/
 		
 		//if form data is invalid
 		if ($this->form_validation->run() == FALSE)
@@ -244,8 +254,18 @@ class Account extends site {
 		
 		else
 		{
-			//Add banner
-			$return = $this->banner_model->add_banner($this->session->userdata('customer_id'));
+			//Add banner`
+			$url  = $this->input->post('website');
+			if($this->site_model->valid_url($url))
+			{
+				$return = $this->banner_model->add_banner($this->session->userdata('customer_id'), $this->session->userdata('customer_api_key'));
+			}
+			
+			else
+			{
+				$return['message'] = FALSE;
+				$return['response'] = 'Please enter a valid URL';
+			}
 		}
 		
 		echo json_encode($return);
@@ -254,11 +274,11 @@ class Account extends site {
 	function update_banner($smart_banner_id)
 	{
 		//form validation rules
-		$this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
-		$this->form_validation->set_rules('author', 'Author', 'required|xss_clean');
-		$this->form_validation->set_rules('price', 'Price', 'required|xss_clean');
-		$this->form_validation->set_rules('icon_url', 'Icon URL', 'required|xss_clean');
-		$this->form_validation->set_rules('url', 'URL', 'required|xss_clean');
+		$this->form_validation->set_rules('title', 'Title', 'xss_clean');
+		$this->form_validation->set_rules('author', 'Author', 'xss_clean');
+		$this->form_validation->set_rules('price', 'Price', 'xss_clean');
+		$this->form_validation->set_rules('icon_url', 'Icon URL', 'xss_clean');
+		$this->form_validation->set_rules('url', 'URL', 'xss_clean');
 		$this->form_validation->set_rules('app_store_lang', 'App Store price text', 'xss_clean');
 		$this->form_validation->set_rules('play_store_lang', 'Google Play Store price text', 'xss_clean');
 		$this->form_validation->set_rules('windows_store_lang', 'Windows Store price text', 'xss_clean');
@@ -349,9 +369,14 @@ class Account extends site {
 				{
 					$row2 = $query2->row();
 					$stripe_subscription_id = $row2->stripe_subscription_id;
+					$old_plan_id = $row2->plan_id;
 					
-					//cancel subscription
-					$return = $this->stripe_model->cancel_subscription($stripe_customer_id, $stripe_subscription_id);
+					//if not free plan
+					if($old_plan_id != 1)
+					{
+						//cancel subscription
+						$return = $this->stripe_model->cancel_subscription($stripe_customer_id, $stripe_subscription_id);
+					}
 					
 					//create a new subscription
 					if($return['message'] == 'true')
@@ -375,6 +400,9 @@ class Account extends site {
 	{
 		//get customer details
 		$query = $this->subscription_model->get_customer(($this->session->userdata('customer_id')));
+		$customer = $this->session->userdata('customer_id');
+		
+		//var_dump($customer);
 		
 		//customer is signed in
 		if($query->num_rows() > 0)
@@ -411,7 +439,7 @@ class Account extends site {
 						if($return)
 						{
 							//update subscription status
-							$this->subscription_model->cancel_subscription($subscription_id);
+							$this->stripe_model->create_subscription($stripe_customer_id, $plan_id);
 						}
 					}
 					//create a new subscription
@@ -424,7 +452,7 @@ class Account extends site {
 				else
 				{
 					//create a new subscription
-					$return = $this->stripe_model->create_subscription($stripe_customer_id, $plan_id);
+					$return = $this->stripe_model->create_subscription($stripe_customer_id, $plan_id);;
 				}
 			}
 		}
@@ -444,9 +472,9 @@ class Account extends site {
 	*	@param int $banner_id
 	*
 	*/
-	public function delete_banner($banner_website)
+	public function delete_banner($smart_banner_id)
 	{
-		if($this->banner_model->delete_banner($banner_website))
+		if($this->banner_model->delete_banner($smart_banner_id))
 		{
 			$this->session->set_userdata('success_message', 'Banner deleted successfully');
 		}
@@ -455,7 +483,7 @@ class Account extends site {
 		{
 			$this->session->set_userdata('error_message', 'Unable to delete banner. Please ensure you have the priviledges to do so then try again');
 		}
-		redirect('my-account');
+		redirect('banners');
 	}
     
 	/*
@@ -548,5 +576,68 @@ class Account extends site {
 		}
 		
 		redirect('banner/'.$banner_website);
+	}
+    
+	/*
+	*
+	*	Default action is to show all the orders
+	*
+	*/
+	public function invoices() 
+	{
+		// $where = 'orders.order_status = order_status.order_status_id AND users.user_id = orders.user_id';
+		// $table = 'orders, order_status, users';
+		$where = 'orders.order_status_id != 4 AND orders.order_status_id = order_status.order_status_id AND customer.customer_id = '.$this->session->userdata('customer_id');
+		$table = 'orders, order_status, customer';
+		$orders_search = $this->session->userdata('orders_search');
+		
+		if(!empty($orders_search))
+		{
+			$where .= $orders_search;
+		}
+		$segment = 3;
+		//pagination
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'invoices';
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = 2;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = '<i class="material-icons">chevron_right</i>';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = '<i class="material-icons">chevron_left</i>';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active"><a href="#!">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $data["links"] = $this->pagination->create_links();
+		$query = $this->orders_model->get_all_orders($table, $where, $config["per_page"], $page);
+		
+		$v_data['invoices'] = $query;
+		$v_data['order_status_query'] = $this->orders_model->get_order_status();
+		$v_data['page'] = $page;
+		$data['content'] = $this->load->view('user/invoices', $v_data, true);
+		$data['title'] = 'Invoices';
+		
+		$this->load->view('templates/account', $data);
 	}
 }

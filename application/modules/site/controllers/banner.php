@@ -27,11 +27,11 @@ class Banner extends MX_Controller
 		$this->load->model('banner_model');
 	}
 	
-	public function get_banner_details($website = NULL)
+	public function get_banner_details($website = NULL, $customer_api_key = NULL)
 	{
-		if($website != NULL)
+		if(($website != NULL) && ($customer_api_key != NULL))
 		{
-			$latest_banner = $this->banner_model->get_website_banner($website);
+			$latest_banner = $this->banner_model->get_website_banner($website, $customer_api_key);
 			
 			if($latest_banner->num_rows() > 0)
 			{
@@ -115,11 +115,11 @@ class Banner extends MX_Controller
 		echo json_encode($return);
 	}
 	
-	public function save_app_views($website)
+	public function save_app_views($website, $customer_api_key)
 	{
 		if($website != NULL)
 		{
-			if($this->banner_model->save_app_views($website))
+			if($this->banner_model->save_app_views($website, $customer_api_key))
 			{
 				$return['result'] = 'true';
 			}

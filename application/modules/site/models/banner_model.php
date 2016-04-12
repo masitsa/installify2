@@ -6,9 +6,9 @@ class Banner_model extends CI_Model
 	*	Add new banner
 	*
 	*/
-	public function save_new_banner($customer_id, $website)
+	public function save_new_banner($customer_id, $website, $customer_api_key = NULL)
 	{
-		if(!empty($website))
+		if(!empty($website) && $customer_api_key != NULL)
 		{
 			//check if website exists
 			$this->db->where('smart_banner_website', $website);
@@ -23,12 +23,14 @@ class Banner_model extends CI_Model
 				$data = array(
 					'smart_banner_created' => date('Y-m-d H:i:s'),
 					'smart_banner_website' => $website,
+					'customer_api_key' => $customer_api_key,
 					'customer_id' => $customer_id
 				);
 				
 				if($this->db->insert('smart_banner', $data))
 				{
 					$return['message'] = TRUE;
+					$return['smart_banner_id'] = $this->db->insert_id();
 				}
 				
 				//in case of registration error
@@ -54,19 +56,19 @@ class Banner_model extends CI_Model
 	*	Add banner
 	*
 	*/
-	public function add_banner($customer_id)
+	public function add_banner($customer_id, $customer_api_key)
 	{
-		
-
-		$phrase  = $this->input->post('website');
+		/*$phrase  = $this->input->post('website');
 		$healthy = array("http://", "https://", "www.");
 		$yummy   = array("", "", "");
 
-		$website = str_replace($healthy, $yummy, $phrase);
+		$website = str_replace($healthy, $yummy, $phrase);*/
+		$website  = $this->input->post('website');
 
-		$this->db->where('smart_banner_website', $website);
-		$query = $this->db->get('smart_banner');
-		if($query->num_rows() > 0)
+		//$this->db->where('smart_banner_website', $website);
+		//$query = $this->db->get('smart_banner');
+		//if($query->num_rows() > 0)
+		if(1 > 2)
 		{
 			$return['message'] = FALSE;
 			$return['response'] = 'Website already registered. Please enter another one';
@@ -77,15 +79,17 @@ class Banner_model extends CI_Model
 				'smart_banner_created' => date('Y-m-d H:i:s'),
 				'customer_id' => $customer_id,
 				'smart_banner_website' => $website,
-				'url' => $this->input->post('url'),
+				'customer_api_key' => $customer_api_key,
+				/*'url' => $this->input->post('url'),
 				'icon_url' => $this->input->post('icon_url'),
 				'title' => $this->input->post('title'),
 				'author' => $this->input->post('author'),
-				'price' => $this->input->post('price')
+				'price' => $this->input->post('price')*/
 			);
 			
 			if($this->db->insert('smart_banner', $data))
 			{
+				$return['smart_banner_id'] = $this->db->insert_id();
 				$return['message'] = 'true';
 				$this->session->set_userdata('success_message', 'Banner created successfully');
 			}
@@ -167,23 +171,23 @@ class Banner_model extends CI_Model
 		return $query;
 	}
 	
-	public function get_banner($customer_id, $website)
+	public function get_banner($customer_id, $smart_banner_id)
 	{
-		$this->db->where(array('customer_id' => $customer_id, 'smart_banner_website' => $website));
+		$this->db->where(array('customer_id' => $customer_id, 'smart_banner_id' => $smart_banner_id));
 		$query = $this->db->get('smart_banner');
 		
 		return $query;
 	}
 	
-	public function get_website_banner($website)
+	public function get_website_banner($website, $customer_api_key)
 	{
-		$this->db->where(array('smart_banner_website' => $website));
+		$this->db->where(array('smart_banner_website' => $website, 'customer_api_key' => $customer_api_key));
 		$query = $this->db->get('smart_banner');
 		
 		return $query;
 	}
 	
-	public function save_app_views($website)
+	public function save_app_views($website, $customer_api_key)
 	{
 		$data['device'] = $this->input->post('device');
 		$data['phone'] = $this->input->post('phone');
@@ -195,6 +199,7 @@ class Banner_model extends CI_Model
 		$data['webkit'] = $this->input->post('webkit');
 		$data['build'] = $this->input->post('build');
 		$data['game_console'] = $this->input->post('game_console');
+		$data['customer_api_key'] = $customer_api_key;
 		$data['website'] = $website;
 		$data['created'] = date('Y-m-d H:i:s');
 		if($this->db->insert('click', $data))
@@ -212,11 +217,11 @@ class Banner_model extends CI_Model
 	*	@param int $banner_id
 	*
 	*/
-	public function delete_banner($smart_banner_website)
+	public function delete_banner($smart_banner_id)
 	{
 		$data = array('banner_delete' => 1);
 		
-		$this->db->where(array('smart_banner_website' => $smart_banner_website, 'customer_id' => $this->session->userdata('customer_id')));
+		$this->db->where(array('smart_banner_id' => $smart_banner_id, 'customer_id' => $this->session->userdata('customer_id')));
 		
 		if($this->db->update('smart_banner', $data))
 		{
@@ -305,6 +310,32 @@ class Banner_model extends CI_Model
 			return 0;
 		}
 	}
+	
+	public function get_banner_clicks($customer_api_key)
+	{
+		$this->db->select('count(click_id) as total_clicks');
+		$this->db->where(array('customer_api_key' => $customer_api_key));
+		$query = $this->db->get('click');
+		
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row();
+			
+			$total_clicks = $result->total_clicks;
+			
+			if(empty($clicks))
+			{
+				$total_clicks = 0;
+			}
+			return $total_clicks;
+		}
+		
+		else
+		{
+			return 0;
+		}
+	}
+	
 	public function activate_banner2($smart_banner_id)
 	{
 		$data = array('smart_banner_status' => 1);
@@ -335,5 +366,48 @@ class Banner_model extends CI_Model
 		{
 			return FALSE;
 		}
+	}
+	
+	public function obfusicate_script($website_name, $customer_api_key)
+	{
+		$base_url = str_replace("http:", "", base_url());
+		$base_url = str_replace("https:", "", $base_url);
+		$jquery = $base_url.'assets/themes/jquery-2.1.4.min.js';
+		
+		$script = 
+		"
+		function banner_generation_start()
+		{
+			try {
+				
+				$.getScript( '".$base_url."assets/themes/custom/js/jquery.cookie.js', function() 
+				{
+					$.getScript( '".$base_url."installify.js', function() 
+					{
+						var generate = new Banner();
+						generate.generate_banner('".$website_name."', '".$customer_api_key."');
+					});
+				});
+			}
+			catch(err) {
+				console.log = err.message;
+				getScript('".$jquery."', function() 
+				{
+					if (typeof jQuery=='undefined') {
+					
+					
+					} else {
+					
+						banner_generation_start();
+					}
+				
+				});
+			}
+		}
+		";
+		$this->load->library('packer/javascriptpacker', $script);
+		$obfusicated = $this->javascriptpacker->pack();
+		
+		return "function getScript(url, success) {var script = document.createElement('script');script.src = url;var head = document.getElementsByTagName('head')[0],done = false;script.onload = script.onreadystatechange = function() {	if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {done = true;				success();script.onload = script.onreadystatechange = null;head.removeChild(script);};};head.appendChild(script);}; window.onload = function() {if (typeof jQuery == 'undefined') 	{getScript('".$jquery."', function() {					if (typeof jQuery=='undefined') {} else {banner_generation_start();}});	} else {banner_generation_start();	};};".$obfusicated;
 	}
 }

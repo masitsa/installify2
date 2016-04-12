@@ -27,6 +27,21 @@ $( document ).ready(function() {
 $(document).on("submit","form#add_new_banner",function(e) 
 {
 	e.preventDefault();
+	$('#add_banner_preloader').html(
+		'<div class="preloader-wrapper active">'+
+    		'<div class="spinner-layer spinner-red-only">'+
+				'<div class="circle-clipper left">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    			'<div class="gap-patch">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    			'<div class="circle-clipper right">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    		'</div>'+
+    	'</div>'
+	);
 	var base_url = $('#base_url').val();
 	var website = $('input[name="website"]').val();
 	var res = website.replace("http://", '');
@@ -47,7 +62,8 @@ $(document).on("submit","form#add_new_banner",function(e)
 			//alert(data.message);
 			if(data.message == "true")
 			{
-				window.location.href = base_url+'banner/'+website;
+				var smart_banner_id = data.smart_banner_id;
+				window.location.href = base_url+'banner/'+smart_banner_id;
 			}
 			else
 			{

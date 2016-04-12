@@ -1,80 +1,66 @@
+<style type="text/css">
+	.receipt_spacing{letter-spacing:0px; font-size: 12px;}
+	.center-align{margin:0 auto; text-align:center;}
+	
+	.receipt_bottom_border{border-bottom: #888888 medium solid;}
+	.row .col-md-12 table {
+		border:solid #000 !important;
+		border-width:1px 0 0 1px !important;
+		font-size:10px;
+	}
+	.row .col-md-12 th, .row .col-md-12 td {
+		border:solid #000 !important;
+		border-width:0 1px 1px 0 !important;
+	}
+	.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td
+	{
+		 padding: 2px;
+	}
+	
+	.title-item{float:left;width: 130px; font-weight:bold; text-align:right; padding-right: 20px;}
+	.title-img{float:left; padding-left:30px;}
+	img.logo{max-height:70px; margin:0 auto;}
+</style>
 <div class="row">
 	<div class="col s12">
         <!-- title -->
         <div class="row">
             <div class="col s12">
-                <h4 class="header center-align">Subscribe</h4>
+                <h4 class="header center-align">Upgrade</h4>
             </div>
         </div>
         <!-- end title -->
         
         <div class="row">
-			<?php
-			//check if customer has subscribed to any plans
-			if($active_subscription->num_rows() > 0)
-			{
-				foreach($active_subscription->result() as $res2)
+        	<div class="col m12">
+            	<?php
+				$subscribed_plan_id = NULL;
+				//check if customer has subscribed to any plans
+				if($active_subscription->num_rows() > 0)
 				{
-					$subscription_id = $res2->subscription_id;
-					$plan_name = $res2->plan_name;
-					?>
-                    
-                    <p class="center-align">You are subscribed to the <span class="header"><?php echo $plan_name;?></span> plan</p>
-					<?php
-				}
-			}
-			
-			//check if customer has subscribed to any plans
-			if($subscriptions->num_rows() > 0)
-			{
-				?>
-				<div class="row">
-					<div class="col m12">
-						<h5 class="header">Payments</h5>
-						<?php
-				foreach($subscriptions->result() as $res2)
-				{
-					$subscription_id = $res2->subscription_id;
-					$plan_name = $res2->plan_name;
-					//display payments
-					if($subscription_payments->num_rows() > 0)
+					foreach($active_subscription->result() as $res2)
 					{
-						$count = 0;
+						$subscription_id = $res2->subscription_id;
+						$subscribed_plan_id = $res2->plan_id;
+						$plan_name = $res2->plan_name;
 						?>
 						
-						<table class="striped">
-							<thead>
-								<tr>
-									<th data-field="id">#</th>
-									<th data-field="name">Date</th>
-									<th data-field="price">Amount USD</th>
-								</tr>
-							</thead>
-							
-							<tbody>
-						<?php
-						foreach($subscriptions->result() as $res3)
-						{
-							$subscription_plan_date = $res3->subscription_plan_date;
-							$subscription_plan_amount = $res3->subscription_plan_amount;
-							$count++
-							?>
-							<tr>
-								<td><?php echo $count;?></td>
-								<td><?php echo date('jS M Y',strtotime($subscription_plan_date));?></td>
-								<td><?php echo $subscription_plan_amount;?></td>
-							</tr>
-							<?php
-						}
-						?>
-								</tbody>
-							</table>
+						<p class="center-align">You are subscribed to the <span class="header"><?php echo $plan_name;?></span> plan</p>
 						<?php
 					}
 				}
 				?>
-					</div>
-					
+            </div>
+        </div>
+        
+        <div class="row">
+			<?php
+			
+			//check if customer has subscribed to any plans
+			if($invoices->num_rows() > 0)
+			{
+				?>
+                
 					<div class="col m12">
 						<h5 class="header">Change plan</h5>
 						<div id="preloader_subscribe"></div>
@@ -92,7 +78,7 @@
 									$plan_description = $res->plan_description;
 									$plan_amount = $res->plan_amount;
 									$class = 'installify-blue';
-									if($count == 2)
+									if($subscribed_plan_id == $plan_id)
 									{
 										$class = 'installify-blue-lighten';
 									}
@@ -101,7 +87,7 @@
 										<div class="card <?php echo $class;?>">
 											<div class="card-content">
 												<span class="card-title"><?php echo $plan_name;?></span>
-												<p class="center-align"><?php echo number_format($plan_amount, 2);?> USD per month</p>
+												<p class="center-align" style="margin-top:10%"><?php echo number_format($plan_amount, 2);?> USD per month</p>
 												<?php echo $plan_description;?>
 											</div>
 											<div class="card-action">
@@ -122,7 +108,6 @@
 			else
 			{
 				?>
-				<p class="center-align">You have not subscribed to any plans. Please select a plan</p>
 				<div id="preloader_subscribe"></div>
 				<div class="row">
 					<?php
@@ -139,7 +124,7 @@
 							$plan_amount = $res->plan_amount;
 							$plan_id = $res->plan_id;
 							$class = 'installify-blue';
-							if($count == 2)
+							if($subscribed_plan_id == $plan_id)
 							{
 								$class = 'installify-blue-lighten';
 							}
@@ -148,7 +133,7 @@
 								<div class="card <?php echo $class;?>">
 									<div class="card-content">
 										<span class="card-title"><?php echo $plan_name;?></span>
-										<p class="center-align"><?php echo number_format($plan_amount, 2);?> USD per month</p>
+										<p class="center-align" style="margin-top:10%"><?php echo number_format($plan_amount, 2);?> USD per month</p>
 										<?php echo $plan_description;?>
 									</div>
 									<div class="card-action">
@@ -183,6 +168,8 @@
                     <input type="text"  name="card_cvc" id="card_cvc" size="4" autocomplete="off">
                     <label for="card_cvc">CVC <span class="required">*</span></label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="input-field col m6">
                     <input type="text"  name="card_expiry_month" id="card_expiry_month" size="2">
                     <label for="card_expiry_month">Expiry month (MM)<span class="required">*</span></label>

@@ -341,14 +341,29 @@ class Site_model extends CI_Model
 	
 	public function valid_url($url)
 	{
-		$pattern = "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
+		/*$pattern = "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
 		//$pattern = "/^((ht|f)tp(s?)\:\/\/|~/|/)?([w]{2}([\w\-]+\.)+([\w]{2,5}))(:[\d]{1,5})?/";
         if (!preg_match($pattern, $url))
 		{
             return FALSE;
         }
  
-        return TRUE;
+        return TRUE;*/
+		
+		$website = explode(".",$url);
+		$total = count($website);
+		$last = $total - 1;
+		$first_check = $website[0];
+		
+		if($first_check != 'www')
+		{
+			if($total == 1)
+			{
+				return FALSE;
+			}
+		}
+		
+		return TRUE;
 	}
 	
 	public function get_days($date)
