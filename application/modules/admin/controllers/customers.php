@@ -21,7 +21,7 @@ class Customers extends admin
 	*/
 	public function index($order = 'customer_first_name', $order_method = 'ASC') 
 	{
-		$where = 'customer_id > 0';
+		$where = 'customer_id > 0 AND customer_delete = 0';
 		$table = 'customer';
 		//pagination
 		$segment = 5;
@@ -268,6 +268,56 @@ class Customers extends admin
 		$this->load->view('templates/general_page', $data);
 	}
     
+    public function user_account($customer_id)
+    {
+    	//form validation rules
+		$this->form_validation->set_rules('customer_discount', 'Discount', 'required|numeric|xss_clean');
+		$this->form_validation->set_message("is_unique", "A unique preffix is requred.");
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			
+			//update customer
+			if($this->customers_model->update_customer($customer_id))
+			{
+				$this->session->set_userdata('success_message', 'Customer updated successfully');
+				redirect('users/customers');
+			}
+			
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not update customer. Please try again');
+			}
+		}
+		
+		//open the add new customer
+		$data['title'] = 'Customer Account';
+		
+		
+		//select the customer from the database
+		$query = $this->customers_model->get_customer($customer_id);
+		
+		if ($query->num_rows() > 0)
+		{
+			$customer = $query->result();
+			$v_data['customer'] = $customer;
+			$first_name = $customer[0]->customer_first_name;
+			$customer_surname = $customer[0]->customer_surname;
+
+			$v_data['title'] = $first_name.' '.$customer_surname.' Account';
+			// $v_data['all_customers'] = $this->customers_model->all_parent_customers();
+			
+			$data['content'] = $this->load->view('customers/customer_account', $v_data, true);
+		}
+		
+		else
+		{
+			$data['content'] = 'Customer does not exist';
+		}
+		
+		$this->load->view('templates/general_page', $data);
+    }
 	/*
 	*
 	*	Delete an existing customer
@@ -282,17 +332,17 @@ class Customers extends admin
 		if ($query->num_rows() > 0)
 		{
 			$result = $query->result();
-			$image = $result[0]->customer_image_name;
+			// $image = $result[0]->customer_image_name;
 			
-			$this->load->model('file_model');
-			//delete image
-			$this->file_model->delete_file($this->customers_path."/images/".$image);
-			//delete thumbnail
-			$this->file_model->delete_file($this->customers_path."/thumbs/".$image);
+			// $this->load->model('file_model');
+			// //delete image
+			// $this->file_model->delete_file($this->customers_path."/images/".$image);
+			// //delete thumbnail
+			// $this->file_model->delete_file($this->customers_path."/thumbs/".$image);
 		}
 		$this->customers_model->delete_customer($customer_id);
 		$this->session->set_userdata('success_message', 'Customer has been deleted');
-		redirect('admin/customers');
+		redirect('users/customers');
 	}
     
 	/*
@@ -305,7 +355,7 @@ class Customers extends admin
 	{
 		$this->customers_model->activate_customer($customer_id);
 		$this->session->set_userdata('success_message', 'Customer activated successfully');
-		redirect('admin/customers');
+		redirect('users/customers');
 	}
     
 	/*
@@ -318,7 +368,7 @@ class Customers extends admin
 	{
 		$this->customers_model->deactivate_customer($customer_id);
 		$this->session->set_userdata('success_message', 'Customer disabled successfully');
-		redirect('admin/customers');
+		redirect('users/customers');
 	}
 }
 ?>

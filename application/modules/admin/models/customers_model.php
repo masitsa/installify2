@@ -101,15 +101,11 @@ class Customers_model extends CI_Model
 	*	@param int $customer_id
 	*
 	*/
-	public function update_customer($image_name, $customer_id)
+	public function update_customer($customer_id)
 	{
 		$data = array(
-				'customer_name'=>ucwords(strtolower($this->input->post('customer_name'))),
-				'customer_parent'=>$this->input->post('customer_parent'),
-				'customer_preffix'=>strtoupper($this->input->post('customer_preffix')),
-				'customer_status'=>$this->input->post('customer_status'),
-				'modified_by'=>$this->session->userdata('user_id'),
-				'customer_image_name'=>$image_name
+				'customer_discount'=>$this->input->post('customer_discount'),
+				'modified_by'=>$this->session->userdata('user_id')
 			);
 			
 		$this->db->where('customer_id', $customer_id);
@@ -161,7 +157,19 @@ class Customers_model extends CI_Model
 	*/
 	public function delete_customer($customer_id)
 	{
-		if($this->db->delete('customer', array('customer_id' => $customer_id)))
+		// if($this->db->delete('customer', array('customer_id' => $customer_id)))
+		// {
+		// 	return TRUE;
+		// }
+		// else{
+		// 	return FALSE;
+		// }
+		$data = array(
+				'customer_delete' => 1
+			);
+		$this->db->where('customer_id', $customer_id);
+		
+		if($this->db->update('customer', $data))
 		{
 			return TRUE;
 		}
