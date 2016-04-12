@@ -128,6 +128,7 @@ class Blog extends admin {
 			
 			else{
 				$file_name = '';
+				$thumb_name = '';
 			}
 			
 			if($this->blog_model->add_post($file_name, $thumb_name))

@@ -320,6 +320,24 @@ class Site_model extends CI_Model
 		$this->db->order_by('neighbourhood_name');
 		return $this->db->get('neighbourhood');
 	}
+	public function get_testimonials()
+	{
+		$this->db->where('post.blog_category_id = blog_category.blog_category_id AND (blog_category.blog_category_name LIKE "%testimonials%") AND post.post_status = 1');
+		$this->db->order_by('post.created','ASC');
+		return $this->db->get('post,blog_category');
+	}
+	public function get_faqs()
+	{
+		$this->db->where('post.blog_category_id = blog_category.blog_category_id AND (blog_category.blog_category_name LIKE "%faqs%") AND post.post_status = 1');
+		$this->db->order_by('post.created','ASC');
+		return $this->db->get('post,blog_category');
+	}
+	public function get_front_end_items()
+	{
+		$this->db->where('post.blog_category_id = blog_category.blog_category_id AND (blog_category.blog_category_name LIKE "%front%") AND post.post_status = 1');
+		$this->db->order_by('post.created','ASC');
+		return $this->db->get('post,blog_category');
+	}
 	
 	public function valid_url($url)
 	{

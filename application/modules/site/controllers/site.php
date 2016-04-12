@@ -54,6 +54,9 @@ class Site extends MX_Controller
 	{
 		$contacts = $this->site_model->get_contacts();
 		$v_data['contacts'] = $contacts;
+		$v_data['testimonials'] = $this->site_model->get_testimonials();
+		$v_data['items'] = $this->site_model->get_front_end_items();
+		$v_data['faqs'] = $this->site_model->get_faqs();
 		$data['title'] = $this->site_model->display_page_title();
 		$data['sign_up'] = 1;
 		$data['content'] = $this->load->view("home", $v_data, TRUE);
