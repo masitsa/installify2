@@ -127,6 +127,7 @@ class Stripe_model extends CI_Model
 			//get subscription details
 			$query_sub = $this->subscription_model->get_plan($plan_id);
 			$plan_name = '';
+			
 			if($query_sub->num_rows() > 0)
 			{
 				$row = $query_sub->row();
@@ -134,11 +135,12 @@ class Stripe_model extends CI_Model
 				$plan_amount = $row->plan_amount;
 				$stripe_plan = $row->stripe_plan;
 				
-				if(!empty($stripe_plan) && ($plan_amount > 0))
+				if(!empty($stripe_plan) && ($plan_amount > 0) && ($plan_id > 1))
 				{
 					\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
-	
+					//echo $stripe_customer_id;
 					$cu = \Stripe\Customer::retrieve($stripe_customer_id);
+					//var_dump($stripe_plan);
 					$response = $cu->subscriptions->create(array("plan" => $stripe_plan, "quantity" => 1));
 							
 					$stripe_subscription_id = $response->id;
@@ -147,7 +149,17 @@ class Stripe_model extends CI_Model
 					//subscribe customer
 					if($this->subscription_model->subscribe_customer($this->session->userdata('customer_id'), $plan_id, $stripe_subscription_id))
 					{
-						$return['message'] = 'true';
+						//save invoice
+						if($this->get_invoice($stripe_customer_id, $plan_id))
+						{
+							$return['message'] = 'true';
+						}
+						
+						else
+						{
+							$return['message'] = 'true';
+							$return['response'] = 'Unable to create an invoice. Please try again';
+						}
 					}
 					
 					else
@@ -267,7 +279,7 @@ class Stripe_model extends CI_Model
 		} catch (\Stripe\Error\RateLimit $e) {
 			// Too many requests made to the API too quickly
 			$return['message'] = 'false';
-			$return['response'] = $e->getMessage();
+			$return['response'] = $e->getMessage(); 	
 		} catch (\Stripe\Error\InvalidRequest $e) {
 			// Invalid parameters were supplied to Stripe's API
 			$return['message'] = 'false';
@@ -357,7 +369,7 @@ class Stripe_model extends CI_Model
 			\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
 
 			$response = \Stripe\Plan::create(array(
-				"amount" => $plan_amount,
+				"amount" => number_format($plan_amount, 2),
 				"interval" => "month",
 				"name" => $plan_name,
 				"currency" => "usd",
@@ -416,7 +428,7 @@ class Stripe_model extends CI_Model
 			
 			$p = \Stripe\Plan::retrieve($stripe_plan);
 			$p->name = $plan_name;
-			$p->amount = $plan_amount;
+			$p->amount = number_format($plan_amount, 2);
 			$p->save();
 			
 			$return['message'] = 'true';
@@ -474,6 +486,185 @@ class Stripe_model extends CI_Model
 			$plan->delete();
 			
 			$return['message'] = 'true';
+			
+		} catch(\Stripe\Error\Card $e) {
+			// Since it's a decline, \Stripe\Error\Card will be caught
+			$body = $e->getJsonBody();
+			$err  = $body['error'];
+			$return['message'] = 'false';
+			$return['response'] = $err['message'];
+			
+			/*echo('Status is:' . $e->getHttpStatus() . "\n");
+			echo('Type is:' . $err['type'] . "\n");
+			echo('Code is:' . $err['code'] . "\n");
+			// param is '' in this case
+			echo('Param is:' . $err['param'] . "\n");
+			echo('Message is:' . $err['message'] . "\n");*/
+		} catch (\Stripe\Error\RateLimit $e) {
+			// Too many requests made to the API too quickly
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\InvalidRequest $e) {
+			// Invalid parameters were supplied to Stripe's API
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Authentication $e) {
+			// Authentication with Stripe's API failed
+			// (maybe you changed API keys recently)
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\ApiConnection $e) {
+			// Network communication with Stripe failed
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Base $e) {
+			// Display a very generic error to the user, and maybe send
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+			// yourself an email
+		} catch (Exception $e) {
+			// Something else happened, completely unrelated to Stripe
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		}
+		return $return;
+	}
+	
+	public function get_invoice($stripe_customer_id, $plan_id)
+	{
+		try {
+			\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
+			
+			$reply = \Stripe\Invoice::all(array("customer" => $stripe_customer_id));
+			$data = $reply->data;
+			
+			$response = $data;
+			$total_invoices = count($response);
+			for($r = 0; $r < $total_invoices; $r++)
+			{
+				$stripe_invoice_id = $response[$r]->id;
+				//check if invoice exists
+				$this->db->where('order_number', $stripe_invoice_id);
+				$query = $this->db->get('orders');
+				
+				//process if doesnt exist
+				if($query->num_rows() == 0)
+				{
+					//$invoice_amount = $response[$r]->amount_due;
+					$invoice_date = $response[$r]->date;
+					//$closed = $response[$r]->closed;
+					$lines = $response[$r]->lines;
+					$data = $lines->data;
+					$next_payment_attempt = $response[$r]->next_payment_attempt;
+					$paid = $response[$r]->paid;
+					$receipt_number = $lines->receipt_number;
+					$order_status_id = 1;
+					
+					if($paid == TRUE)
+					{
+						$order_status_id = 7;
+					}
+					//create order
+					$order_id = $this->orders_model->add_order($order_status_id, $stripe_invoice_id, $invoice_date, $receipt_number);
+					
+					if($order_id > 0)
+					{
+						$total_invoice_items = count($data);
+						for($s = 0; $s < $total_invoice_items; $s++)
+						{
+							$subscription_id = $data[$s]->id;
+							$amount = $data[$s]->amount;
+							$amount = substr($amount, 0, -2);
+							$quantity = $data[$s]->quantity;
+							//var_dump($data); die();
+							if($this->orders_model->add_item($order_id, $plan_id, $quantity, $amount))
+							{
+							}
+						}
+					}
+				}
+			}
+			$return['message'] = 'true';
+			$return['response'] = 'Invoice added successfully';
+			
+		} catch(\Stripe\Error\Card $e) {
+			// Since it's a decline, \Stripe\Error\Card will be caught
+			$body = $e->getJsonBody();
+			$err  = $body['error'];
+			$return['message'] = 'false';
+			$return['response'] = $err['message'];
+			
+			/*echo('Status is:' . $e->getHttpStatus() . "\n");
+			echo('Type is:' . $err['type'] . "\n");
+			echo('Code is:' . $err['code'] . "\n");
+			// param is '' in this case
+			echo('Param is:' . $err['param'] . "\n");
+			echo('Message is:' . $err['message'] . "\n");*/
+		} catch (\Stripe\Error\RateLimit $e) {
+			// Too many requests made to the API too quickly
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\InvalidRequest $e) {
+			// Invalid parameters were supplied to Stripe's API
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Authentication $e) {
+			// Authentication with Stripe's API failed
+			// (maybe you changed API keys recently)
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\ApiConnection $e) {
+			// Network communication with Stripe failed
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Base $e) {
+			// Display a very generic error to the user, and maybe send
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+			// yourself an email
+		} catch (Exception $e) {
+			// Something else happened, completely unrelated to Stripe
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		}
+		return $return;
+	}
+	
+	public function get_invoice_test($stripe_customer_id)
+	{
+		try {
+			\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
+			
+			$reply = \Stripe\Invoice::all(array("customer" => $stripe_customer_id));
+			$data = $reply->data;
+			
+			$response = $data;
+			$total_invoices = count($response);
+			for($r = 0; $r < $total_invoices; $r++)
+			{
+				$stripe_invoice_id = $response[$r]->id;
+				$invoice_amount = $response[$r]->amount_due;
+				$invoice_date = $response[$r]->date;
+				//$closed = $response[$r]->closed;
+				$lines = $response[$r]->lines;
+				$data = $lines->data;
+				$next_payment_attempt = $response[$r]->next_payment_attempt;
+				$paid = $response[$r]->paid;
+				$receipt_number = $lines->receipt_number;
+				echo "<br/>Invoice Amount = ".$invoice_amount;
+				
+				$total_invoice_items = count($data);
+				for($s = 0; $s < $total_invoice_items; $s++)
+				{
+					$subscription_id = $data[$s]->id;
+					$amount = $data[$s]->amount;
+					$quantity = $data[$s]->quantity;
+					
+					echo "<br/>Invoice Item Amount = ".$amount;
+				}
+			}
+			$return['message'] = 'true';
+			$return['response'] = 'Invoice added successfully';
 			
 		} catch(\Stripe\Error\Card $e) {
 			// Since it's a decline, \Stripe\Error\Card will be caught

@@ -124,10 +124,10 @@ pre[class*="language-"]::before {
   color: #555;
   content: attr(class);
   font-size: 0.9rem;
-  left: 0;
+  left: -16px;
   padding: 1px 5px;
-  position: absolute;
-  top: 0;
+  position: relative;
+  top: -16px;
 }
 pre[class*="language-"] {
   border: 1px solid rgba(51, 51, 51, 0.12);
@@ -4094,8 +4094,9 @@ aside.sidebar:before {
 }
 ol li{margin-bottom:15px; list-style:none;}
 .entry-content p{text-align:justify;}
-smartbanner_display{background-image:url(../../../img/iphone2.png);}
+smartbanner_display {background-image: url("../../../img/IPhone_6S_Rose_Gold.png"); background-repeat: no-repeat; background-size: 100% auto; display: block; height: 475px; width: 100%;}
 .banner-height{height: 512px;}
+.account-banner smartbanner_display{padding: 24% 6.5% 0 9%;}
 
 
 /*header css*/
@@ -4110,7 +4111,10 @@ smartbanner_display{background-image:url(../../../img/iphone2.png);}
 .header-signup {
     margin-top: 0em;
 }
-
+#smartbanner .sb-info > span, #smartbanner .sb-info strong {
+  font-size: 0.4rem !important;
+}
+#smartbanner .sb-button {font-size: 0.5em;}
 
 
 /*social media*/

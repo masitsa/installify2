@@ -100,10 +100,12 @@ class Plans extends admin
 		//if form has been submitted
 		if ($this->form_validation->run())
 		{	
+			$response=$this->plans_model->add_plan();
+			//var_dump($response);die();
 			if($this->plans_model->add_plan())
 			{
 				$this->session->set_userdata('success_message', 'Plan added successfully');
-				redirect('admin/plans');
+				//redirect('admin/plans');
 			}
 			
 			else

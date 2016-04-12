@@ -5,7 +5,7 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Installify | <?php echo $title;?></title>
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="<?php echo base_url()."assets/themes/materialize/";?>css/materialize.min.css"  media="screen,projection"/>
         
@@ -30,14 +30,14 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="<?php echo base_url()."assets/themes/";?>jquery-2.1.4.min.js"></script>
 		<script src="https://apis.google.com/js/api:client.js"></script>
         <script src="<?php echo base_url()."assets/themes/custom/";?>js/google.js"></script>
         <script src="<?php echo base_url()."assets/themes/custom/";?>js/custom.js"></script>
         
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="<?php echo base_url()."assets/dist/";?>jquery.kyco.easyshare.min.js"></script>
-
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-<link rel="stylesheet" href="<?php echo base_url()."assets/dist/";?>jquery.kyco.easyshare.css"
+		<script src="<?php echo base_url()."assets/dist/";?>jquery.kyco.easyshare.min.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url()."assets/dist/";?>jquery.kyco.easyshare.css">
+        
+        <link href="<?php echo base_url()."assets/themes/fontawesome/";?>css/font-awesome.min.css" rel="stylesheet">

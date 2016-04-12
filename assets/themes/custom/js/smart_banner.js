@@ -80,19 +80,19 @@ var Banner = function()
 		
 		/* Banner app_store_lang */
 		banner_app_store_lang = $('#app_store_lang').val();
-		banner_app_store_lang = validate.check_text(banner_app_store_lang, 'On the App Store');
+		banner_app_store_lang = validate.check_text(banner_app_store_lang, '');
 		
 		/* Banner play_store_lang */
 		banner_play_store_lang = $('#play_store_lang').val();
-		banner_play_store_lang = validate.check_text(banner_play_store_lang, 'In Google Play');
+		banner_play_store_lang = validate.check_text(banner_play_store_lang, '');
 		
 		/* Banner amazon_store_lang */
 		banner_amazon_store_lang = $('#amazon_store_lang').val();
-		banner_amazon_store_lang = validate.check_text(banner_amazon_store_lang, 'In the Amazon Appstore');
+		banner_amazon_store_lang = validate.check_text(banner_amazon_store_lang, '');
 		
 		/* Banner windows_store_lang */
 		banner_windows_store_lang = $('#windows_store_lang').val();
-		banner_windows_store_lang = validate.check_text(banner_windows_store_lang, 'In the Windows store');
+		banner_windows_store_lang = validate.check_text(banner_windows_store_lang, '');
 		
 		/* Banner play_store_params */
 		banner_play_store_params = $('#play_store_params').val();
@@ -509,6 +509,21 @@ $(document).on("submit","form#add_new_banner",function(e)
 $(document).on("submit","form#banner_form",function(e) 
 {
 	e.preventDefault();
+	$('#banner_form_preloader').html(
+		'<div class="preloader-wrapper active">'+
+    		'<div class="spinner-layer spinner-red-only">'+
+				'<div class="circle-clipper left">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    			'<div class="gap-patch">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    			'<div class="circle-clipper right">'+
+					'<div class="circle"></div>'+
+				'</div>'+
+    		'</div>'+
+    	'</div>'
+	);
 	var form_data = new FormData(this);
 	var action_url = $(this).attr('action');
 	
@@ -523,6 +538,7 @@ $(document).on("submit","form#banner_form",function(e)
 			//alert(data.message);
 			if(data.message == "true")
 			{
+				$('#banner_form_preloader').html('');
 				var response = 
 				'<span>'+
 					'Banner updated successfully'+
@@ -531,6 +547,7 @@ $(document).on("submit","form#banner_form",function(e)
 			}
 			else
 			{
+				$('#banner_form_preloader').html('');
 				var response = 
 				'<span>'+
 					data.response+
@@ -539,7 +556,13 @@ $(document).on("submit","form#banner_form",function(e)
 			}
 		},
 		error: function(xhr, status, error) {
-			console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
+			$('#banner_form_preloader').html('');
+			var response = 
+			'<span>'+
+				error+
+			'</span>';
+			Materialize.toast(response, 5000);
+			//console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
 		}
 	});
 	return false;

@@ -7,8 +7,12 @@ $( document ).ready(function() {
 		gapi.load('auth2', function(){
 			// Retrieve the singleton for the GoogleAuth library and set up the client.
 			auth2 = gapi.auth2.init({
-				client_id: '463566759044-bprdg1744mn7rjfsroo49o90chp19c5s.apps.googleusercontent.com',
+				//localhost
+				//client_id: '463566759044-bprdg1744mn7rjfsroo49o90chp19c5s.apps.googleusercontent.com',
+				//omnis
 				//client_id: '463566759044-khub8km23d8e5pmqcuce6nrrt6bdfv6k.apps.googleusercontent.com',
+				//installify IP
+				client_id: '463566759044-pgp323vhbd9jcq8rag1fo0nafs826c1b.apps.googleusercontent.com',
 				cookiepolicy: 'single_host_origin',
 				// Request scopes in addition to 'profile' and 'email'
 				//scope: 'additional_scope'
@@ -97,7 +101,9 @@ function onSignUp(googleUser) {
 			//alert(data.message);
 			if(data.message == "true")
 			{
-				window.location.href = base_url+'banners';
+				var smart_banner_id = data.smart_banner_id;
+				window.location.href = base_url+'banner/'+smart_banner_id;
+				//window.location.href = base_url+'banner/'+website_url;
 			}
 			else
 			{

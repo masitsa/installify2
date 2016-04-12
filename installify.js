@@ -1,4 +1,4 @@
-var base_url = "http://installify.nairobisingles.com/";
+var base_url = "http://installify.io/";
 
 //var include_url = base_url+"assets/themes/jquery.smartbanner/jquery.smartbanner-account.js";//include URL
 var include_url = base_url+"assets/themes/jquery.smartbanner/jquery.smartbanner.js";//include URL
@@ -76,7 +76,7 @@ var Banner = function()
 	/*
 	*	Get website banner parameters via ajax
 	*/
-	this.generate_banner = function(website_address)
+	this.generate_banner = function(website_address, customer_api_key)
 	{
 		//include styles
 		$('head').append('<link rel="stylesheet" href="'+base_url+'assets/themes/jquery.smartbanner/jquery.smartbanner.css" type="text/css" />');
@@ -85,7 +85,7 @@ var Banner = function()
 		//retrieve banner parameters
 		$.ajax({
 			type:'GET',
-			url: base_url+'site/banner/get_banner_details/'+website_address,
+			url: base_url+'site/banner/get_banner_details/'+website_address+'/'+customer_api_key,
 			dataType: 'json',
 			success:function(data){
 				//alert(data.message);
@@ -201,7 +201,7 @@ var Banner = function()
 						banner_ios_universall_app = validate.check_text(banner_ios_universall_app, true);//alert(banner_ios_universall_app);
 						
 						/* Banner append_to_selector */
-						banner_append_to_selector = validate.check_text(banner_append_to_selector, 'installify_banner');//alert(banner_append_to_selector);
+						banner_append_to_selector = 'body';//alert(banner_append_to_selector);
 						
 						/* Banner install_message */
 						banner_install_message = validate.check_text(banner_install_message, 'Installation successfull');//alert(banner_install_message);
@@ -272,6 +272,9 @@ var Banner = function()
 						$('#smartbanner.android .sb-button span').css('color', '#'+button_text_color);
 						$('#smartbanner.ios .sb-button span').css('color', '#'+button_text_color);
 						$('#smartbanner.windows .sb-button span').css('color', '#'+button_text_color);
+						
+						//set the api key to the view button
+						$('a.sb-button').attr('customer_api_key', customer_api_key);
 					});
 					
 					return true;
@@ -319,6 +322,8 @@ $(document).on("click","#smartbanner .sb-button",function()
 	var days_reminder = parseInt($.cookie("days_reminder"));
 	var website_address = $.cookie("website_address");
 	var location = $(this).attr('href');
+	var customer_api_key = $(this).attr('customer_api_key');
+	
 	if(days_reminder > 0)
 	{
 		//alert(days_hidden);
@@ -357,7 +362,7 @@ $(document).on("click","#smartbanner .sb-button",function()
 		//save click to db
 		$.ajax({
 			type:'POST',
-			url: base_url+'site/banner/save_app_views/'+website_address,
+			url: base_url+'site/banner/save_app_views/'+website_address+'/'+customer_api_key,
 			dataType: 'json',
 			data: {device: mobile, phone: phone, tablet: tablet, browser:browser, os: os, iphone: iphone, bot: bot, webkit: webkit, build: build, game_console: game_console},
 			success:function(data){

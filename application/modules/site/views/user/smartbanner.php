@@ -107,6 +107,8 @@ else
 	$button_color = '2196F3';
 	$button_text_color ='ffffff';
 }
+
+$obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $this->session->userdata('customer_api_key'));
 ?>
 				
             <!-- title -->
@@ -119,7 +121,7 @@ else
             
         	<div class="row">
                 
-                <div class="col l6 m12">
+                <div class="col l5 m6 s12 account-banner">
                     <!--<div class="col m4 offset-m8">
                     	<form action="" method="POST">
                             <script
@@ -133,51 +135,6 @@ else
                             </script>
                         </form>
                     </div>-->
-                    <ul class="collapsible" data-collapsible="accordion" style="margin-top:0;">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">settings</i> Settings</div>
-                            <div class="collapsible-body" style="padding-bottom: 20px;">
-                                <h5 class="center-align header">Banner status</h5>
-                                <?php
-                                if($smart_banner_status == 1)
-                                {
-                                    ?>
-                                    <p>This banner is currently <span class="blue-text">active</span>. Click here to deactivate this banner. Deactivated banners will not be accessible through the Installify API.</p>
-                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn grey lighten-2 grey-text text-darken-2" href="<?php echo site_url().'deactivate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to deactivate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Deactivate</a></div>
-                                    <div class="clear"></div>
-                                    <?php
-                                }
-                                
-                                else
-                                {
-                                    ?>
-                                    <p>This banner is currently <span class="blue-text">inactive</span>. Click here to activate it. Active banners can be accessed through the Installify API.</p>
-                                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn blue lighten-2" href="<?php echo site_url().'activate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to activate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Activate</a></div>
-                                    <div class="clear"></div>
-                                    <?php
-                                }
-                                ?>
-                                
-                                <h5 class="center-align header">Install banner</h5>
-                                
-                                <p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>
-                                <pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token attr-name"> src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><?php echo site_url();?>installify.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span> <span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
-$( document ).ready(function() {
-	var generate = new Banner();
-    generate.generate_banner('<?php echo $smart_banner_website;?>', '<?php echo $this->session->userdata('customer_api_key');?>');
-});
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>
-                                </pre>
-                                
-                                <h5 class="center-align header">Delete banner</h5>
-                                
-                                <p>Click here to delete this banner. Be cautious. This action cannot be undone!</p>
-                                <div class="col m4 offset-m4"><a class="waves-effect waves-light btn red lighten-2" href="<?php echo site_url().'delete-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to delete this banner? It cannot be undone!');" title="Deactivate banner"><i class="fa fa-trash"></i> Delete</a></div>
-                                <div class="clear"></div>
-                            </div>
-                        </li>
-                    </ul>
                         
                     <div class="input-field col s12" style="margin-top:0;">
                         <select id="platform">
@@ -192,9 +149,9 @@ $( document ).ready(function() {
                     <smartbanner_display></smartbanner_display>
                 </div>
                 
-                <div class="col l6 m12">
+                <div class="col l7 m6 s12">
                     <form class="form-horizontal sidebar_form" id="banner_form" action="<?php echo site_url('site/account/update_banner/'.$smart_banner_id);?>" method="POST">
-                        <ul class="tabs">
+                        <ul class="tabs" style="margin-bottom:0;">
                             <li class="tab col s4"><a class="active" href="#setup">Setup</a></li>
                             <li class="tab col s4"><a href="#appearance">Appearance</a></li>
                             <li class="tab col s4"><a href="#store">Store</a></li>
@@ -204,20 +161,24 @@ $( document ).ready(function() {
                                 <h5 class="header center-align">General setup</h5>
                                 <div class="input-field col m6">
                                     <input type="text"  id="title" name="title" value="<?php echo $title;?>">
-                                    <label for="title">Title <span class="required">*</span></label>
+                                    <label for="title">Title</label>
                                 </div>
                                 <div class="input-field col m6">
                                     <input type="text"  id="author" name="author" value="<?php echo $author;?>">
-                                    <label for="title">Author <span class="required">*</span></label>
+                                    <label for="title">Author</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <input type="text"  id="price" name="price" value="<?php echo $price;?>">
-                                    <label for="title">Price <span class="required">*</span></label>
+                                    <label for="title">Price</label>
                                 </div>
                                 <div class="input-field col m6">
                                     <input type="text"  id="url" name="url" value="<?php echo $smart_banner_website;?>">
-                                    <label for="title">URL <span class="required">*</span></label>
+                                    <label for="title">URL</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <input type="text"  id="icon_url" name="icon_url" value="<?php echo $icon_url;?>">
                                     <label for="title">Icon url (57px X 57px)<span class="required">*</span></label>
@@ -226,6 +187,8 @@ $( document ).ready(function() {
                                     <input type="text"  id="speed_in" name="speed_in" value="<?php echo $speed_in;?>">
                                     <label for="title">Speed in</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <label for="title">Speed out</label>
                                     <input type="text"  id="speed_out" name="speed_out" value="<?php echo $speed_out;?>">
@@ -234,6 +197,8 @@ $( document ).ready(function() {
                                     <input type="text"  id="days_hidden" name="days_hidden" value="<?php echo $days_hidden;?>">
                                     <label for="title">Days hidden after close</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <input type="text"  id="days_reminder" name="days_reminder" value="<?php echo $days_reminder;?>">
                                     <label for="title">Days hidden after view</label>
@@ -256,6 +221,8 @@ $( document ).ready(function() {
                                     <input type="text" class="jscolor" id="bottom_gradient_color" name="bottom_gradient_color" value="<?php echo $bottom_gradient_color;?>">
                                     <label>Bottom gradient color</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <input type="text" class="jscolor" id="top_border_color" name="top_border_color" value="<?php echo $top_border_color;?>">
                                     <label>Top border color</label>
@@ -264,6 +231,8 @@ $( document ).ready(function() {
                                     <input type="text" class="jscolor" id="text_color" name="text_color" value="<?php echo $text_color;?>">
                                     <label>Text color</label>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="input-field col m6">
                                     <input type="text" class="jscolor" id="button_color" name="button_color" value="<?php echo $button_color;?>">
                                     <label>Button color</label>
@@ -399,9 +368,81 @@ $( document ).ready(function() {
                             </div>
                         </div>
                         <input type="hidden" value="smartbanner_display" id="append_to_selector" />
-                        <button type="submit" class="btn blue">Update</button>
+                		<div id="banner_form_preloader" class="center-align"></div>
+                        <div class="row">
+                            <div class="col m4 offset-m4">
+                        		<button type="submit" class="btn blue">Save</button>
+                            </div>
+                        </div>
+                
+                        <div class="row">
+                            <div class="col m4 offset-m4">
+                        		<a class="waves-effect waves-light btn blue modal-trigger" href="#banner_settings"><i class="material-icons">settings</i> Install</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
+<div class="modal" id="banner_settings">
+    <div class="modal-content">
+        <h4>Settings</h4>
+        <div class="row">
+            <div class="input-field col s12">
+                <h5 class="center-align header">Banner status</h5>
+                <?php
+                if($smart_banner_status == 1)
+                {
+                    ?>
+                    <p>This banner is currently <span class="blue-text">active</span>. Click here to deactivate this banner. Deactivated banners will not be accessible through the Installify API.</p>
+                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn grey lighten-2 grey-text text-darken-2" href="<?php echo site_url().'deactivate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to deactivate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Deactivate</a></div>
+                    <div class="clear"></div>
+                    <?php
+                }
+                
+                else
+                {
+                    ?>
+                    <p>This banner is currently <span class="blue-text">inactive</span>. Click here to activate it. Active banners can be accessed through the Installify API.</p>
+                    <div class="col m4 offset-m4"><a class="waves-effect waves-light btn blue lighten-2" href="<?php echo site_url().'activate-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to activate this banner?');" title="Deactivate banner"><i class="fa fa-eye-slash"></i> Activate</a></div>
+                    <div class="clear"></div>
+                    <?php
+                }
+                ?>
+                
+                <h5 class="center-align header">Install banner</h5>
+                
+                <p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>
+                <pre class=" language-markup">
+<code class=" language-markup">
+<span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+<?php echo $obfusicated; ?>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>
+</pre>
+                
+                <!--<pre class=" language-markup"><code class=" language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token attr-name"> src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><?php echo site_url();?>installify.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span> <span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+$( document ).ready(function() {
+var generate = new Banner();
+generate.generate_banner('<?php echo $smart_banner_website;?>', '<?php echo $this->session->userdata('customer_api_key');?>');
+});
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>-->
+                </pre>
+                
+                <!--<h5 class="center-align header">Delete banner</h5>
+                
+                <p>Click here to delete this banner. Be cautious. This action cannot be undone!</p>
+                <div class="col m4 offset-m4"><a class="waves-effect waves-light btn red lighten-2" href="<?php echo site_url().'delete-banner/'.$smart_banner_website;?>" onclick="return confirm('Do you want to delete this banner? It cannot be undone!');" title="Deactivate banner"><i class="fa fa-trash"></i> Delete</a></div>-->
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col m6">
+                <button type="button" class="modal-action modal-close waves-effect waves-green btn red" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="<?php echo base_url().'assets/themes/jquery.smartbanner/';?>jquery.smartbanner-account.js"></script>
 <script src="<?php echo base_url()."assets/themes/custom/";?>js/smart_banner.js"></script>

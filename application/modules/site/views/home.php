@@ -4,6 +4,7 @@
     <?php echo $this->load->view('home/head', '', TRUE); ?>
     <div id="page-body">
 		<?php echo $this->load->view('home/installs', '', TRUE); ?>
+        <?php //echo $this->load->view('home/items', '', TRUE); ?>
         <?php echo $this->load->view('home/increase', '', TRUE); ?>
         <?php echo $this->load->view('home/ease', '', TRUE); ?>
         <?php echo $this->load->view('home/mobile', '', TRUE); ?>

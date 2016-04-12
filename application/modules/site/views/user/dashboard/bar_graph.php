@@ -1,4 +1,30 @@
+<?php
+$maximum_clicks = $this->banner_model->get_maximum_clicks($this->session->userdata('customer_id'));
+$clicks = $this->banner_model->get_banner_clicks($this->session->userdata('customer_api_key'));
+if($maximum_clicks == 0)
+{
+	$maximum_clicks = 500;
+}
+?>
+    <section class="panel panel-featured panel-featured-info">
+        <header class="panel-heading">
+            <h2 class="panel-title">Available Clicks</h2>
+        </header>    
 
+          <!-- Widget content -->
+            <div class="panel-body">
+				<div class="row">
+                    <div class="col m2 offset-m6">
+                        <?php echo $clicks.'/'.$maximum_clicks;?> clicks used 
+                    </div>
+                    <div class="col m2">
+                        <a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1 pull-right">Upgrade</a>
+                    </div>
+                </div>
+        	</div>
+    
+    </section>
+    
     <section class="panel panel-featured panel-featured-info">
         <header class="panel-heading">
             <h2 class="panel-title">Banner click activity</h2>

@@ -5,7 +5,7 @@
         
         <div class="row">
             <div class="col m6 s12">
-            	<img src="http://placehold.it/450x250?text=Comparison+graph" class="responsive-img" alt="Graph">
+            	<img src="//placehold.it/450x250?text=Comparison+graph" class="responsive-img" alt="Graph">
             </div>
             
             <div class="col m6 s12">

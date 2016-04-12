@@ -16,8 +16,8 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/installify2/';
-#$config['base_url'] = 'http://installify.nairobisingles.com/';
+#$config['base_url'] = 'http://localhost/installify2/';
+$config['base_url'] = 'https://www.installify.io/';
 
 /*
 |--------------------------------------------------------------------------
@@ -392,12 +392,12 @@ $config['consumer_key']    = '1VsCbDt7UgL7tiZMjXnea8TX3vRb/Lcj';
 $config['consumer_secret']    = '7PxQd2Zei6z/SlrqyMW5gUm8QvQ=';
 
 //my stripe account
-$config['stripe_secret_key']    = 'sk_test_fY1tSLzVtRcHTrOPA6m4uSdH';
-$config['stripe_publishable_key']    = 'pk_test_THOaGKvPD1NDoOXXEv7HuKhi';
+/*$config['stripe_secret_key']    = 'sk_test_fY1tSLzVtRcHTrOPA6m4uSdH';
+$config['stripe_publishable_key']    = 'pk_test_THOaGKvPD1NDoOXXEv7HuKhi';*/
 
 //Oliver's account
-/*$config['stripe_secret_key']    = 'sk_test_81pVoRtvzpRtCs2tBiYmpBMM';
-$config['stripe_publishable_key']    = 'pk_test_rFaLNApQyzHELJzs3kOJxEFj';*/
+$config['stripe_secret_key']    = 'sk_test_81pVoRtvzpRtCs2tBiYmpBMM';
+$config['stripe_publishable_key']    = 'pk_test_rFaLNApQyzHELJzs3kOJxEFj';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

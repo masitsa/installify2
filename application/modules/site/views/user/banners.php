@@ -1,20 +1,37 @@
+<?php
+$maximum_clicks = $this->banner_model->get_maximum_clicks($this->session->userdata('customer_id'));
+$clicks = $this->banner_model->get_banner_clicks($this->session->userdata('customer_api_key'));
+if($maximum_clicks == 0)
+{
+	$maximum_clicks = '&#8734;';
+}
+?>
 <div class="row">
 	<div class="col s12">
         <!-- title -->
         <div class="row">
             <div class="col s12">
-                <h4 class="header center-align">My banners</h4>
+                <h4 class="header center-align">Summary</h4>
             </div>
         </div>
         <!-- end title -->
         
         <div class="row">
-        	<div class="col m10 center-align">
+        	<!--<div class="col m8 center-align">
             	<div id="expiry_year"></div>
+            </div>-->
+        	<div class="col m2 offset-m6">
+            	<?php echo $clicks.'/'.$maximum_clicks;?> clicks used 
             </div>
-        	<div class="col m2 offset-m10">
+        	<div class="col m2">
+            	<a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1 pull-right">Upgrade</a>
+            </div>
+            
+        	<div class="col m2">
                 <a href="#new_banner" class="btn grey lighten-1 modal-trigger"><i class="fa fa-plus"></i> New banner</a>
             </div>
+        </div>
+        <div class="row">
             
         	<div class="col m12">
 				<?php
@@ -32,7 +49,8 @@
                                 <th data-field="name">Age</th>
                                 <th data-field="Expiry">Status</th>
                                 <th data-field="Created">Installed</th>
-                                <th data-field="Default">Views</th>
+                                <th data-field=""></th>
+                                <th data-field=""></th>
                                 <th data-field=""></th>
                                 <th data-field=""></th>
                             </tr>
@@ -47,8 +65,9 @@
 						$smart_banner_status = $res2->smart_banner_status;
 						$banner_installed = $res2->banner_installed;
 						$smart_banner_created = $res2->smart_banner_created;
-						$clicks = $this->banner_model->get_maximum_clicks($smart_banner_id);
+						
 						$age = $this->site_model->get_days($smart_banner_created);
+						$obfusicated = $this->banner_model->obfusicate_script($website_name, $this->session->userdata('customer_api_key'));
         
                         if($smart_banner_status == 1)
                         {
@@ -77,10 +96,34 @@
                             <td><?php echo $age;?> days</td>
                             <td><?php echo $status;?></td>
                             <td><?php echo $installed;?></td>
-                            <td><?php echo $clicks.'/'.$clicks;?></td>
-                            <td><?php echo $button;?></td>
-                            <td><a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1">Upgrade</a></td>
-                            <td><a href="<?php echo site_url().'banner/'.$website_name;?>" class="btn grey lighten-1">Edit</a></td>
+                            <!--<td><?php echo $button;?></td>
+                            <td><a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1">Upgrade</a></td>-->
+                            <td>
+                            	<a class="btn grey lighten-1 modal-trigger" href="#banner_settings<?php $smart_banner_id;?>">Install</a>
+                                
+                                <div class="modal" id="banner_settings">
+                                    <div class="modal-content">
+                                        <h4>Install <?php echo $website_name;?></h4>
+										<p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>
+<pre class=" language-markup">
+<code class=" language-markup">
+<span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span>
+<?php echo $obfusicated; ?>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>/script</span><span class="token punctuation">&gt;</span></span></code>
+</pre>
+										<div class="clear"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col m6">
+                                                <button type="button" class="modal-action modal-close waves-effect waves-green btn red" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><a href="<?php echo site_url().'banner/'.$smart_banner_id;?>" class="btn grey lighten-1">Edit</a></td>
+                            <td><a href="<?php echo site_url().'delete-banner/'.$smart_banner_id;?>" class="btn grey lighten-1" onclick="return confirm('Are you sure you want to delete this banner?')">Delete</a></td>
                         </tr>
                         <?php
                     }

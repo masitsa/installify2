@@ -8,6 +8,8 @@ class Site extends MX_Controller
 		$this->load->model('site_model');
 		$this->load->model('auth_model');
 		$this->load->model('banner_model');
+		$this->load->model('subscription_model');
+		$this->load->model('stripe_model');
 	}
     
 	/*
@@ -54,6 +56,9 @@ class Site extends MX_Controller
 	{
 		$contacts = $this->site_model->get_contacts();
 		$v_data['contacts'] = $contacts;
+		$v_data['testimonials'] = $this->site_model->get_testimonials();
+		$v_data['items'] = $this->site_model->get_front_end_items();
+		$v_data['faqs'] = $this->site_model->get_faqs();
 		$data['title'] = $this->site_model->display_page_title();
 		$data['sign_up'] = 1;
 		$data['content'] = $this->load->view("home", $v_data, TRUE);
@@ -68,11 +73,11 @@ class Site extends MX_Controller
 	*/
 	public function register_customer()
 	{
-		$this->form_validation->set_rules('website', 'Website url', 'required|is_unique[smart_banner.smart_banner_website]');
+		//$this->form_validation->set_rules('website', 'Website url', 'required|is_unique[smart_banner.smart_banner_website]');
+		$this->form_validation->set_rules('website', 'Website url', 'required');
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
 		$this->form_validation->set_rules('image', 'Image', 'trim');
-		$this->form_validation->set_message('is_unique', 'That website already exists. Please enter another one');
 		
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -104,6 +109,7 @@ class Site extends MX_Controller
 						//$data2['error'] = $response;
 					}
 					$response['message'] = 'true';
+					$response['smart_banner_id'] = $reply['smart_banner_id'];
 					$this->session->set_userdata('success_message', $reply['response']);
 				}
 				
@@ -117,7 +123,7 @@ class Site extends MX_Controller
 			else
 			{
 				$response['message'] = 'false';
-				$response['result'] = 'Please enter a valid website url. Ensure it starts with http(s)://';
+				$response['result'] = 'Please enter a valid website url';
 			}
 		}
 		
@@ -697,6 +703,11 @@ class Site extends MX_Controller
 		{
 			echo 'false';
 		}
+	}
+    
+	public function check_stripe_invoice($customer_id = 'cus_8A0NWDkNlBm3ut')
+	{
+		$return = $this->stripe_model->get_invoice($customer_id);
 	}
 }
 ?>

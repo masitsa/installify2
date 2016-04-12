@@ -133,12 +133,16 @@ class Auth_model extends CI_Model
 		{
 			$row = $query->row();
 			$customer_id = $row->customer_id;
+			$api_key = md5(site_url().'-'.$customer_id);
+			
 			//Update last login
-			if($this->update_user_login($customer_id, $first_name, $email))
+			if($this->update_user_login($customer_id, $first_name, $email, $api_key))
 			{
 				//save new banner
-				if($this->banner_model->save_new_banner($customer_id, $website))
+				$response = $this->banner_model->save_new_banner($customer_id, $website, $api_key);
+				if($response['message'])
 				{
+					$return['smart_banner_id'] = $response['smart_banner_id'];
 					$return['message'] = TRUE;
 					$return['response'] = 'Banner created successfully';
 					$return['first_name'] = $first_name;
@@ -146,6 +150,7 @@ class Auth_model extends CI_Model
 				
 				else
 				{
+					$return['smart_banner_id'] = NULL;
 					$return['message'] = TRUE;
 					$return['response'] = 'Unable to create banner';
 					$return['first_name'] = $first_name;
@@ -165,9 +170,12 @@ class Auth_model extends CI_Model
 				if($this->update_user_login($customer_id, $first_name, $email, $api_key))
 				{
 					//save new banner
-					$reply = $this->banner_model->save_new_banner($customer_id, $website);
+					$reply = $this->banner_model->save_new_banner($customer_id, $website, $api_key);
+					//subscribe to free plan
+					$this->subscription_model->subscribe_customer($customer_id, 1, '');
 					if($reply['message'] == TRUE)
 					{
+						$return['smart_banner_id'] = $reply['smart_banner_id'];
 						$return['message'] = TRUE;
 						$return['response'] = 'Banner created successfully';
 						$return['first_name'] = $first_name;
@@ -175,6 +183,7 @@ class Auth_model extends CI_Model
 					
 					else
 					{
+						$return['smart_banner_id'] = NULL;
 						$return['message'] = TRUE;
 						$return['response'] = $reply['response'];
 						$return['first_name'] = $first_name;
@@ -243,9 +252,10 @@ class Auth_model extends CI_Model
 		{
 			$row = $query->row();
 			$customer_id = $row->customer_id;
+			$customer_api_key = $row->customer_api_key;
 			
 			//Update last login
-			if($this->update_user_login($customer_id, $first_name, $email))
+			if($this->update_user_login($customer_id, $first_name, $email, $customer_api_key))
 			{
 				$return['message'] = TRUE;
 				$return['response'] = 'Welcome back';
@@ -258,9 +268,10 @@ class Auth_model extends CI_Model
 			if($this->db->insert('customer', $data))
 			{
 				$customer_id = $this->db->insert_id();
+				$api_key = md5(site_url().'-'.$customer_id);
 				
 				//Update last login
-				if($this->update_user_login($customer_id, $first_name, $email))
+				if($this->update_user_login($customer_id, $first_name, $email, $api_key))
 				{
 					$return['message'] = TRUE;
 					$return['response'] = 'Welcome to Installify';

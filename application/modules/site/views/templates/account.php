@@ -39,6 +39,8 @@
 <html lang="en">
     <head>
     	<?php echo $this->load->view('site/includes/header', '', TRUE); ?>
+        <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);mixpanel.init("67b4540b4278f9b5d4f8dc8d2a96ad15");</script><!-- end Mixpanel -->
     </head>
     <body>
     	<input type="hidden" id="base_url" value="<?php echo base_url();?>"/>
@@ -62,7 +64,7 @@
                                             $banner_id = $res->smart_banner_id;
                                             $website_name = $res->smart_banner_website;
                                             
-                                            echo '<li><a href="banner/'.$website_name.'">'.$website_name.'</a></li>';
+                                            echo '<li><a href="'.site_url().'banner/'.$banner_id.'">'.$website_name.'</a></li>';
                                         }
                                     }
                                     ?>
@@ -88,11 +90,12 @@
                     	<img src="<?php echo base_url().'assets/logo/'.$logo;?>" class="responsive-img logo" alt="<?php echo $company_name;?>">
                     </a>
                 </li>
-                <li class="bold"><a href="<?php echo site_url().'my-account';?>"><i class="fa fa-area-chart"></i> Summary</a></li>
+                <li class="bold"><a href="<?php echo site_url().'banners';?>"><i class="fa fa-mobile"></i> Summary</a></li>
+                <li class="bold"><a href="<?php echo site_url().'my-account';?>"><i class="fa fa-area-chart"></i> Statistics</a></li>
                 <li class="bold"><a href="<?php echo site_url().'settings';?>"><i class="fa fa-cog"></i> Settings</a></li>
-                <li class="bold"><a href="<?php echo site_url().'subscribe';?>"><i class="fa fa-money"></i> Subscribe</a></li>
+                <li class="bold"><a href="<?php echo site_url().'subscribe';?>"><i class="fa fa-money"></i> Upgrade</a></li>
+                <li class="bold"><a href="<?php echo site_url().'invoices';?>"><i class="fa fa-money"></i> Invoices</a></li>
                 <li class="bold"><a href="<?php echo site_url().'clicks';?>"><i class="fa fa-mouse-pointer"></i> Clicks</a></li>
-                <li class="bold"><a href="<?php echo site_url().'banners';?>"><i class="fa fa-mobile"></i> Banners</a></li>
             </ul>
         </header>
         
@@ -117,7 +120,7 @@
                             <input type="text"  name="website">
                             <label for="Website">Website <span class="required">*</span></label>
                         </div>
-                        <div class="input-field col s12">
+                        <!--<div class="input-field col s12">
                             <input type="text"  name="title">
                             <label for="title">Title <span class="required">*</span></label>
                         </div>
@@ -136,10 +139,11 @@
                         <div class="input-field col s12">
                             <input type="text"  name="url">
                             <label for="URL">App Store URL <span class="required">*</span></label>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="modal-footer">
+            		<div id="add_banner_preloader" class="center-align"></div>
                     <div class="row">
                         <div class="col m6">
                             <button type="button" class="modal-action modal-close waves-effect waves-green btn red" data-dismiss="modal">Close</button>
@@ -186,5 +190,15 @@
 			$this->session->unset_userdata('success_message');
 		}
 		?>
+        <script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-75042830-1', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
     </body>
 </html>
