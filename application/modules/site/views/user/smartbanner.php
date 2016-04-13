@@ -40,6 +40,9 @@ if($latest_banner->num_rows() > 0)
 	$text_color = $banner->text_color;
 	$button_color = $banner->button_color;
 	$button_text_color = $banner->button_text_color;
+	$play_store_url = $banner->play_store_url;
+	$istore_url = $banner->istore_url;
+	$windows_store_url = $banner->windows_store_url;
 	
 	if(empty($top_border_color))
 	{
@@ -252,14 +255,16 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                                     <label for="title">IOS icon gloss (57px X 57px)</label>
                                 </div>
                                 <div class="input-field col s12">
-                                    <input type="text"  id="app_store_lang" name="app_store_lang" value="<?php echo $app_store_lang;?>">
-                                    <label for="title">App Store price text</label>
+                                    <input type="hidden"  id="app_store_lang" name="app_store_lang" value="<?php echo $app_store_lang;?>">
+                                    <input type="text"  id="istore_url" name="istore_url" value="<?php echo $istore_url;?>">
+                                    <label for="title">App Store URL</label>
                                 </div>
                                 
                                 <h5 class="header center-align">Android</h5>
                                 <div class="input-field col s12">
-                                    <input type="text"  id="play_store_lang" name="play_store_lang" value="<?php echo $play_store_lang;?>">
-                                    <label for="title">Google Play Store price text</label>
+                                    <input type="hidden"  id="play_store_lang" name="play_store_lang" value="<?php echo $play_store_lang;?>">
+                                    <input type="text"  id="play_store_url" name="play_store_url" value="<?php echo $play_store_url;?>">
+                                    <label for="title">Google Play URL</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input type="text"  id="play_store_params" name="play_store_params" value="<?php echo $play_store_params;?>">
@@ -268,8 +273,9 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                                 
                                 <h5 class="header center-align">Windows</h5>
                                 <div class="input-field col s12">
-                                    <input type="text"  id="windows_store_lang" name="windows_store_lang" value="<?php echo $windows_store_lang;?>">
-                                    <label for="title">Windows Store price text</label>
+                                    <input type="hidden"  id="windows_store_lang" name="windows_store_lang" value="<?php echo $windows_store_lang;?>">
+                                    <input type="text"  id="windows_store_url" name="windows_store_url" value="<?php echo $windows_store_url;?>">
+                                    <label for="title">Windows Store URL</label>
                                     
                                 <!--
                                 <div class="input-field col s12">

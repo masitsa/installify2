@@ -134,7 +134,10 @@ class Banner_model extends CI_Model
 			'bottom_gradient_color' => $this->input->post('bottom_gradient_color'),
 			'text_color' => $this->input->post('text_color'),
 			'button_color' => $this->input->post('button_color'),
-			'button_text_color' => $this->input->post('button_text_color')
+			'button_text_color' => $this->input->post('button_text_color'),
+			'play_store_url' => $this->input->post('play_store_url'),
+			'istore_url' => $this->input->post('istore_url'),
+			'windows_store_url' => $this->input->post('windows_store_url')
 		);
 		
 		$this->db->where('smart_banner_id', $smart_banner_id);

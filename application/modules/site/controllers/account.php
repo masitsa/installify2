@@ -295,6 +295,9 @@ class Account extends site {
 		$this->form_validation->set_rules('text_color', 'Text color', 'xss_clean');
 		$this->form_validation->set_rules('button_color', 'Button color', 'xss_clean');
 		$this->form_validation->set_rules('button_text_color', 'Button text color', 'xss_clean');
+		$this->form_validation->set_rules('play_store_url', 'Play store url', 'xss_clean');
+		$this->form_validation->set_rules('istore_url', 'Apple store url', 'xss_clean');
+		$this->form_validation->set_rules('windows_store_url', 'Windows store url', 'xss_clean');
 		
 		//if form data is invalid
 		if ($this->form_validation->run() == FALSE)

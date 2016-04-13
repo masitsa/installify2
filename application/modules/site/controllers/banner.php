@@ -69,6 +69,9 @@ class Banner extends MX_Controller
 				$data['text_color'] = $banner->text_color;
 				$data['button_color'] = $banner->button_color;
 				$data['button_text_color'] = $banner->button_text_color;
+				$data['play_store_url'] = $banner->play_store_url;
+				$data['istore_url'] = $banner->istore_url;
+				$data['windows_store_url'] = $banner->windows_store_url;
 				
 				if(empty($data['top_border_color']))
 				{

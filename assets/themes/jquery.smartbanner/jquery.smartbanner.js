@@ -16,11 +16,13 @@
             this.type = this.options.force
         } else if (UA.match(/Windows Phone 8/i) != null && UA.match(/Touch/i) !== null) {
             this.type = 'windows'
-        } else if (UA.match(/iPhone|iPod/i) != null || (UA.match(/iPad/) && this.options.iOSUniversalApp)) {
+        } /*else if (UA.match(/iPhone|iPod/i) != null || (UA.match(/iPad/) && this.options.iOSUniversalApp)) {
             if (UA.match(/Safari/i) != null &&
                (UA.match(/CriOS/i) != null ||
                window.Number(UA.substr(UA.indexOf('OS ') + 3, 3).replace('_', '.')) < 6)) this.type = 'ios' // Check webview and native smart banner support (iOS 6+)
-        } else if (UA.match(/\bSilk\/(.*\bMobile Safari\b)?/) || UA.match(/\bKF\w/) || UA.match('Kindle Fire')) {
+        }*/ else if (UA.match(/iPad/i) || UA.match(/iPhone/i)) {
+			this.type = 'ios'
+		} else if (UA.match(/\bSilk\/(.*\bMobile Safari\b)?/) || UA.match(/\bKF\w/) || UA.match('Kindle Fire')) {
             this.type = 'kindle'
         } else if (UA.match(/Android/i) != null) {
             this.type = 'android'

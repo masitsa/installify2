@@ -1,7 +1,7 @@
 /*
 *	Page variables
 */
-var banner_title, banner_author, banner_price, banner_langauge, banner_app_store_lang, banner_play_store_lang, banner_amazon_store_lang, banner_windows_store_lang, banner_play_store_params, banner_icon_url, banner_ios_icon_gloss, banner_url, banner_button_text, banner_auto_scale, banner_speed_in, banner_speed_out, banner_days_hidden, banner_days_reminder, banner_force_display, banner_hide_on_install, banner_overlay_layer, banner_ios_universall_app, banner_append_to_selector, banner_install_message, banner_close_message;
+var banner_title, banner_author, banner_price, banner_langauge, banner_app_store_lang, banner_play_store_lang, banner_amazon_store_lang, banner_windows_store_lang, banner_play_store_params, banner_icon_url, banner_ios_icon_gloss, banner_url, banner_button_text, banner_auto_scale, banner_speed_in, banner_speed_out, banner_days_hidden, banner_days_reminder, banner_force_display, banner_hide_on_install, banner_overlay_layer, banner_ios_universall_app, banner_append_to_selector, banner_install_message, banner_close_message, play_store_url, istore_url, windows_store_url;
 
 var base_url = $('#base_url').val();
 
@@ -161,6 +161,18 @@ var Banner = function()
 		/* Banner close_message */
 		banner_close_message = $('#close_message').val();
 		banner_close_message = validate.check_text(banner_close_message, 'Closed');
+		
+		/* Play Store url */
+		play_store_url = $('#play_store_url').val();
+		play_store_url = validate.check_text(play_store_url, null);
+		
+		/* Istore URL */
+		istore_url = $('#istore_url').val();
+		istore_url = validate.check_text(istore_url, null);
+		
+		/* Windows Store url */
+		windows_store_url = $('#windows_store_url').val();
+		windows_store_url = validate.check_text(windows_store_url, null);
 		
 		return true;
     }
