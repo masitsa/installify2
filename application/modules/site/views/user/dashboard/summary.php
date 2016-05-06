@@ -1,7 +1,7 @@
 <?php 
-	$total_clicks_android = number_format($this->reports_model->get_total_clicks('android'), 0, '.', ',');
-	$total_clicks_ios = number_format($this->reports_model->get_total_clicks('ios'), 0, '.', ',');
-	$total_clicks_windows = number_format($this->reports_model->get_total_clicks('windows'), 0, '.', ',');
+	$total_clicks_android = number_format($this->reports_model->get_total_clicks('AndroidOS'), 0, '.', ',');
+	$total_clicks_ios = number_format($this->reports_model->get_total_clicks('iOS'), 0, '.', ',');
+	$total_clicks_windows = number_format($this->reports_model->get_total_clicks('Windows'), 0, '.', ',');
  ?>
  <div class="row">
     <div class="col l4 m6 s12">

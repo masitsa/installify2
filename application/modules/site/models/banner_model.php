@@ -174,9 +174,27 @@ class Banner_model extends CI_Model
 		return $query;
 	}
 	
+	public function parse_link($urlStr)
+	{
+		$parsed = parse_url($urlStr);
+		if (empty($parsed['scheme'])) {
+			$urlStr = 'http://' . ltrim($urlStr, '/');
+		}
+		
+		return $urlStr;
+	}
+	
 	public function get_banner($customer_id, $smart_banner_id)
 	{
-		$this->db->where(array('customer_id' => $customer_id, 'smart_banner_id' => $smart_banner_id));
+		if($customer_id != 1)
+		{
+			$this->db->where(array('customer_id' => $customer_id, 'smart_banner_id' => $smart_banner_id));
+		}
+		
+		else
+		{
+			$this->db->where(array('smart_banner_id' => $smart_banner_id));
+		}
 		$query = $this->db->get('smart_banner');
 		
 		return $query;
@@ -184,7 +202,7 @@ class Banner_model extends CI_Model
 	
 	public function get_website_banner($website, $customer_api_key)
 	{
-		$this->db->where(array('smart_banner_website' => $website, 'customer_api_key' => $customer_api_key));
+		$this->db->where(array('smart_banner_website' => $website, 'customer_api_key' => $customer_api_key, '`banner_delete' => 0));
 		$query = $this->db->get('smart_banner');
 		
 		return $query;
@@ -326,7 +344,7 @@ class Banner_model extends CI_Model
 			
 			$total_clicks = $result->total_clicks;
 			
-			if(empty($clicks))
+			if(empty($total_clicks))
 			{
 				$total_clicks = 0;
 			}
@@ -412,5 +430,41 @@ class Banner_model extends CI_Model
 		$obfusicated = $this->javascriptpacker->pack();
 		
 		return "function getScript(url, success) {var script = document.createElement('script');script.src = url;var head = document.getElementsByTagName('head')[0],done = false;script.onload = script.onreadystatechange = function() {	if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {done = true;				success();script.onload = script.onreadystatechange = null;head.removeChild(script);};};head.appendChild(script);}; window.onload = function() {if (typeof jQuery == 'undefined') 	{getScript('".$jquery."', function() {					if (typeof jQuery=='undefined') {} else {banner_generation_start();}});	} else {banner_generation_start();	};};".$obfusicated;
+	}
+	
+	public function get_views($smart_banner_id)
+	{
+		$this->db->select('COUNT(views_id) AS views_total');
+		$this->db->where('smart_banner_id = '.$smart_banner_id);
+		$query = $this->db->get('views');
+		
+		$result = $query->row();
+		
+		return $result->views_total;
+	}
+	
+	public function get_total_clicks($website_name, $customer_api_key)
+	{
+		$this->db->select('count(click_id) as total_clicks');
+		$this->db->where(array('website' => $website_name, 'customer_api_key' => $customer_api_key));
+		$query = $this->db->get('click');
+		
+		if($query->num_rows() > 0)
+		{
+			$result = $query->row();
+			
+			$total_clicks = $result->total_clicks;
+			
+			if(empty($total_clicks))
+			{
+				$total_clicks = 0;
+			}
+			return $total_clicks;
+		}
+		
+		else
+		{
+			return 0;
+		}
 	}
 }

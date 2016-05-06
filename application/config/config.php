@@ -17,7 +17,6 @@
 |
 */
 $config['base_url'] = 'http://localhost/installify2/';
-#$config['base_url'] = 'https://www.installify.io/';
 
 /*
 |--------------------------------------------------------------------------

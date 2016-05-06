@@ -144,6 +144,83 @@ class Subscription_model extends CI_Model
 		return $this->db->get('subscription');
 	}
 	
+	public function is_invoice_due($member_id)
+	{
+		$this->db->where('member_id', $member_id);
+		$this->db->order_by('invoice_date', 'DESC');
+		$this->db->limit(1);
+		$query = $this->db->get('invoice');
+		
+		if($query->num_rows() > 0)
+		{
+			$row = $query->row();
+			
+			$invoice_date = $row->invoice_date;
+			$invoice_status = $row->invoice_status;
+			
+			$age = $this->calculate_age($invoice_date);//echo $age;
+			
+			//if(($age >= 11) && ($invoice_status == 0))
+			if($age >= 11)
+			{
+				return TRUE;
+			}
+			
+			else
+			{
+				return FALSE;
+			}
+		}
+		
+		else
+		{
+			return TRUE;
+		}
+	}
+	public function calculate_age($invoice_date)
+	{
+		$value = $this->dateDiff(date('y-m-d  h:i'), $invoice_date." 00:00", 'month');
+		
+		return $value;
+	}
+	public function dateDiff($time1, $time2, $interval) 
+	{
+	    // If not numeric then convert texts to unix timestamps
+	    if (!is_int($time1)) {
+	      $time1 = strtotime($time1);
+	    }
+	    if (!is_int($time2)) {
+	      $time2 = strtotime($time2);
+	    }
+	 
+	    // If time1 is bigger than time2
+	    // Then swap time1 and time2
+	    if ($time1 > $time2) {
+	      $ttime = $time1;
+	      $time1 = $time2;
+	      $time2 = $ttime;
+	    }
+	 
+	    // Set up intervals and diffs arrays
+	    $intervals = array('year','month','day','hour','minute','second');
+	    if (!in_array($interval, $intervals)) {
+	      return false;
+	    }
+	 
+	    $diff = 0;
+	    // Create temp time from time1 and interval
+	    $ttime = strtotime("+1 " . $interval, $time1);
+	    // Loop until temp time is smaller than time2
+	    while ($time2 >= $ttime) {
+	      $time1 = $ttime;
+	      $diff++;
+	      // Create new temp time from time1 and interval
+	      $ttime = strtotime("+1 " . $interval, $time1);
+	    }
+	 
+	    return $diff;
+  	}
+	
 	public function cancel_subscription($subscription_id)
 	{
 		$where = array(

@@ -274,9 +274,9 @@ class Account extends site {
 	function update_banner($smart_banner_id)
 	{
 		//form validation rules
-		$this->form_validation->set_rules('title', 'Title', 'xss_clean');
-		$this->form_validation->set_rules('author', 'Author', 'xss_clean');
-		$this->form_validation->set_rules('price', 'Price', 'xss_clean');
+		$this->form_validation->set_rules('title', 'Title', 'xss_clean|max_length[20]');
+		$this->form_validation->set_rules('author', 'Author', 'xss_clean|max_length[20]');
+		$this->form_validation->set_rules('price', 'Price', 'xss_clean|max_length[20]');
 		$this->form_validation->set_rules('icon_url', 'Icon URL', 'xss_clean');
 		$this->form_validation->set_rules('url', 'URL', 'xss_clean');
 		$this->form_validation->set_rules('app_store_lang', 'App Store price text', 'xss_clean');
@@ -288,7 +288,7 @@ class Account extends site {
 		$this->form_validation->set_rules('speed_out', 'Speed out', 'xss_clean');
 		$this->form_validation->set_rules('days_hidden', 'Days hidden after close', 'xss_clean');
 		$this->form_validation->set_rules('days_reminder', 'Days hidden after view', 'xss_clean');
-		$this->form_validation->set_rules('button_text', 'Button text', 'xss_clean');
+		$this->form_validation->set_rules('button_text', 'Button text', 'xss_clean|max_length[10]');
 		$this->form_validation->set_rules('top_border_color', 'Top border color', 'xss_clean');
 		$this->form_validation->set_rules('top_gradient_color', 'Top gradient color', 'xss_clean');
 		$this->form_validation->set_rules('bottom_gradient_color', 'Bottom gradient color', 'xss_clean');
@@ -436,13 +436,16 @@ class Account extends site {
 					
 					if(!empty($stripe_subscription_id))
 					{
+						//get the current subscription end date
+						$current_period_end = $this->stripe_model->get_single_subscription($stripe_customer_id, $stripe_subscription_id);
+						var_dump($current_period_end['response']);
 						//cancel subscription
 						$return = $this->stripe_model->cancel_subscription($stripe_customer_id, $stripe_subscription_id);
 						
-						if($return)
+						if($return['message'] == 'true')
 						{
 							//update subscription status
-							$this->stripe_model->create_subscription($stripe_customer_id, $plan_id);
+							$this->stripe_model->create_subscription($stripe_customer_id, $plan_id, $current_period_end['response']);
 						}
 					}
 					//create a new subscription
@@ -590,7 +593,7 @@ class Account extends site {
 	{
 		// $where = 'orders.order_status = order_status.order_status_id AND users.user_id = orders.user_id';
 		// $table = 'orders, order_status, users';
-		$where = 'orders.order_status_id != 4 AND orders.order_status_id = order_status.order_status_id AND customer.customer_id = '.$this->session->userdata('customer_id');
+		$where = 'orders.order_status_id != 4 AND orders.order_status_id = order_status.order_status_id AND orders.customer_id = customer.customer_id AND customer.customer_id = '.$this->session->userdata('customer_id');//echo $where; die();
 		$table = 'orders, order_status, customer';
 		$orders_search = $this->session->userdata('orders_search');
 		
@@ -639,6 +642,69 @@ class Account extends site {
 		$v_data['order_status_query'] = $this->orders_model->get_order_status();
 		$v_data['page'] = $page;
 		$data['content'] = $this->load->view('user/invoices', $v_data, true);
+		$data['title'] = 'Invoices';
+		
+		$this->load->view('templates/account', $data);
+	}
+
+	/*
+	*
+	*	Default action is to show all the orders
+	*
+	*/
+	public function clicks() 
+	{
+		// $where = 'orders.order_status = order_status.order_status_id AND users.user_id = orders.user_id';
+		// $table = 'orders, order_status, users';
+		$where = 'customer.customer_api_key = click.customer_api_key AND customer.customer_id = '.$this->session->userdata('customer_id');
+		$table = 'click, customer';
+		$orders_search = $this->session->userdata('orders_search');
+		
+		if(!empty($orders_search))
+		{
+			$where .= $orders_search;
+		}
+		$segment = 3;
+		//pagination
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'clicks';
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = 2;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = '<i class="material-icons">chevron_right</i>';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = '<i class="material-icons">chevron_left</i>';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active"><a href="#!">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $data["links"] = $this->pagination->create_links();
+		$query = $this->orders_model->get_all_clicks($table, $where, $config["per_page"], $page);
+		
+		$v_data['clicks'] = $query;
+		// $v_data['order_status_query'] = $this->orders_model->get_order_status();
+		$v_data['page'] = $page;
+		$data['content'] = $this->load->view('user/clicks', $v_data, true);
 		$data['title'] = 'Invoices';
 		
 		$this->load->view('templates/account', $data);

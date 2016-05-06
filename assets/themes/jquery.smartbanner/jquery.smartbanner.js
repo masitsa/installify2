@@ -95,7 +95,7 @@
               , gloss=this.options.iconGloss === null ? (this.type=='ios') : this.options.iconGloss
 
             if (this.type == 'android' && this.options.GooglePlayParams) {
-              link = link + '&referrer=' + this.options.GooglePlayParams;
+              //link = link + '&referrer=' + this.options.GooglePlayParams;
             }
 
             var banner = '<div id="smartbanner" class="'+this.type+'"><div class="sb-container"><a href="#" class="sb-close">&times;</a><span class="sb-icon"></span><div class="sb-info"><strong>'+this.title+'</strong><span>'+this.author+'</span><span>'+inStore+'</span></div><a href="'+link+'" class="sb-button"><span>'+this.options.button+'</span></a></div></div>';
@@ -209,14 +209,14 @@
         }
 
       , setCookie: function(name, value, exdays) {
-            var exdate = new Date()
+            /*var exdate = new Date()
             exdate.setDate(exdate.getDate()+exdays)
             value=encodeURI(value)+((exdays==null)?'':'; expires='+exdate.toUTCString())
-            document.cookie=name+'='+value+'; path=/;'
+            document.cookie=name+'='+value+'; path=/;'*/
         }
 
       , getCookie: function(name) {
-            var i,x,y,ARRcookies = document.cookie.split(";")
+            /*var i,x,y,ARRcookies = document.cookie.split(";")
             for(i=0;i<ARRcookies.length;i++) {
                 x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="))
                 y = ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1)
@@ -224,7 +224,7 @@
                 if (x==name) {
                     return decodeURI(y)
                 }
-            }
+            }*/
             return null
         }
 

@@ -49,6 +49,7 @@ if($maximum_clicks == 0)
                                 <th data-field="name">Age</th>
                                 <th data-field="Expiry">Status</th>
                                 <th data-field="Created">Installed</th>
+                                <th data-field="Views">Conversions</th>
                                 <th data-field=""></th>
                                 <th data-field=""></th>
                                 <th data-field=""></th>
@@ -65,7 +66,8 @@ if($maximum_clicks == 0)
 						$smart_banner_status = $res2->smart_banner_status;
 						$banner_installed = $res2->banner_installed;
 						$smart_banner_created = $res2->smart_banner_created;
-						
+						$total_views = $this->banner_model->get_views($smart_banner_id);
+						$total_banner_clicks = $this->banner_model->get_total_clicks($website_name, $this->session->userdata('customer_api_key'));
 						$age = $this->site_model->get_days($smart_banner_created);
 						$obfusicated = $this->banner_model->obfusicate_script($website_name, $this->session->userdata('customer_api_key'));
         
@@ -96,6 +98,7 @@ if($maximum_clicks == 0)
                             <td><?php echo $age;?> days</td>
                             <td><?php echo $status;?></td>
                             <td><?php echo $installed;?></td>
+                            <td><?php echo $total_banner_clicks;?>/<?php echo $total_views;?> </td>
                             <!--<td><?php echo $button;?></td>
                             <td><a href="<?php echo site_url().'subscribe';?>" class="btn grey lighten-1">Upgrade</a></td>-->
                             <td>

@@ -22,4 +22,5 @@
 <file name="send_mail.php" server="192.186.246.118/public_html/installify/" local="130597418420000000" remote="130969668600000000" Dst="0" />
 <file name="settings.php" server="192.186.246.118/public_html/installify/" local="130597462460000000" remote="130969668600000000" Dst="0" />
 <file name="upload.php" server="192.186.246.118/public_html/installify/" local="130597462540000000" remote="130969668600000000" Dst="0" />
+<file name="dashboard.php" server="46.101.35.63//var/www/html/" local="131050203251604634" remote="131049951000000000" Dst="0" />
 </dwsync>

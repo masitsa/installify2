@@ -57,6 +57,61 @@ class Stripe_model extends CI_Model
 		}
 		return $return;
 	}
+	public function get_single_subscription($stripe_customer_id, $stripe_subscription_id)
+	{
+		try {
+			\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
+			
+			$response = \Stripe\Customer::retrieve($stripe_customer_id);
+			$subscription = $response->subscriptions->retrieve($stripe_subscription_id);
+			
+			$data = $subscription->data;
+			$current_period_end = $subscription->current_period_end;
+			$return['message'] = 'true';
+			$return['response'] = $current_period_end;
+			
+		} catch(\Stripe\Error\Card $e) {
+			// Since it's a decline, \Stripe\Error\Card will be caught
+			$body = $e->getJsonBody();
+			$err  = $body['error'];
+			$return['message'] = 'false';
+			$return['response'] = $err['message'];
+			
+			/*echo('Status is:' . $e->getHttpStatus() . "\n");
+			echo('Type is:' . $err['type'] . "\n");
+			echo('Code is:' . $err['code'] . "\n");
+			// param is '' in this case
+			echo('Param is:' . $err['param'] . "\n");
+			echo('Message is:' . $err['message'] . "\n");*/
+		} catch (\Stripe\Error\RateLimit $e) {
+			// Too many requests made to the API too quickly
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\InvalidRequest $e) {
+			// Invalid parameters were supplied to Stripe's API
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Authentication $e) {
+			// Authentication with Stripe's API failed
+			// (maybe you changed API keys recently)
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\ApiConnection $e) {
+			// Network communication with Stripe failed
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		} catch (\Stripe\Error\Base $e) {
+			// Display a very generic error to the user, and maybe send
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+			// yourself an email
+		} catch (Exception $e) {
+			// Something else happened, completely unrelated to Stripe
+			$return['message'] = 'false';
+			$return['response'] = $e->getMessage();
+		}
+		return $return;
+	}
 	
 	public function cancel_subscription($stripe_customer_id, $stripe_subscription_id)
 	{
@@ -64,7 +119,14 @@ class Stripe_model extends CI_Model
 			\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
 			
 			$cu = \Stripe\Customer::retrieve($stripe_customer_id);
-			$response = $cu->subscriptions->retrieve($stripe_subscription_id)->cancel();
+			$response = $cu->subscriptions->retrieve($stripe_subscription_id)->cancel(array('at_period_end' => TRUE));
+			/*$cu = \Stripe\Customer::retrieve($stripe_customer_id);
+			$subscription = $cu->subscriptions->retrieve($stripe_subscription_id);
+			$subscription->cancel_at_period_end = TRUE;
+			$subscription->save();
+			
+			$return['message'] = 'true';
+			$return['response'] = 'Subscription cancelled successfully';*/
 			
 			if($response->id == $stripe_subscription_id)
 			{
@@ -121,7 +183,7 @@ class Stripe_model extends CI_Model
 		return $return;
 	}
 	
-	public function create_subscription($stripe_customer_id, $plan_id)
+	public function create_subscription($stripe_customer_id, $plan_id, $current_period_end = NULL)
 	{
 		try {
 			//get subscription details
@@ -137,11 +199,21 @@ class Stripe_model extends CI_Model
 				
 				if(!empty($stripe_plan) && ($plan_amount > 0) && ($plan_id > 1))
 				{
+					//echo "here";die();
 					\Stripe\Stripe::setApiKey($this->config->item("stripe_secret_key"));
 					//echo $stripe_customer_id;
 					$cu = \Stripe\Customer::retrieve($stripe_customer_id);
 					//var_dump($stripe_plan);
-					$response = $cu->subscriptions->create(array("plan" => $stripe_plan, "quantity" => 1));
+					
+					if(!empty($current_period_end))
+					{
+						$response = $cu->subscriptions->create(array("plan" => $stripe_plan, "quantity" => 1, "trial_end" => $current_period_end));
+					}
+					
+					else
+					{
+						$response = $cu->subscriptions->create(array("plan" => $stripe_plan, "quantity" => 1));
+					}
 							
 					$stripe_subscription_id = $response->id;
 					

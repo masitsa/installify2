@@ -7,12 +7,12 @@
             
             <div class="col m6">
             	<ol>
-                	<li>Type in the site or page where you want banner to appear</li>
-                	<li>Fill in various setup and customization options</li>
-                	<li>Insert Javascript embed code into the page</li>
+                	<li>Type in the site or page where you want banner to appear.</li>
+                	<li>Fill in various setup and customization options.</li>
+                	<li>Insert Javascript embed code into the page.</li>
+                    <li>Enjoy the free installs.</li>
                 </ol>
                 
-                <p>Enjoy the free installs</p>
             </div>
             
             <div class="col m6">

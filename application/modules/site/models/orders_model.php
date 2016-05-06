@@ -347,4 +347,23 @@ class Orders_model extends CI_Model
 		
 		return $query;
 	}
+
+
+	/*
+	*	Retrieve all orders
+	*	@param string $table
+	* 	@param string $where
+	*
+	*/
+	public function get_all_clicks($table, $where, $per_page, $page)
+	{
+		//retrieve all orders
+		$this->db->from($table);
+		$this->db->select('click.*');
+		$this->db->where($where);
+		$this->db->order_by('click.created', 'DESC');
+		$query = $this->db->get('', $per_page, $page);
+		
+		return $query;
+	}
 }

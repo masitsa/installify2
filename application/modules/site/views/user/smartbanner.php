@@ -90,10 +90,10 @@ else
 	$icon_url = '';
 	$ios_icon_gloss = '';
 	$url = '';
-	$speed_in = '';
-	$speed_out = '';
-	$days_hidden = '';
-	$days_reminder = '';
+	$speed_in = 0;
+	$speed_out = 0;
+	$days_hidden = 0;
+	$days_reminder = 0;
 	$button_text = '';
 	$auto_scale = '';
 	$force_display = '';
@@ -109,6 +109,9 @@ else
 	$text_color = 'ffffff';
 	$button_color = '2196F3';
 	$button_text_color ='ffffff';
+	$play_store_url = '';
+	$istore_url = '';
+	$windows_store_url = '';
 }
 
 $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $this->session->userdata('customer_api_key'));
@@ -139,7 +142,7 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                         </form>
                     </div>-->
                         
-                    <div class="input-field col s12" style="margin-top:0;">
+                    <!--<div class="input-field col s12" style="margin-top:0;">
                         <select id="platform">
                             <option value="" disabled selected>Choose your platform</option>
                             <option value="ios">IOS</option>
@@ -147,7 +150,7 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                             <option value="windows">Windows</option>
                         </select>
                     </div>
-                	<h5 class="header center-align" id="platform-display">Android display</h5>
+                	<h5 class="header center-align" id="platform-display">Android display</h5>-->
                     <div id="update_banner_response"></div>
                     <smartbanner_display></smartbanner_display>
                 </div>
@@ -159,27 +162,29 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                             <li class="tab col s4"><a href="#appearance">Appearance</a></li>
                             <li class="tab col s4"><a href="#store">Store</a></li>
                         </ul>
-                        <div id="setup" class="col s12">
+                        <div id="setup">
                             <div class="row">
                                 <h5 class="header center-align">General setup</h5>
                                 <div class="input-field col m6">
-                                    <input type="text"  id="title" name="title" value="<?php echo $title;?>">
+                                    <input type="text"  id="title" name="title" value="<?php echo $title;?>" maxlength="20">
                                     <label for="title">Title</label>
                                 </div>
                                 <div class="input-field col m6">
-                                    <input type="text"  id="author" name="author" value="<?php echo $author;?>">
+                                    <input type="text"  id="author" name="author" value="<?php echo $author;?>" maxlength="20">
                                     <label for="title">Author</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col m6">
-                                    <input type="text"  id="price" name="price" value="<?php echo $price;?>">
+                                    <input type="text"  id="price" name="price" value="<?php echo $price;?>" maxlength="20">
                                     <label for="title">Price</label>
                                 </div>
                                 <div class="input-field col m6">
-                                    <input type="text"  id="url" name="url" value="<?php echo $smart_banner_website;?>">
-                                    <label for="title">URL</label>
+                                    <input type="text"  id="button_text" name="button_text" value="<?php echo $button_text;?>" maxlength="10">
+                                    
+                                    <label for="title">Button text</label>
                                 </div>
+                                <!---->
                             </div>
                             <div class="row">
                                 <div class="input-field col m6">
@@ -207,13 +212,13 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                                     <label for="title">Days hidden after view</label>
                                 </div>
                                 <div class="input-field col m6">
-                                    <input type="text"  id="button_text" name="button_text" value="<?php echo $button_text;?>">
-                                    <label for="title">Button text</label>
+                                    <input type="text"  id="url" name="url" value="<?php echo $smart_banner_website;?>">
+                                    <label for="title">URL</label>
                                 </div>
                             </div>
                         </div>
                         
-                        <div id="appearance" class="col s12">
+                        <div id="appearance">
                             <div class="row">
                                 <h5 class="header center-align">Edit appearance</h5>
                                 <div class="input-field col m6">
@@ -247,13 +252,13 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                             </div>
                         </div>
                         
-                        <div id="store" class="col s12">
+                        <div id="store">
                             <div class="row">
                                 <h5 class="header center-align">IOS</h5>
-                                <div class="input-field col s12">
+                                <!--<div class="input-field col s12">
                                     <input type="text"  id="ios_icon_gloss" name="ios_icon_gloss" value="<?php echo $ios_icon_gloss;?>">
                                     <label for="title">IOS icon gloss (57px X 57px)</label>
-                                </div>
+                                </div>-->
                                 <div class="input-field col s12">
                                     <input type="hidden"  id="app_store_lang" name="app_store_lang" value="<?php echo $app_store_lang;?>">
                                     <input type="text"  id="istore_url" name="istore_url" value="<?php echo $istore_url;?>">
@@ -266,10 +271,10 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                                     <input type="text"  id="play_store_url" name="play_store_url" value="<?php echo $play_store_url;?>">
                                     <label for="title">Google Play URL</label>
                                 </div>
-                                <div class="input-field col s12">
+                                <!--<div class="input-field col s12">
                                     <input type="text"  id="play_store_params" name="play_store_params" value="<?php echo $play_store_params;?>">
                                     <label for="title">Google Play Store params</label>
-                                </div>
+                                </div>-->
                                 
                                 <h5 class="header center-align">Windows</h5>
                                 <div class="input-field col s12">
@@ -394,7 +399,7 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
         <h4>Settings</h4>
         <div class="row">
             <div class="input-field col s12">
-                <h5 class="center-align header">Banner status</h5>
+                <!--<h5 class="center-align header">Banner status</h5>
                 <?php
                 if($smart_banner_status == 1)
                 {
@@ -414,7 +419,7 @@ $obfusicated = $this->banner_model->obfusicate_script($smart_banner_website, $th
                     <?php
                 }
                 ?>
-                
+                -->
                 <h5 class="center-align header">Install banner</h5>
                 
                 <p>Copy & paste this code before the &lt;/body&gt; tag of your website on every page that you would like the banner to appear</p>

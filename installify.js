@@ -281,14 +281,23 @@ var Banner = function()
 						$('#smartbanner .sb-info > span').css('color', '#'+text_color);
 						
 						//button
-						$('#smartbanner.android .sb-button span').css('background-color', '#'+button_color);
+						/*$('#smartbanner.android .sb-button span').css('background-color', '#'+button_color);
 						$('#smartbanner.android .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
 						
 						$('#smartbanner.ios .sb-button').css('background-color', '#'+button_color);
 						$('#smartbanner.ios .sb-button').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
 						
 						$('#smartbanner.windows .sb-button').css('background-color', '#'+button_color);
-						$('#smartbanner.windows .sb-button').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+						$('#smartbanner.windows .sb-button').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');*/
+						$('#smartbanner.android .sb-button span').css('background-color', '#'+button_color);
+						$('#smartbanner.android .sb-button span').css('background-image', '-webkit-gradient(linear,0 0,0 100%,from(#'+button_color+'),to(#'+button_color+'))');
+						$('#smartbanner.android .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+						$('#smartbanner.ios .sb-button span').css('background-color', '#'+button_color);
+						$('#smartbanner.ios .sb-button span').css('background', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+						
+						$('#smartbanner.windows .sb-button span').css('background-color', '#'+button_color);
+						$('#smartbanner.windows .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+
 						
 						//button text
 						$('#smartbanner.android .sb-button span').css('color', '#'+button_text_color);

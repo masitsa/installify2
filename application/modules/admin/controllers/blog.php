@@ -120,7 +120,7 @@ class Blog extends admin {
 					$this->session->set_userdata('error_message', $response['error']);
 					
 					$data['title'] = $v_data['title'] = 'Add New Post';
-					$data['content'] = $this->load->view('posts/add_post', '', true);
+					$data['content'] = $this->load->view('blog/add_post', '', true);
 					$this->load->view('templates/general_page', $data);
 					break;
 				}
@@ -220,8 +220,8 @@ class Blog extends admin {
 					if ($query->num_rows() > 0)
 					{
 						$v_data['post'] = $query->result();
-						$v_data['all_posts'] = $this->blog_model->all_posts();
-						$data['content'] = $this->load->view('posts/edit_post', $v_data, true);
+						//$v_data['all_posts'] = $this->blog_model->all_posts();
+						$data['content'] = $this->load->view('blog/edit_post', $v_data, true);
 					}
 					
 					else
@@ -230,7 +230,6 @@ class Blog extends admin {
 					}
 					
 					$this->load->view('templates/general_page', $data);
-					break;
 				}
 			}
 			

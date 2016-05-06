@@ -241,7 +241,13 @@ var Banner = function()
 		
 		var button_color = $('#button_color').val();
 		$('#smartbanner.android .sb-button span').css('background-color', '#'+button_color);
+		$('#smartbanner.android .sb-button span').css('background-image', '-webkit-gradient(linear,0 0,0 100%,from(#'+button_color+'),to(#'+button_color+'))');
 		$('#smartbanner.android .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+		$('#smartbanner.ios .sb-button span').css('background-color', '#'+button_color);
+		$('#smartbanner.ios .sb-button span').css('background', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+		
+		$('#smartbanner.windows .sb-button span').css('background-color', '#'+button_color);
+		$('#smartbanner.windows .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
 		
 		$('#smartbanner.ios .sb-button').css('background-color', '#'+button_color);
 		$('#smartbanner.ios .sb-button').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
@@ -464,10 +470,10 @@ $(document).on("change","input#button_color",function()
 {
 	var button_color = $(this).val();
 	$('#smartbanner.android .sb-button span').css('background-color', '#'+button_color);
+	$('#smartbanner.android .sb-button span').css('background-image', '-webkit-gradient(linear,0 0,0 100%,from(#'+button_color+'),to(#'+button_color+'))');
 	$('#smartbanner.android .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
-	
 	$('#smartbanner.ios .sb-button span').css('background-color', '#'+button_color);
-	$('#smartbanner.ios .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
+	$('#smartbanner.ios .sb-button span').css('background', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');
 	
 	$('#smartbanner.windows .sb-button span').css('background-color', '#'+button_color);
 	$('#smartbanner.windows .sb-button span').css('background-image', '-moz-linear-gradient(center top , #'+button_color+', #'+button_color+')');

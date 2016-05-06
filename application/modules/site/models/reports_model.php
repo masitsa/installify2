@@ -2,20 +2,20 @@
 
 class Reports_model extends CI_Model 
 {
-	public function get_total_clicks($device = 'android', $date = NULL, $where = NULL)
+	public function get_total_clicks($device = 'AndroidOS', $date = NULL, $where = NULL)
 	{
-		if($date == NULL)
+		if($date != NULL)
 		{
-			$date = date('Y-m-d');
+			$date =  'AND click.created = \''.$date.'\'';
 		}
 		if($where == NULL)
 		{
-			$where = 'click.os = \''.$device.'\' AND click.created = \''.$date.'\'';
+			$where = 'customer_api_key = \''.$this->session->userdata('customer_api_key').'\' AND click.os = \''.$device.'\' '.$date;
 		}
 		
 		else
 		{
-			$where .= ' AND click.os = \''.$device.'\' AND click.created = \''.$date.'\'';
+			$where .= 'customer_api_key = \''.$this->session->userdata('customer_api_key').'\' AND click.os = \''.$device.'\' '.$date;
 		}
 		
 		$this->db->select('COUNT(click.click_id) AS total_clicks');

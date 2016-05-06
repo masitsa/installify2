@@ -37,6 +37,8 @@ class Banner extends MX_Controller
 			{
 				$banner = $latest_banner->row();
 				
+				$smart_banner_id = $banner->smart_banner_id;
+				$banner_installed = $banner->banner_installed;
 				$data['smart_banner_website'] = $banner->smart_banner_website;
 				$data['title'] = $banner->title;
 				$data['author'] = $banner->author;
@@ -69,9 +71,16 @@ class Banner extends MX_Controller
 				$data['text_color'] = $banner->text_color;
 				$data['button_color'] = $banner->button_color;
 				$data['button_text_color'] = $banner->button_text_color;
-				$data['play_store_url'] = $banner->play_store_url;
-				$data['istore_url'] = $banner->istore_url;
-				$data['windows_store_url'] = $banner->windows_store_url;
+				$play_store_url = $banner->play_store_url;
+				$play_store_url = $this->banner_model->parse_link($play_store_url);
+				$istore_url = $banner->istore_url;
+				$istore_url = $this->banner_model->parse_link($istore_url);
+				$windows_store_url = $banner->windows_store_url;
+				$windows_store_url = $this->banner_model->parse_link($windows_store_url);
+				
+				$data['play_store_url'] = $play_store_url;
+				$data['istore_url'] = $istore_url;
+				$data['windows_store_url'] = $windows_store_url;
 				
 				if(empty($data['top_border_color']))
 				{
@@ -100,6 +109,19 @@ class Banner extends MX_Controller
 				
 				$return['response'] = 'true';
 				$return['message'] = $data;
+				
+				//update banner as installed
+				if($banner_installed == 0)
+				{
+					$update_data['banner_installed'] = 1;
+					$this->db->where('smart_banner_id', $smart_banner_id);
+					$this->db->update('smart_banner', $update_data);
+				}
+				
+				//save views
+				$views_data['smart_banner_id'] = $smart_banner_id;
+				$views_data['views_date'] = date('Y-m-d H:i:s');
+				$this->db->insert('views', $views_data);
 			}
 		
 			else

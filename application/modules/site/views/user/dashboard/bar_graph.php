@@ -3,7 +3,7 @@ $maximum_clicks = $this->banner_model->get_maximum_clicks($this->session->userda
 $clicks = $this->banner_model->get_banner_clicks($this->session->userdata('customer_api_key'));
 if($maximum_clicks == 0)
 {
-	$maximum_clicks = 500;
+	$maximum_clicks = '&#8734;';
 }
 ?>
     <section class="panel panel-featured panel-featured-info">

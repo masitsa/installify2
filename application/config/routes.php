@@ -80,6 +80,7 @@ $route['delete-banner/(:num)'] = 'site/account/delete_banner/$1';
 
 $route['subscribe'] = 'site/account/subscribe';
 $route['invoices'] = 'site/account/invoices';
+$route['clicks'] = 'site/account/clicks';
 $route['add-subscription/(:num)'] = 'site/account/add_subscription/$1';
 
 $route['check-customer/(:num)'] = 'site/account/check_stripe_customer/$1';
@@ -150,15 +151,23 @@ $route['admin-profile/(:num)'] = 'admin/users/admin_profile/$1';
 $route['users/customers'] = 'admin/customers/index';
 $route['users/customers/(:any)/(:any)/(:num)'] = 'admin/customers/index/$1/$2/$3';
 $route['users/customers/(:any)/(:any)'] = 'admin/customers/index/$1/$2';
-$route['admin/add-customer'] = 'admin/customers/add_customer';
-$route['admin/edit-customer/(:num)'] = 'admin/customers/edit_customer/$1';
-$route['admin/edit-customer/(:num)/(:num)'] = 'admin/customers/edit_customer/$1/$2';
-$route['admin/delete-customer/(:num)'] = 'admin/customers/delete_customer/$1';
-$route['admin/delete-customer/(:num)/(:num)'] = 'admin/customers/delete_customer/$1/$2';
-$route['admin/activate-customer/(:num)'] = 'admin/customers/activate_customer/$1';
-$route['admin/activate-customer/(:num)/(:num)'] = 'admin/customers/activate_customer/$1/$2';
-$route['admin/deactivate-customer/(:num)'] = 'admin/customers/deactivate_customer/$1';
-$route['admin/deactivate-customer/(:num)/(:num)'] = 'admin/customers/deactivate_customers/$1/$2';
+$route['users/add-customer'] = 'admin/customers/add_customer';
+$route['users/edit-customer/(:num)'] = 'admin/customers/edit_customer/$1';
+$route['users/edit-customer/(:num)/(:num)'] = 'admin/customers/edit_customer/$1/$2';
+$route['users/delete-customer/(:num)'] = 'admin/customers/delete_customer/$1';
+$route['users/delete-customer/(:num)/(:num)'] = 'admin/customers/delete_customer/$1/$2';
+$route['users/activate-customer/(:num)'] = 'admin/customers/activate_customer/$1';
+$route['users/activate-customer/(:num)/(:num)'] = 'admin/customers/activate_customer/$1/$2';
+$route['users/deactivate-customer/(:num)'] = 'admin/customers/deactivate_customer/$1';
+$route['users/deactivate-customer/(:num)/(:num)'] = 'admin/customers/deactivate_customers/$1/$2';
+$route['users/delete-customer/(:num)'] = 'admin/customers/delete_customer/$1';
+$route['users/delete-customer/(:num)/(:num)'] = 'admin/customers/delete_customer/$1/$2';
+
+$route['users/user-account/(:num)'] = 'admin/customers/user_account/$1';
+$route['users/user-account/(:num)/(:num)'] = 'admin/customers/user_account/$1/$2';
+
+
+
 
 /*
 *	other admin Routes

@@ -158,7 +158,7 @@
 													<div class="summary">
 														<h4 class="title">Total Profit</h4>
 														<div class="info">
-															<strong class="amount">Kes 14,890</strong>
+															<strong class="amount">$ 14,890.00</strong>
 														</div>
 													</div>
 													<div class="summary-footer">

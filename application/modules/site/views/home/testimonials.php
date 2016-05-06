@@ -31,16 +31,16 @@
            
               
             $result .= '
-                         <div class="item">
-                            <div class="card grey darken-2">
-                                <div class="card-content white-text">
-                                    <span class="card-title">'.$post_title.'</span>
-                                    <img src="'.$image.'" class="responsive-img" alt="Testimonials">
-                                    <p>'.$description.'</p>
-                                </div>
+						<div class="large-6 columns testimonial">
+                            <div class="quote">
+                                <p>'.$description.'</p>
+                            </div>
+                            <div class="student">
+                                <div class="photo"> <img src="'.$image.'" class="responsive-img" alt="Testimonials"></div>
+                                <p>'.$post_title.'</p>
+                                <p>CEO, Backtracker.co</p>
                             </div>
                         </div>
-                   
                 ';
             }
         }
@@ -58,20 +58,10 @@
         <div class="row">
         	
             <div class="m12">
-                <div class="owl-carousel">
-                    <?php echo $result;?>
-                    
-                </div>
-                	
-                <div class="owl-controls">
-                    <!--<div class="owl-nav">
-                        <div class="owl-prev">prev</div>
-                        <div class="owl-next">next</div>
-                    </div>-->
-                    <div class="owl-dots">
-                        <div class="owl-dot active"><span></span></div>
-                        <div class="owl-dot"><span></span></div>
-                        <div class="owl-dot"><span></span></div>
+                
+                <div class="testimonial-wrap">
+                    <div class="row">
+                        <?php echo $result;?>
                     </div>
                 </div>
                 

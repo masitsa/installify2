@@ -63,7 +63,7 @@
                 
 					<div class="col m12">
 						<h5 class="header">Change plan</h5>
-						<div id="preloader_subscribe"></div>
+						<div class="preloader_subscribe"></div>
 						<div class="row">
 							<?php
 							//check if customer has subscribed to any plans

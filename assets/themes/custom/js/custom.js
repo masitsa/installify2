@@ -75,11 +75,13 @@ $(document).on("submit","form#add_new_banner",function(e)
 			}
 		},
 		error: function(xhr, status, error) {
+			location.reload();
 			console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
 			var response = 
 			'<span>'+
 				error+
 			'</span>';
+			
 			Materialize.toast(response, 5000);
 		}
 	});
@@ -179,6 +181,7 @@ function stripeResponseHandler(status, response)
 				}
 			},
 			error: function(xhr, status, error) {
+			location.reload();
 				console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
 				var response = 
 				'<span>'+
@@ -251,6 +254,7 @@ $(document).on("click","a.subscribe",function(e)
 			}
 		},
 		error: function(xhr, status, error) {
+			location.reload();
 			console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
 			var response = 
 			'<span>'+
@@ -324,6 +328,7 @@ $(document).on("click","a.upgrade",function(e)
 			}
 		},
 		error: function(xhr, status, error) {
+			location.reload();
 			console.log("XMLHttpRequest=" + xhr.responseText + "\ntextStatus=" + status + "\nerrorThrown=" + error);
 			var response = 
 			'<span>'+

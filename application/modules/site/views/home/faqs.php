@@ -1,9 +1,7 @@
 <?php
-
    /* $result = '';
     
     //if users exist display them
-
     if ($faqs->num_rows() > 0)
     {   
        
@@ -46,14 +44,14 @@
        
       ?> 
 <!--<div class="grey lighten-4 section-content">
-	<div class="container">
+    <div class="container">
         
         <h3 class="header center-align grey-text darken-2 margin-height-60">Frequently asked questions</h3>
         
         <div class="row">
             
             <div class="col m12">
-            	<ul class="collapsible popout" data-collapsible="accordion">
+                <ul class="collapsible popout" data-collapsible="accordion">
                     <?php echo $result;?>
                 </ul>
             </div>
@@ -65,14 +63,14 @@
 </div>-->
 
 <div class="grey lighten-4 section-content">
-	<div class="container">
+    <div class="container">
         
         <h3 class="header center-align grey-text darken-2 margin-height-60">Frequently asked questions</h3>
         
         <div class="row">
             
             <div class="col m12">
-            	<ul class="collapsible popout" data-collapsible="accordion">
+                <ul class="collapsible popout" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header"><i class="material-icons">info_outline</i>Is there a cost to using Installify?</div>
                         <div class="collapsible-body"><p>No, there is no cost unless you sign up for our premium packages. Our free package allows you up to 1500 clicks for free.</p></div>
